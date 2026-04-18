@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import * as d3 from "d3";
+import TMF_DATA from "./tmf_data.js";
 
-// ─── Domain config ────────────────────────────────────────────────────────────
+// ─── Domain config (UI only — colours not in spec data) ──────────────────────
 const DOMAINS = {
   customer:   { label: "Customer",    color: "#00d4ff" },
   product:    { label: "Product",     color: "#ff9f0a" },
@@ -11,80 +12,16 @@ const DOMAINS = {
   common:     { label: "Common",      color: "#bf5af2" },
 };
 
-// ─── API registry ─────────────────────────────────────────────────────────────
-const APIS = [
-  { id: "TMF629", name: "Customer Management",   domain: "customer",   short: "Customer Mgmt" },
-  { id: "TMF632", name: "Party Management",       domain: "customer",   short: "Party Mgmt" },
-  { id: "TMF620", name: "Product Catalog",        domain: "product",    short: "Product Catalog" },
-  { id: "TMF622", name: "Product Ordering",       domain: "product",    short: "Product Ordering" },
-  { id: "TMF637", name: "Product Inventory",      domain: "product",    short: "Product Inventory" },
-  { id: "TMF633", name: "Service Catalog",        domain: "service",    short: "Service Catalog" },
-  { id: "TMF638", name: "Service Inventory",      domain: "service",    short: "Service Inventory" },
-  { id: "TMF641", name: "Service Ordering",       domain: "service",    short: "Service Ordering" },
-  { id: "TMF645", name: "Service Qualification",  domain: "service",    short: "Service Qual" },
-  { id: "TMF634", name: "Resource Catalog",       domain: "resource",   short: "Resource Catalog" },
-  { id: "TMF639", name: "Resource Inventory",     domain: "resource",   short: "Resource Inventory" },
-  { id: "TMF652", name: "Resource Ordering",      domain: "resource",   short: "Resource Ordering" },
-  { id: "TMF653", name: "Service Test",           domain: "resource",   short: "Service Test" },
-  { id: "TMF621", name: "Trouble Ticket",         domain: "engagement", short: "Trouble Ticket" },
-  { id: "TMF656", name: "Service Problem",        domain: "engagement", short: "Service Problem" },
-  { id: "TMF688", name: "Event Management",       domain: "common",     short: "Event Mgmt" },
-];
+// ─── Data from tmf-spec-parser (auto-generated) ───────────────────────────────
+const APIS        = TMF_DATA.apis;
+const LINKS       = TMF_DATA.links;
+const PATTERNS    = TMF_DATA.patterns;
+const API_DETAILS = TMF_DATA.details;
 
-// ─── Cross-API relationships ──────────────────────────────────────────────────
-const LINKS = [
-  { source: "TMF641", target: "TMF638", label: "creates Service" },
-  { source: "TMF641", target: "TMF639", label: "references Resource" },
-  { source: "TMF641", target: "TMF633", label: "uses ServiceSpec" },
-  { source: "TMF622", target: "TMF641", label: "triggers" },
-  { source: "TMF622", target: "TMF620", label: "uses ProductSpec" },
-  { source: "TMF622", target: "TMF629", label: "for Customer" },
-  { source: "TMF638", target: "TMF633", label: "instantiates spec" },
-  { source: "TMF638", target: "TMF639", label: "supported by" },
-  { source: "TMF639", target: "TMF634", label: "instantiates spec" },
-  { source: "TMF633", target: "TMF634", label: "uses ResourceSpec" },
-  { source: "TMF633", target: "TMF620", label: "linked to" },
-  { source: "TMF629", target: "TMF632", label: "extends Party" },
-  { source: "TMF637", target: "TMF638", label: "backed by" },
-  { source: "TMF621", target: "TMF638", label: "references Service" },
-  { source: "TMF621", target: "TMF629", label: "raised by" },
-  { source: "TMF656", target: "TMF638", label: "affects Service" },
-  { source: "TMF656", target: "TMF621", label: "has TroubleTicket" },
-  { source: "TMF652", target: "TMF639", label: "creates Resource" },
-  { source: "TMF652", target: "TMF634", label: "uses ResourceSpec" },
-  { source: "TMF645", target: "TMF633", label: "checks ServiceCatalog" },
-  { source: "TMF645", target: "TMF638", label: "checks availability" },
-  { source: "TMF653", target: "TMF638", label: "tests Service" },
-  { source: "TMF688", target: "TMF638", label: "events from" },
-  { source: "TMF688", target: "TMF641", label: "events from" },
-];
-
-// ─── Integration patterns ─────────────────────────────────────────────────────
-const PATTERNS = [
-  { id: "o2a", name: "Order-to-Activate",    color: "#ff9f0a", nodes: ["TMF629","TMF622","TMF641","TMF638","TMF639"], desc: "Customer → Product Order → Service Order → Service → Resource" },
-  { id: "c2i", name: "Catalog-to-Inventory", color: "#5e9bff", nodes: ["TMF620","TMF633","TMF634"],                   desc: "Sync catalog specs with provisioned inventory instances" },
-  { id: "t2r", name: "Trouble-to-Resolve",   color: "#ff6b6b", nodes: ["TMF621","TMF656","TMF638"],                   desc: "Incident detection → problem management → resolution" },
-];
-
-// ─── TMForum GitHub repo mapping ──────────────────────────────────────────────
-const GITHUB_REPOS = {
-  TMF629: "TMF629_CustomerManagement",
-  TMF632: "TMF632_Party",
-  TMF620: "TMF620_ProductCatalog",
-  TMF622: "TMF622_ProductOrdering",
-  TMF637: "TMF637_ProductInventory",
-  TMF633: "TMF633_ServiceCatalog",
-  TMF638: "TMF638_ServiceInventory",
-  TMF641: "TMF641_ServiceOrdering",
-  TMF645: "TMF645_ServiceQualification",
-  TMF634: "TMF634_ResourceCatalog",
-  TMF639: "TMF639_ResourceInventory",
-  TMF652: "TMF652_ResourceOrdering",
-  TMF653: "TMF653_ServiceTestManagement",
-  TMF621: "TMF621_TroubleTicket",
-  TMF656: "TMF656_ServiceProblemManagement",
-  TMF688: "TMF688_Event",
-};
+// GITHUB_REPOS: built from the apis registry (id → repo name)
+const GITHUB_REPOS = Object.fromEntries(
+  TMF_DATA.apis.map(a => [a.id, a.repo])
+);
 
 // ─── State abbreviations for compact diagram display ─────────────────────────
 const STATE_ABBREV = {
@@ -101,249 +38,12 @@ const abbrevState = (s, w) => {
   return s.length > maxCh ? s.slice(0, maxCh - 1) + "…" : s;
 };
 
-// ─── API detail data ───────────────────────────────────────────────────────────
-const API_DETAILS = {
-  TMF641: {
-    specRef: "TMF641 v4.1.0",
-    description: "Manages end-to-end service order lifecycle from customer acknowledgement through fulfillment. Orchestrates TMF638 service creation and TMF639 resource references.",
-    entities: [
-      { name: "ServiceOrder",     mandatory: ["id","state","orderDate"],     optional: ["requestedStartDate","requestedCompletionDate","priority","description","category"] },
-      { name: "ServiceOrderItem", mandatory: ["id","action","state"],         optional: ["quantity","service","orderItemRelationship","appointment"] },
-    ],
-    lifecycle: ["acknowledged","inProgress","pending","held","completed","failed","cancelled"],
-    terminal:  ["completed","failed","cancelled"],
-    transitions: [
-      { from:"acknowledged", to:"inProgress" }, { from:"acknowledged", to:"cancelled"  },
-      { from:"inProgress",   to:"pending"    }, { from:"inProgress",   to:"held"       },
-      { from:"inProgress",   to:"completed"  }, { from:"inProgress",   to:"failed"     },
-      { from:"inProgress",   to:"cancelled"  }, { from:"pending",      to:"inProgress" },
-      { from:"held",         to:"inProgress" },
-    ],
-  },
-  TMF638: {
-    specRef: "TMF638 v4.0.0",
-    description: "Provides a queryable register of all instantiated services provisioned in the network. Services reference ServiceSpecifications from TMF633 and supporting Resources from TMF639.",
-    entities: [
-      { name: "Service", mandatory: ["id","name","state","serviceType"], optional: ["startDate","endDate","serviceCharacteristic","serviceRelationship","supportingResource","place"] },
-    ],
-    lifecycle: ["feasibilityChecked","designed","reserved","active","inactive","terminated"],
-    terminal:  ["terminated"],
-    transitions: [
-      { from:"feasibilityChecked", to:"designed"   }, { from:"designed",  to:"reserved"    },
-      { from:"reserved",           to:"active"     }, { from:"active",    to:"inactive"    },
-      { from:"inactive",           to:"active"     }, { from:"active",    to:"terminated"  },
-      { from:"inactive",           to:"terminated" },
-    ],
-  },
-  TMF639: {
-    specRef: "TMF639 v4.0.0",
-    description: "Manages physical and logical resources — network elements, ports, circuits, IP addresses, VLANs. Resources instantiate ResourceSpecifications from TMF634.",
-    entities: [
-      { name: "Resource", mandatory: ["id","name","resourceStatus"], optional: ["resourceType","startOperatingDate","endOperatingDate","resourceCharacteristic","activationFeature","attachment","place"] },
-    ],
-    lifecycle: ["standby","alarm","available","reserved","suspended","retired"],
-    terminal:  ["retired"],
-    transitions: [
-      { from:"standby",   to:"available"  }, { from:"available", to:"reserved"  },
-      { from:"reserved",  to:"available"  }, { from:"available", to:"suspended" },
-      { from:"suspended", to:"available"  }, { from:"available", to:"alarm"     },
-      { from:"alarm",     to:"available"  }, { from:"available", to:"retired"   },
-      { from:"reserved",  to:"retired"    }, { from:"suspended", to:"retired"   },
-    ],
-  },
-  TMF629: {
-    specRef: "TMF629 v4.0.0",
-    description: "Manages customer accounts including profile, preferences, and account lifecycle. Customers extend TMF632 Party entities and are the top-level subject of TMF622 product orders.",
-    entities: [
-      { name: "Customer", mandatory: ["id","status","engagedParty"], optional: ["name","customerRank","validFor","relatedParty","paymentMethod","contactMedium"] },
-    ],
-    lifecycle: ["pending","approved","inactive","terminated"],
-    terminal:  ["terminated"],
-    transitions: [
-      { from:"pending",  to:"approved"   }, { from:"pending",  to:"inactive"   },
-      { from:"approved", to:"inactive"   }, { from:"inactive", to:"terminated" },
-    ],
-  },
-  TMF622: {
-    specRef: "TMF622 v4.1.0",
-    description: "Handles product order creation and tracking against the product catalog. Triggers downstream TMF641 Service Orders. References TMF620 product offerings and TMF629 customer accounts.",
-    entities: [
-      { name: "ProductOrder",     mandatory: ["id","state","orderDate"],  optional: ["requestedStartDate","requestedCompletionDate","channel","relatedParty"] },
-      { name: "ProductOrderItem", mandatory: ["id","action","state"],      optional: ["quantity","productOffering","billingAccount","itemPrice"] },
-    ],
-    lifecycle: ["acknowledged","inProgress","pending","held","completed","failed","cancelled"],
-    terminal:  ["completed","failed","cancelled"],
-    transitions: [
-      { from:"acknowledged", to:"inProgress" }, { from:"acknowledged", to:"cancelled"  },
-      { from:"inProgress",   to:"pending"    }, { from:"inProgress",   to:"held"       },
-      { from:"inProgress",   to:"completed"  }, { from:"inProgress",   to:"failed"     },
-      { from:"inProgress",   to:"cancelled"  }, { from:"pending",      to:"inProgress" },
-      { from:"held",         to:"inProgress" },
-    ],
-  },
-  TMF633: {
-    specRef: "TMF633 v4.1.0",
-    description: "Manages service specifications that define characteristics and behaviours of services. ServiceSpecifications link to ResourceSpecifications (TMF634) and ProductSpecifications (TMF620).",
-    entities: [
-      { name: "ServiceSpecification", mandatory: ["id","name","lifecycleStatus"], optional: ["version","description","validFor","serviceSpecCharacteristic","resourceSpecification","entitySpecRelationship"] },
-    ],
-    lifecycle: ["inStudy","inDesign","inTest","active","launched","retired"],
-    terminal:  ["retired"],
-    transitions: [
-      { from:"inStudy",  to:"inDesign" }, { from:"inDesign", to:"inTest"   },
-      { from:"inTest",   to:"active"   }, { from:"inTest",   to:"inStudy"  },
-      { from:"active",   to:"launched" }, { from:"launched", to:"retired"  },
-    ],
-  },
-  TMF634: {
-    specRef: "TMF634 v4.1.0",
-    description: "Manages resource specifications defining physical and logical network resource characteristics. Used by TMF633 Service Catalog and instantiated by TMF639 Resource Inventory.",
-    entities: [
-      { name: "ResourceSpecification", mandatory: ["id","name","lifecycleStatus"], optional: ["version","category","description","resourceSpecCharacteristic","resourceSpecRelationship","attachment"] },
-    ],
-    lifecycle: ["inStudy","inDesign","inTest","active","launched","retired"],
-    terminal:  ["retired"],
-    transitions: [
-      { from:"inStudy",  to:"inDesign" }, { from:"inDesign", to:"inTest"   },
-      { from:"inTest",   to:"active"   }, { from:"inTest",   to:"inStudy"  },
-      { from:"active",   to:"launched" }, { from:"launched", to:"retired"  },
-    ],
-  },
-  TMF620: {
-    specRef: "TMF620 v4.1.0",
-    description: "Manages product offerings and product specifications available in the product catalog. Links to TMF633 Service Catalog for underlying service specifications.",
-    entities: [
-      { name: "ProductOffering",      mandatory: ["id","name","lifecycleStatus"], optional: ["version","description","productSpecification","serviceLevelAgreement","place","validFor"] },
-      { name: "ProductSpecification", mandatory: ["id","name","lifecycleStatus"], optional: ["version","brand","productSpecCharacteristic","serviceSpecification","resourceSpecification"] },
-    ],
-    lifecycle: ["inStudy","inDesign","inTest","active","launched","retired","obsolete"],
-    terminal:  ["retired","obsolete"],
-    transitions: [
-      { from:"inStudy",  to:"inDesign"  }, { from:"inDesign", to:"inTest"    },
-      { from:"inTest",   to:"active"    }, { from:"inTest",   to:"inStudy"   },
-      { from:"active",   to:"launched"  }, { from:"launched", to:"active"    },
-      { from:"launched", to:"retired"   }, { from:"launched", to:"obsolete"  },
-      { from:"retired",  to:"obsolete"  },
-    ],
-  },
-  TMF621: {
-    specRef: "TMF621 v4.0.0",
-    description: "Manages trouble tickets for tracking service issues raised by customers or network operations. References affected TMF638 Services and the TMF629 Customer who raised them.",
-    entities: [
-      { name: "TroubleTicket", mandatory: ["id","name","severity","status"], optional: ["requestedResolutionDate","resolutionDate","relatedEntity","relatedParty","note","attachment","channel"] },
-    ],
-    lifecycle: ["acknowledged","inProgress","pending","held","resolved","closed","cancelled"],
-    terminal:  ["closed","cancelled"],
-    transitions: [
-      { from:"acknowledged", to:"inProgress" }, { from:"acknowledged", to:"cancelled"  },
-      { from:"inProgress",   to:"pending"    }, { from:"inProgress",   to:"held"       },
-      { from:"inProgress",   to:"resolved"   }, { from:"pending",      to:"inProgress" },
-      { from:"held",         to:"inProgress" }, { from:"resolved",     to:"closed"     },
-      { from:"resolved",     to:"inProgress" },
-    ],
-  },
-  TMF637: {
-    specRef: "TMF637 v4.0.0",
-    description: "Manages the inventory of product instances provisioned for customers. Product inventory entries are backed by TMF638 Service instances.",
-    entities: [
-      { name: "Product", mandatory: ["id","status","productOffering"], optional: ["name","description","startDate","endDate","productCharacteristic","productRelationship","realizingService","place"] },
-    ],
-    lifecycle: ["created","pending","active","inactive","terminated"],
-    terminal:  ["terminated"],
-    transitions: [
-      { from:"created",  to:"pending"    }, { from:"pending",  to:"active"     },
-      { from:"pending",  to:"inactive"   }, { from:"active",   to:"inactive"   },
-      { from:"inactive", to:"active"     }, { from:"active",   to:"terminated" },
-      { from:"inactive", to:"terminated" },
-    ],
-  },
-  TMF645: {
-    specRef: "TMF645 v4.0.0",
-    description: "Determines technical and commercial feasibility of provisioning a service before an order is placed. Checks TMF633 Service Catalog and TMF638 Service Inventory capacity.",
-    entities: [
-      { name: "ServiceQualification", mandatory: ["id","state"], optional: ["requestedResponseDate","serviceQualificationItem","relatedParty","expirationDate"] },
-    ],
-    lifecycle: ["acknowledged","inProgress","done.unableToProvide","done.provideAlternative","done.standard"],
-    terminal:  ["done.unableToProvide","done.provideAlternative","done.standard"],
-    transitions: [
-      { from:"acknowledged", to:"inProgress"               },
-      { from:"inProgress",   to:"done.standard"            },
-      { from:"inProgress",   to:"done.provideAlternative"  },
-      { from:"inProgress",   to:"done.unableToProvide"     },
-    ],
-  },
-  TMF652: {
-    specRef: "TMF652 v4.0.0",
-    description: "Creates and tracks orders for provisioning physical or logical network resources. Directly populates TMF639 Resource Inventory using TMF634 Resource Specifications.",
-    entities: [
-      { name: "ResourceOrder",     mandatory: ["id","state","orderDate"],  optional: ["requestedStartDate","requestedCompletionDate","relatedParty","channel"] },
-      { name: "ResourceOrderItem", mandatory: ["id","action","state"],      optional: ["quantity","resource","orderItemRelationship","appointment"] },
-    ],
-    lifecycle: ["acknowledged","inProgress","pending","held","completed","failed","cancelled"],
-    terminal:  ["completed","failed","cancelled"],
-    transitions: [
-      { from:"acknowledged", to:"inProgress" }, { from:"acknowledged", to:"cancelled"  },
-      { from:"inProgress",   to:"pending"    }, { from:"inProgress",   to:"held"       },
-      { from:"inProgress",   to:"completed"  }, { from:"inProgress",   to:"failed"     },
-      { from:"inProgress",   to:"cancelled"  }, { from:"pending",      to:"inProgress" },
-      { from:"held",         to:"inProgress" },
-    ],
-  },
-  TMF653: {
-    specRef: "TMF653 v4.0.0",
-    description: "Manages service test instances — scheduling, execution, and result retrieval. Tests validate TMF638 Service behaviour against defined ServiceTestSpecifications.",
-    entities: [
-      { name: "ServiceTest", mandatory: ["id","state","serviceTestSpecification"], optional: ["startDateTime","endDateTime","testMeasure","relatedService","place"] },
-    ],
-    lifecycle: ["acknowledged","inProgress","completed","failed","cancelled"],
-    terminal:  ["completed","failed","cancelled"],
-    transitions: [
-      { from:"acknowledged", to:"inProgress" }, { from:"acknowledged", to:"cancelled" },
-      { from:"inProgress",   to:"completed"  }, { from:"inProgress",   to:"failed"    },
-      { from:"inProgress",   to:"cancelled"  },
-    ],
-  },
-  TMF656: {
-    specRef: "TMF656 v4.0.0",
-    description: "Manages service problems detected from network alarms or trouble tickets — grouping, root cause correlation, and resolution tracking. Affects TMF638 Services.",
-    entities: [
-      { name: "ServiceProblem", mandatory: ["id","status","priority","category"], optional: ["affectedService","originatingSystem","relatedTroubleTicket","statusChangeDate","resolutionDate"] },
-    ],
-    lifecycle: ["submitted","acknowledged","held","inProgress","resolved","closed"],
-    terminal:  ["closed"],
-    transitions: [
-      { from:"submitted",    to:"acknowledged" }, { from:"acknowledged", to:"held"         },
-      { from:"acknowledged", to:"inProgress"   }, { from:"held",         to:"inProgress"   },
-      { from:"inProgress",   to:"resolved"     }, { from:"inProgress",   to:"held"         },
-      { from:"resolved",     to:"closed"       }, { from:"resolved",     to:"inProgress"   },
-    ],
-  },
-  TMF688: {
-    specRef: "TMF688 v4.0.0",
-    description: "Provides a standardised publish-subscribe event notification mechanism used by all other TMF APIs. Consumers register EventSubscriptions with callback URLs; publishers POST Event payloads.",
-    entities: [
-      { name: "EventSubscription", mandatory: ["id","callback","query"],          optional: ["fields"] },
-      { name: "Event",             mandatory: ["eventId","eventTime","eventType"], optional: ["correlationId","domain","event","href","priority","timeOccurred"] },
-    ],
-    lifecycle: [], terminal: [], transitions: [],
-  },
-  TMF632: {
-    specRef: "TMF632 v4.0.0",
-    description: "Manages party entities (individuals and organisations) and their relationships. All customer-facing TMF APIs (TMF629, TMF621, TMF622) extend or reference Party entities from this API.",
-    entities: [
-      { name: "Individual",   mandatory: ["id","fullName"],           optional: ["birthDate","nationality","gender","maritalStatus","contactMedium","externalReference"] },
-      { name: "Organization", mandatory: ["id","name","tradingName"], optional: ["organizationIdentification","organizationType","contactMedium","relatedParty"] },
-    ],
-    lifecycle: [], terminal: [], transitions: [],
-  },
-};
-
 // ─── Lifecycle Diagram component ──────────────────────────────────────────────
 function LifecycleDiagram({ lifecycle, transitions, terminal, domainColor }) {
   if (!lifecycle?.length || !transitions?.length) return null;
 
   const NH = 18, NR = 3, SVG_W = 290;
-  const mainPath  = lifecycle.filter(s => !terminal.includes(s));
+  const mainPath   = lifecycle.filter(s => !terminal.includes(s));
   const termStates = lifecycle.filter(s =>  terminal.includes(s));
 
   const topSlotW = Math.floor(SVG_W / Math.max(mainPath.length, 1));
@@ -469,7 +169,7 @@ export default function TMFMap() {
   const gRef       = useRef(null);
   const simRef     = useRef(null);
   const zoomRef    = useRef(null);
-  const setHovRef  = useRef(null);   // stable ref for D3 → React bridge
+  const setHovRef  = useRef(null);
 
   const [selected, setSelected] = useState(null);
   const [hovered,  setHovered]  = useState(null);
@@ -477,11 +177,10 @@ export default function TMFMap() {
   const [search,   setSearch]   = useState("");
   const [domains,  setDomains]  = useState(new Set(Object.keys(DOMAINS)));
 
-  setHovRef.current = setHovered;   // keep ref current each render
+  setHovRef.current = setHovered;
 
   const apiMap = useMemo(() => Object.fromEntries(APIS.map(a => [a.id, a])), []);
 
-  // Connection counts (computed once)
   const connCounts = useMemo(() => {
     const c = {};
     APIS.forEach(a => { c[a.id] = { out: 0, in: 0 }; });
@@ -503,7 +202,6 @@ export default function TMFMap() {
 
   const filteredKey = [...filtered].sort().join(",");
 
-  // ── D3 graph init ──────────────────────────────────────────────────────────
   useEffect(() => {
     const el = svgRef.current;
     if (!el) return;
@@ -541,7 +239,6 @@ export default function TMFMap() {
     const nodes = APIS.map(a => ({...a}));
     const links = LINKS.map(l => ({...l}));
 
-    // Scale node radius by total degree
     const counts = {};
     APIS.forEach(a => { counts[a.id] = 0; });
     LINKS.forEach(l => { counts[l.source]=(counts[l.source]||0)+1; counts[l.target]=(counts[l.target]||0)+1; });
@@ -628,7 +325,6 @@ export default function TMFMap() {
     return ()=>{ sim.stop(); };
   }, []);
 
-  // ── Filter/pattern opacity ─────────────────────────────────────────────────
   useEffect(()=>{
     const g = gRef.current;
     if (!g) return;
@@ -646,7 +342,6 @@ export default function TMFMap() {
     });
   }, [pattern, filteredKey]);
 
-  // ── Selected highlight ─────────────────────────────────────────────────────
   useEffect(()=>{
     const g = gRef.current;
     if (!g) return;
@@ -666,7 +361,6 @@ export default function TMFMap() {
     });
   }, [selected]);
 
-  // ── Helpers ────────────────────────────────────────────────────────────────
   const toggleDomain  = k => setDomains(prev=>{ const n=new Set(prev); if(n.has(k)){if(n.size>1)n.delete(k);}else n.add(k); return n; });
   const togglePattern = id => setPattern(p=>p===id?null:id);
   const handleZoom    = d => d3.select(svgRef.current).transition().duration(200).call(zoomRef.current.scaleBy,d);
@@ -675,7 +369,6 @@ export default function TMFMap() {
     d3.select(el).transition().duration(400).call(zoomRef.current.transform,d3.zoomIdentity.translate(el.clientWidth*0.02,el.clientHeight*0.04).scale(0.92));
   };
 
-  // ── Detail panel data ──────────────────────────────────────────────────────
   const selData    = selected ? apiMap[selected] : null;
   const selDetails = selected ? API_DETAILS[selected] : null;
   const outbound   = selected ? LINKS.filter(l=>(l.source.id||l.source)===selected).map(l=>({id:l.target.id||l.target,label:l.label})) : [];
@@ -683,7 +376,6 @@ export default function TMFMap() {
   const activePatternData = pattern ? PATTERNS.find(p=>p.id===pattern) : null;
   const githubUrl  = selected ? `https://github.com/tmforum-apis/${GITHUB_REPOS[selected]}` : null;
 
-  // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <div style={{background:"#060b14",color:"#e0e8f0",height:"100vh",display:"flex",flexDirection:"column",overflow:"hidden",position:"relative",fontFamily:"'Syne',sans-serif"}}>
       <style>{`
@@ -737,7 +429,6 @@ export default function TMFMap() {
       <div ref={canvasRef} style={{flex:1,position:"relative",overflow:"hidden",zIndex:1}}>
         <svg ref={svgRef} style={{width:"100%",height:"100%",cursor:"grab",display:"block"}} onClick={()=>setSelected(null)}/>
 
-        {/* Hover tooltip */}
         <NodeTooltip hovered={hovered} apiMap={apiMap} connCounts={connCounts} canvasRef={canvasRef}/>
 
         {/* Zoom controls */}
@@ -775,7 +466,6 @@ export default function TMFMap() {
             <button onClick={()=>setSelected(null)} style={{position:"absolute",top:14,right:14,background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:6,color:"rgba(224,232,240,0.45)",width:26,height:26,cursor:"pointer",fontSize:15,display:"flex",alignItems:"center",justifyContent:"center",lineHeight:1}}>×</button>
 
             <div style={{animation:"fadeUp 0.2s ease"}}>
-              {/* Header */}
               <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:21,fontWeight:700,color:DOMAINS[selData.domain].color,marginBottom:2}}>{selected}</div>
               <div style={{fontSize:12,color:"rgba(224,232,240,0.42)",marginBottom:8}}>{selData.name}</div>
 
@@ -798,7 +488,6 @@ export default function TMFMap() {
                 )}
               </div>
 
-              {/* Connection stats */}
               {connCounts[selected] && (
                 <div style={{display:"flex",gap:8,marginBottom:12,paddingBottom:12,borderBottom:"1px solid rgba(94,155,255,0.08)"}}>
                   <div style={{flex:1,background:"rgba(255,255,255,0.025)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:6,padding:"7px 10px",textAlign:"center"}}>
@@ -822,7 +511,6 @@ export default function TMFMap() {
                 </div>
               )}
 
-              {/* Data model */}
               {selDetails?.entities?.length > 0 && (
                 <div style={{marginBottom:16}}>
                   <SectionTitle>Data Model</SectionTitle>
@@ -847,7 +535,6 @@ export default function TMFMap() {
                 </div>
               )}
 
-              {/* Lifecycle state machine */}
               {selDetails?.lifecycle?.length > 0 && (
                 <div style={{marginBottom:16}}>
                   <SectionTitle>Lifecycle State Machine</SectionTitle>
@@ -871,7 +558,6 @@ export default function TMFMap() {
                 </div>
               )}
 
-              {/* References out */}
               {outbound.length > 0 && (
                 <div style={{marginBottom:12}}>
                   <SectionTitle>References →</SectionTitle>
@@ -886,7 +572,6 @@ export default function TMFMap() {
                 </div>
               )}
 
-              {/* References in */}
               {inbound.length > 0 && (
                 <div>
                   <SectionTitle>Referenced by ←</SectionTitle>
