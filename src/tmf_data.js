@@ -2,7 +2,7 @@
 // Do not edit manually — run: tmf-spec-parser generate
 
 export default {
-  "generated_at": "2026-04-18T18:07:57Z",
+  "generated_at": "2026-04-23T05:43:27Z",
   "parser_version": "0.2.0",
   "apis": [
     {
@@ -69,6 +69,13 @@ export default {
       "repo": "TMF645_ServiceQualification"
     },
     {
+      "id": "TMF653",
+      "name": "Service Test",
+      "domain": "service",
+      "short": "Service Test",
+      "repo": "TMF653_ServiceTestManagement"
+    },
+    {
       "id": "TMF634",
       "name": "Resource Catalog",
       "domain": "resource",
@@ -88,13 +95,6 @@ export default {
       "domain": "resource",
       "short": "Resource Ordering",
       "repo": "TMF652_ResourceOrderManagement"
-    },
-    {
-      "id": "TMF653",
-      "name": "Service Test",
-      "domain": "resource",
-      "short": "Service Test",
-      "repo": "TMF653_ServiceTestManagement"
     },
     {
       "id": "TMF621",
@@ -1338,6 +1338,127 @@ export default {
         }
       ]
     },
+    "TMF653": {
+      "specRef": "TMF653 v2.0",
+      "description": "environment TMF Service Test Management specification",
+      "entities": [
+        {
+          "name": "TestMeasureDefinition",
+          "mandatory": [
+            "metricHref",
+            "metricName",
+            "name"
+          ],
+          "optional": [
+            "captureFrequency",
+            "captureMethod",
+            "capturePeriod",
+            "metricDescription",
+            "unitOfMeasure",
+            "validFor",
+            "valueType",
+            "thresholdRule",
+            "@type",
+            "@schemaLocation",
+            "@baseType"
+          ]
+        },
+        {
+          "name": "ServiceTest",
+          "mandatory": [
+            "name"
+          ],
+          "optional": [
+            "description",
+            "endDateTime",
+            "href",
+            "id",
+            "mode",
+            "startDateTime",
+            "state",
+            "relatedService",
+            "testSpecification",
+            "testMeasure",
+            "characteristic",
+            "@type"
+          ]
+        },
+        {
+          "name": "TestMeasure",
+          "mandatory": [
+            "metricHref",
+            "metricName"
+          ],
+          "optional": [
+            "accuracy",
+            "captureDateTime",
+            "captureMethod",
+            "metricDescription",
+            "unitOfMeasure",
+            "value",
+            "valueType",
+            "ruleViolation",
+            "@type",
+            "@schemaLocation",
+            "@baseType"
+          ]
+        },
+        {
+          "name": "MeasureThresholdRuleViolation",
+          "mandatory": [
+            "conformanceComparatorLower",
+            "conformanceComparatorUpper",
+            "conformanceTargetLower",
+            "conformanceTargetUpper",
+            "name"
+          ],
+          "optional": [
+            "description",
+            "numberOfAllowedCrossing",
+            "thresholdRuleSeverity",
+            "tolerancePeriod",
+            "appliedConsequence",
+            "@type",
+            "@schemaLocation",
+            "@baseType"
+          ]
+        }
+      ],
+      "lifecycle": [
+        "acknowledged",
+        "inProgress",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "terminal": [
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "transitions": [
+        {
+          "from": "acknowledged",
+          "to": "inProgress"
+        },
+        {
+          "from": "acknowledged",
+          "to": "cancelled"
+        },
+        {
+          "from": "inProgress",
+          "to": "completed"
+        },
+        {
+          "from": "inProgress",
+          "to": "failed"
+        },
+        {
+          "from": "inProgress",
+          "to": "cancelled"
+        }
+      ]
+    },
     "TMF634": {
       "specRef": "TMF634 v4.0.0",
       "description": "Resource Catalog Management Release : 19.",
@@ -1718,127 +1839,6 @@ export default {
         {
           "from": "held",
           "to": "inProgress"
-        }
-      ]
-    },
-    "TMF653": {
-      "specRef": "TMF653 v2.0",
-      "description": "environment TMF Service Test Management specification",
-      "entities": [
-        {
-          "name": "TestMeasureDefinition",
-          "mandatory": [
-            "metricHref",
-            "metricName",
-            "name"
-          ],
-          "optional": [
-            "captureFrequency",
-            "captureMethod",
-            "capturePeriod",
-            "metricDescription",
-            "unitOfMeasure",
-            "validFor",
-            "valueType",
-            "thresholdRule",
-            "@type",
-            "@schemaLocation",
-            "@baseType"
-          ]
-        },
-        {
-          "name": "ServiceTest",
-          "mandatory": [
-            "name"
-          ],
-          "optional": [
-            "description",
-            "endDateTime",
-            "href",
-            "id",
-            "mode",
-            "startDateTime",
-            "state",
-            "relatedService",
-            "testSpecification",
-            "testMeasure",
-            "characteristic",
-            "@type"
-          ]
-        },
-        {
-          "name": "TestMeasure",
-          "mandatory": [
-            "metricHref",
-            "metricName"
-          ],
-          "optional": [
-            "accuracy",
-            "captureDateTime",
-            "captureMethod",
-            "metricDescription",
-            "unitOfMeasure",
-            "value",
-            "valueType",
-            "ruleViolation",
-            "@type",
-            "@schemaLocation",
-            "@baseType"
-          ]
-        },
-        {
-          "name": "MeasureThresholdRuleViolation",
-          "mandatory": [
-            "conformanceComparatorLower",
-            "conformanceComparatorUpper",
-            "conformanceTargetLower",
-            "conformanceTargetUpper",
-            "name"
-          ],
-          "optional": [
-            "description",
-            "numberOfAllowedCrossing",
-            "thresholdRuleSeverity",
-            "tolerancePeriod",
-            "appliedConsequence",
-            "@type",
-            "@schemaLocation",
-            "@baseType"
-          ]
-        }
-      ],
-      "lifecycle": [
-        "acknowledged",
-        "inProgress",
-        "completed",
-        "failed",
-        "cancelled"
-      ],
-      "terminal": [
-        "completed",
-        "failed",
-        "cancelled"
-      ],
-      "transitions": [
-        {
-          "from": "acknowledged",
-          "to": "inProgress"
-        },
-        {
-          "from": "acknowledged",
-          "to": "cancelled"
-        },
-        {
-          "from": "inProgress",
-          "to": "completed"
-        },
-        {
-          "from": "inProgress",
-          "to": "failed"
-        },
-        {
-          "from": "inProgress",
-          "to": "cancelled"
         }
       ]
     },

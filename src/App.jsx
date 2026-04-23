@@ -6,7 +6,7 @@ import TMF_DATA from "./tmf_data.js";
 const DOMAINS = {
   customer:   { label: "Customer",    color: "#00d4ff" },
   product:    { label: "Product",     color: "#ff9f0a" },
-  service:    { label: "Service",     color: "#5e9bff" },
+  service:    { label: "Service Mgmt", color: "#5e9bff" },
   resource:   { label: "Resource",    color: "#30d158" },
   engagement: { label: "Engagement",  color: "#ff6b6b" },
   common:     { label: "Common",      color: "#bf5af2" },
