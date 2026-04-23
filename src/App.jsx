@@ -602,6 +602,9 @@ export default function TMFMap() {
         <span style={{marginLeft:"auto",fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,color:"rgba(224,232,240,0.14)"}}>
           tmf-devkit · Apache 2.0 · {APIS.length} APIs · {LINKS.length} relationships
         </span>
+        <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"rgba(224,232,240,0.1)",marginLeft:12,flexShrink:0}}>
+          Edges show schema $ref links between API models — not ODA Component dependencies
+        </span>
       </div>
     </div>
   );

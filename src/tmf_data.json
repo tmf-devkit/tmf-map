@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-23T05:43:27Z",
-  "parser_version": "0.2.0",
+  "generated_at": "2026-04-23T18:50:19Z",
+  "parser_version": "0.2.1",
   "apis": [
     {
       "id": "TMF629",
@@ -124,12 +124,12 @@
     {
       "source": "TMF620",
       "target": "TMF633",
-      "label": "uses ServiceSpec"
+      "label": "references ServiceSpec"
     },
     {
       "source": "TMF620",
       "target": "TMF634",
-      "label": "uses ResourceSpec"
+      "label": "references ResourceSpec"
     },
     {
       "source": "TMF621",
@@ -139,12 +139,12 @@
     {
       "source": "TMF622",
       "target": "TMF620",
-      "label": "uses ProductOffering"
+      "label": "references ProductOffering"
     },
     {
       "source": "TMF622",
       "target": "TMF620",
-      "label": "uses ProductSpec"
+      "label": "references ProductSpec"
     },
     {
       "source": "TMF622",
@@ -154,7 +154,7 @@
     {
       "source": "TMF622",
       "target": "TMF638",
-      "label": "creates Service"
+      "label": "references Service"
     },
     {
       "source": "TMF622",
@@ -164,7 +164,7 @@
     {
       "source": "TMF629",
       "target": "TMF632",
-      "label": "extends Party"
+      "label": "references Party"
     },
     {
       "source": "TMF633",
@@ -174,7 +174,7 @@
     {
       "source": "TMF633",
       "target": "TMF634",
-      "label": "uses ResourceSpec"
+      "label": "references ResourceSpec"
     },
     {
       "source": "TMF634",
@@ -184,12 +184,12 @@
     {
       "source": "TMF637",
       "target": "TMF620",
-      "label": "uses ProductOffering"
+      "label": "references ProductOffering"
     },
     {
       "source": "TMF637",
       "target": "TMF622",
-      "label": "triggers ProductOrder"
+      "label": "references ProductOrder"
     },
     {
       "source": "TMF637",
@@ -199,22 +199,22 @@
     {
       "source": "TMF638",
       "target": "TMF633",
-      "label": "uses ServiceSpec"
+      "label": "references ServiceSpec"
     },
     {
       "source": "TMF638",
       "target": "TMF641",
-      "label": "triggers ServiceOrder"
+      "label": "references ServiceOrder"
     },
     {
       "source": "TMF639",
       "target": "TMF632",
-      "label": "uses PartyRole"
+      "label": "references PartyRole"
     },
     {
       "source": "TMF639",
       "target": "TMF634",
-      "label": "uses ResourceSpec"
+      "label": "references ResourceSpec"
     },
     {
       "source": "TMF641",
@@ -224,7 +224,7 @@
     {
       "source": "TMF641",
       "target": "TMF633",
-      "label": "uses ServiceSpec"
+      "label": "references ServiceSpec"
     },
     {
       "source": "TMF641",
@@ -239,12 +239,12 @@
     {
       "source": "TMF645",
       "target": "TMF633",
-      "label": "uses ServiceSpec"
+      "label": "references ServiceSpec"
     },
     {
       "source": "TMF645",
       "target": "TMF638",
-      "label": "creates Service"
+      "label": "references Service"
     },
     {
       "source": "TMF645",
@@ -259,17 +259,17 @@
     {
       "source": "TMF652",
       "target": "TMF634",
-      "label": "uses ResourceSpec"
+      "label": "references ResourceSpec"
     },
     {
       "source": "TMF653",
       "target": "TMF633",
-      "label": "uses ServiceSpec"
+      "label": "references ServiceSpec"
     },
     {
       "source": "TMF653",
       "target": "TMF638",
-      "label": "creates Service"
+      "label": "references Service"
     },
     {
       "source": "TMF688",

@@ -23,9 +23,25 @@ solution architects, pre-sales consultants, and TMForum certification candidates
 - **Domain filters** and live search
 - **Node size** proportional to number of connections
 
+## What edges represent
+
+Edges show **schema `$ref` relationships** extracted from the published TMF OpenAPI specs.
+An edge `A → B` means one or more schemas in API A contain a `$ref` to a schema that
+belongs to API B's domain.
+
+For example: in TMF622 (Product Ordering), the `Product` entity has a `realizingService[]`
+property that `$ref`s `ServiceRef`, which maps to TMF638 (Service Inventory) — so an edge
+is drawn from TMF622 to TMF638.
+
+**What edges do not represent.** tmf-map is not an ODA Component dependency map.
+ODA Components (ODACs) define their exposed and dependent APIs in per-component YAML files
+in the [TM Forum ODA Components directory](https://www.tmforum.org/oda/directory).
+The architectural dependency graph at the component level is a different — and complementary
+— view. An ODAC component map is on the roadmap as a future mode.
+
 ## APIs covered (v0.1)
 
-Customer · Product · Service · Resource · Engagement · Common domains —
+Customer · Product · Service Mgmt · Resource · Engagement · Common domains —
 TMF629, TMF632, TMF620, TMF622, TMF637, TMF633, TMF638, TMF641, TMF645,
 TMF634, TMF639, TMF652, TMF653, TMF621, TMF656, TMF688
 
