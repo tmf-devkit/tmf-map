@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-26T10:39:09Z",
-  "parser_version": "0.2.5",
+  "generated_at": "2026-04-26T15:25:07Z",
+  "parser_version": "0.2.6",
   "apis": [
     {
       "id": "TMF629",
@@ -375,51 +375,24 @@
           ]
         },
         {
-          "name": "MediumCharacteristic",
+          "name": "CustomerCreateEventPayload",
           "mandatory": [],
           "optional": [
-            "city",
-            "contactType",
-            "country",
-            "emailAddress",
-            "faxNumber",
-            "phoneNumber",
-            "postCode",
-            "socialNetworkId",
-            "stateOrProvince",
-            "street1",
-            "street2",
-            "@baseType"
+            "customer"
           ]
         },
         {
-          "name": "RelatedParty",
-          "mandatory": [
-            "id",
-            "@referredType"
-          ],
+          "name": "CustomerAttributeValueChangeEventPayload",
+          "mandatory": [],
           "optional": [
-            "href",
-            "name",
-            "role",
-            "@baseType",
-            "@schemaLocation",
-            "@type"
+            "customer"
           ]
         },
         {
-          "name": "Error",
-          "mandatory": [
-            "code",
-            "reason"
-          ],
+          "name": "CustomerStateChangeEventPayload",
+          "mandatory": [],
           "optional": [
-            "message",
-            "status",
-            "referenceError",
-            "@baseType",
-            "@schemaLocation",
-            "@type"
+            "customer"
           ]
         }
       ],
@@ -456,63 +429,6 @@
       "description": "Product Catalog Management Release : 20.",
       "entities": [
         {
-          "name": "POPAlteration",
-          "mandatory": [
-            "priceType",
-            "price"
-          ],
-          "optional": [
-            "id",
-            "href",
-            "description",
-            "name",
-            "priority",
-            "recurringChargePeriod",
-            "applicationDuration",
-            "unitOfMeasure",
-            "validFor",
-            "@baseType",
-            "@schemaLocation",
-            "@type"
-          ]
-        },
-        {
-          "name": "Attachment",
-          "mandatory": [],
-          "optional": [
-            "id",
-            "href",
-            "attachmentType",
-            "content",
-            "description",
-            "mimeType",
-            "name",
-            "url",
-            "size",
-            "validFor",
-            "@baseType",
-            "@schemaLocation"
-          ]
-        },
-        {
-          "name": "AttachmentRefOrValue",
-          "mandatory": [],
-          "optional": [
-            "id",
-            "href",
-            "attachmentType",
-            "content",
-            "description",
-            "mimeType",
-            "name",
-            "url",
-            "size",
-            "validFor",
-            "@baseType",
-            "@schemaLocation"
-          ]
-        },
-        {
           "name": "Catalog",
           "mandatory": [],
           "optional": [
@@ -528,6 +444,60 @@
             "relatedParty",
             "validFor",
             "@baseType"
+          ]
+        },
+        {
+          "name": "ProductOffering",
+          "mandatory": [],
+          "optional": [
+            "id",
+            "href",
+            "description",
+            "isBundle",
+            "isSellable",
+            "lastUpdate",
+            "lifecycleStatus",
+            "name",
+            "statusReason",
+            "version",
+            "agreement",
+            "attachment"
+          ]
+        },
+        {
+          "name": "ProductOfferingPrice",
+          "mandatory": [],
+          "optional": [
+            "id",
+            "href",
+            "description",
+            "isBundle",
+            "lastUpdate",
+            "lifecycleStatus",
+            "name",
+            "percentage",
+            "priceType",
+            "recurringChargePeriodLength",
+            "recurringChargePeriodType",
+            "version"
+          ]
+        },
+        {
+          "name": "ProductOfferingPriceRefOrValue",
+          "mandatory": [],
+          "optional": [
+            "id",
+            "href",
+            "description",
+            "lastUpdate",
+            "lifecycleStatus",
+            "name",
+            "priceType",
+            "recurringChargePeriod",
+            "recurringChargePeriodLength",
+            "version",
+            "constraint",
+            "price"
           ]
         }
       ],
@@ -629,40 +599,36 @@
           ]
         },
         {
-          "name": "OrderPrice",
-          "mandatory": [],
+          "name": "CancelProductOrder",
+          "mandatory": [
+            "productOrder"
+          ],
           "optional": [
-            "description",
-            "name",
-            "priceType",
-            "recurringChargePeriod",
-            "unitOfMeasure",
-            "billingAccount",
-            "price",
-            "priceAlteration",
-            "productOfferingPrice",
+            "id",
+            "href",
+            "cancellationReason",
+            "effectiveCancellationDate",
+            "requestedCancellationDate",
+            "state",
             "@baseType",
             "@schemaLocation",
             "@type"
           ]
         },
         {
-          "name": "PriceAlteration",
+          "name": "RelatedProductOrderItem",
           "mandatory": [
-            "priceType",
-            "price"
+            "orderItemId",
+            "productOrderId"
           ],
           "optional": [
-            "applicationDuration",
-            "description",
-            "name",
-            "priority",
-            "recurringChargePeriod",
-            "unitOfMeasure",
-            "productOfferingPrice",
+            "orderItemAction",
+            "productOrderHref",
+            "role",
             "@baseType",
             "@schemaLocation",
-            "@type"
+            "@type",
+            "@referredType"
           ]
         }
       ],
@@ -727,25 +693,6 @@
       "description": "Product Inventory Management Release : 19.",
       "entities": [
         {
-          "name": "PriceAlteration",
-          "mandatory": [
-            "priceType",
-            "price"
-          ],
-          "optional": [
-            "applicationDuration",
-            "description",
-            "name",
-            "priority",
-            "recurringChargePeriod",
-            "unitOfMeasure",
-            "productOfferingPrice",
-            "@baseType",
-            "@schemaLocation",
-            "@type"
-          ]
-        },
-        {
           "name": "Product",
           "mandatory": [],
           "optional": [
@@ -799,6 +746,22 @@
             "agreement",
             "billingAccount"
           ]
+        },
+        {
+          "name": "RelatedProductOrderItem",
+          "mandatory": [
+            "orderItemId",
+            "productOrderId"
+          ],
+          "optional": [
+            "orderItemAction",
+            "productOrderHref",
+            "role",
+            "@baseType",
+            "@schemaLocation",
+            "@type",
+            "@referredType"
+          ]
         }
       ],
       "lifecycle": [
@@ -850,77 +813,42 @@
       "description": "Service Catalog Management Version 4.",
       "entities": [
         {
-          "name": "FeatureSpecificationCharacteristic",
-          "mandatory": [
-            "name"
-          ],
-          "optional": [
-            "id",
-            "configurable",
-            "description",
-            "extensible",
-            "isUnique",
-            "maxCardinality",
-            "minCardinality",
-            "regex",
-            "valueType",
-            "featureSpecCharRelationship",
-            "featureSpecCharacteristicValue",
-            "validFor"
-          ]
-        },
-        {
-          "name": "AttachmentRefOrValue",
+          "name": "ServiceCatalog",
           "mandatory": [],
           "optional": [
             "id",
             "href",
-            "attachmentType",
-            "content",
             "description",
-            "mimeType",
+            "lastUpdate",
+            "lifecycleStatus",
             "name",
-            "url",
-            "size",
+            "version",
+            "category",
+            "relatedParty",
             "validFor",
             "@baseType",
             "@schemaLocation"
           ]
         },
         {
-          "name": "CharacteristicSpecification",
+          "name": "ServiceCatalogCreateEventPayload",
           "mandatory": [],
           "optional": [
-            "id",
-            "configurable",
-            "description",
-            "extensible",
-            "isUnique",
-            "maxCardinality",
-            "minCardinality",
-            "name",
-            "regex",
-            "valueType",
-            "charSpecRelationship",
-            "characteristicValueSpecification"
+            "serviceCatalog"
           ]
         },
         {
-          "name": "CharacteristicSpecificationBase",
+          "name": "ServiceCatalogChangeEventPayload",
           "mandatory": [],
           "optional": [
-            "id",
-            "configurable",
-            "description",
-            "extensible",
-            "isUnique",
-            "maxCardinality",
-            "minCardinality",
-            "name",
-            "regex",
-            "valueType",
-            "validFor",
-            "@baseType"
+            "serviceCatalog"
+          ]
+        },
+        {
+          "name": "ServiceCatalogBatchEventPayload",
+          "mandatory": [],
+          "optional": [
+            "serviceCatalog"
           ]
         }
       ],
@@ -1005,33 +933,26 @@
           ]
         },
         {
-          "name": "Characteristic",
+          "name": "RelatedServiceOrderItem",
           "mandatory": [
-            "name",
-            "value"
+            "itemId",
+            "serviceOrderId"
           ],
           "optional": [
-            "id",
-            "valueType",
-            "characteristicRelationship",
-            "@baseType",
-            "@schemaLocation",
-            "@type"
+            "role",
+            "serviceOrderHref",
+            "itemAction",
+            "@referredType"
           ]
         },
         {
-          "name": "RelatedEntityRefOrValue",
+          "name": "ServiceRelationship",
           "mandatory": [
-            "role"
+            "relationshipType",
+            "service"
           ],
           "optional": [
-            "id",
-            "href",
-            "name",
-            "@baseType",
-            "@schemaLocation",
-            "@type",
-            "@referredType"
+            "serviceRelationshipCharacteristic"
           ]
         }
       ],
@@ -1100,24 +1021,6 @@
           ]
         },
         {
-          "name": "Service",
-          "mandatory": [],
-          "optional": [
-            "id",
-            "href",
-            "category",
-            "description",
-            "endDate",
-            "hasStarted",
-            "isBundle",
-            "isServiceEnabled",
-            "isStateful",
-            "name",
-            "serviceDate",
-            "serviceType"
-          ]
-        },
-        {
           "name": "ServiceOrder",
           "mandatory": [],
           "optional": [
@@ -1152,6 +1055,23 @@
             "@baseType",
             "@schemaLocation",
             "@type"
+          ]
+        },
+        {
+          "name": "RelatedServiceOrderItem",
+          "mandatory": [],
+          "optional": [
+            "id",
+            "href",
+            "itemId",
+            "role",
+            "serviceOrderHref",
+            "serviceOrderId",
+            "itemAction",
+            "@baseType",
+            "@schemaLocation",
+            "@type",
+            "@referredType"
           ]
         }
       ],
@@ -1264,21 +1184,21 @@
           ]
         },
         {
-          "name": "Service",
+          "name": "ServiceQualification",
           "mandatory": [],
           "optional": [
             "id",
             "href",
-            "category",
             "description",
-            "endDate",
-            "hasStarted",
-            "isBundle",
-            "isServiceEnabled",
-            "isStateful",
-            "name",
-            "serviceDate",
-            "serviceType"
+            "effectiveQualificationDate",
+            "estimatedResponseDate",
+            "expectedQualificationDate",
+            "expirationDate",
+            "externalId",
+            "instantSyncQualification",
+            "relatedParty",
+            "state",
+            "@baseType"
           ]
         }
       ],
@@ -1317,75 +1237,63 @@
       "description": "Service Test Management Release : 20.",
       "entities": [
         {
-          "name": "Attachment",
+          "name": "ServiceTest",
           "mandatory": [],
           "optional": [
             "id",
             "href",
-            "attachmentType",
-            "content",
             "description",
-            "mimeType",
+            "endDateTime",
+            "mode",
             "name",
-            "url",
-            "size",
-            "validFor",
-            "@baseType",
-            "@schemaLocation"
+            "startDateTime",
+            "state",
+            "characteristic",
+            "relatedParty",
+            "relatedService",
+            "testMeasure"
           ]
         },
         {
-          "name": "AttachmentRefOrValue",
+          "name": "ServiceTestSpecification",
           "mandatory": [],
           "optional": [
             "id",
             "href",
-            "attachmentType",
-            "content",
             "description",
-            "mimeType",
+            "isBundle",
+            "lastUpdate",
+            "lifecycleStatus",
             "name",
-            "url",
-            "size",
+            "version",
+            "attachment",
+            "constraint",
+            "entitySpecRelationship",
+            "relatedParty"
+          ]
+        },
+        {
+          "name": "ServiceTestSpecRelationship",
+          "mandatory": [
+            "relationshipType"
+          ],
+          "optional": [
+            "id",
+            "href",
+            "name",
+            "role",
             "validFor",
             "@baseType",
-            "@schemaLocation"
+            "@schemaLocation",
+            "@type",
+            "@referredType"
           ]
         },
         {
-          "name": "CharacteristicSpecification",
+          "name": "ServiceTestCreateEventPayload",
           "mandatory": [],
           "optional": [
-            "id",
-            "configurable",
-            "description",
-            "extensible",
-            "isUnique",
-            "maxCardinality",
-            "minCardinality",
-            "name",
-            "regex",
-            "valueType",
-            "charSpecRelationship",
-            "characteristicValueSpecification"
-          ]
-        },
-        {
-          "name": "CharacteristicSpecificationBase",
-          "mandatory": [],
-          "optional": [
-            "id",
-            "configurable",
-            "description",
-            "extensible",
-            "isUnique",
-            "maxCardinality",
-            "minCardinality",
-            "name",
-            "regex",
-            "valueType",
-            "validFor",
-            "@baseType"
+            "serviceTest"
           ]
         }
       ],
@@ -1429,77 +1337,42 @@
       "description": "Resource Catalog Management December 2019 Resource Catalog API is one of Catalog Management API Family.",
       "entities": [
         {
-          "name": "FeatureSpecificationCharacteristic",
-          "mandatory": [
-            "name"
-          ],
-          "optional": [
-            "id",
-            "configurable",
-            "description",
-            "extensible",
-            "isUnique",
-            "maxCardinality",
-            "minCardinality",
-            "regex",
-            "valueType",
-            "featureSpecCharRelationship",
-            "featureSpecCharacteristicValue",
-            "validFor"
-          ]
-        },
-        {
-          "name": "Attachment",
+          "name": "ResourceCatalog",
           "mandatory": [],
           "optional": [
             "id",
             "href",
-            "attachmentType",
-            "content",
             "description",
-            "mimeType",
+            "lastUpdate",
+            "lifecycleStatus",
             "name",
-            "url",
-            "size",
+            "version",
+            "category",
+            "relatedParty",
             "validFor",
             "@baseType",
             "@schemaLocation"
           ]
         },
         {
-          "name": "AttachmentRefOrValue",
+          "name": "ResourceCatalogCreateEventPayload",
           "mandatory": [],
           "optional": [
-            "id",
-            "href",
-            "attachmentType",
-            "content",
-            "description",
-            "mimeType",
-            "name",
-            "url",
-            "size",
-            "validFor",
-            "@baseType",
-            "@schemaLocation"
+            "resourceCatalog"
           ]
         },
         {
-          "name": "CharacteristicSpecificationBase",
+          "name": "ResourceCatalogChangeEventPayload",
           "mandatory": [],
           "optional": [
-            "id",
-            "configurable",
-            "description",
-            "extensible",
-            "isUnique",
-            "maxCardinality",
-            "minCardinality",
-            "name",
-            "regex",
-            "valueType",
-            "validFor",
-            "@baseType"
+            "resourceCatalog"
+          ]
+        },
+        {
+          "name": "ResourceCatalogDeleteEventPayload",
+          "mandatory": [],
+          "optional": [
+            "resourceCatalog"
           ]
         }
       ],
@@ -1689,91 +1562,74 @@
       "description": "environment TMF Resource Ordering Management specification",
       "entities": [
         {
-          "name": "Resource",
-          "mandatory": [
-            "id",
-            "href"
-          ],
-          "optional": [
-            "category",
-            "description",
-            "endOperatingDate",
-            "name",
-            "resourceVersion",
-            "startOperatingDate",
-            "administrativeState",
-            "attachment",
-            "note",
-            "operationalState",
-            "place",
-            "relatedParty"
-          ]
-        },
-        {
-          "name": "ResourceRefOrValue",
-          "mandatory": [
-            "id",
-            "href"
-          ],
-          "optional": [
-            "category",
-            "description",
-            "endOperatingDate",
-            "name",
-            "resourceVersion",
-            "startOperatingDate",
-            "administrativeState",
-            "attachment",
-            "note",
-            "operationalState",
-            "place",
-            "relatedParty"
-          ]
-        },
-        {
-          "name": "Attachment",
+          "name": "ResourceOrder",
           "mandatory": [],
           "optional": [
             "id",
             "href",
-            "attachmentType",
+            "category",
+            "completionDate",
             "description",
-            "mimeType",
+            "expectedCompletionDate",
+            "externalId",
             "name",
-            "url",
-            "size",
-            "validFor",
+            "orderDate",
+            "orderType",
+            "priority",
+            "requestedCompletionDate"
+          ]
+        },
+        {
+          "name": "ResourceOrderItem",
+          "mandatory": [],
+          "optional": [
+            "id",
+            "action",
+            "quantity",
+            "state",
+            "appointment",
+            "orderItemRelationship",
+            "resource",
+            "resourceSpecification",
             "@baseType",
             "@schemaLocation",
             "@type"
           ]
         },
         {
-          "name": "AttachmentRefOrValue",
-          "mandatory": [],
+          "name": "CancelResourceOrder",
+          "mandatory": [
+            "resourceOrder"
+          ],
           "optional": [
             "id",
             "href",
-            "attachmentType",
-            "description",
-            "isRef",
-            "mimeType",
-            "name",
-            "url",
-            "size",
-            "validFor",
+            "cancellationReason",
+            "effectiveCancellationDate",
+            "requestedCancellationDate",
+            "state",
             "@baseType",
-            "@schemaLocation"
+            "@schemaLocation",
+            "@type"
+          ]
+        },
+        {
+          "name": "ResourceOrderItemRelationship",
+          "mandatory": [],
+          "optional": [
+            "relationshipType",
+            "orderItem",
+            "@baseType",
+            "@schemaLocation",
+            "@type"
           ]
         }
       ],
       "lifecycle": [
-        "standby",
-        "alarm",
-        "available",
-        "reserved",
-        "unknown",
-        "suspended"
+        "acknowledged",
+        "terminatedWithError",
+        "inProgress",
+        "done"
       ],
       "terminal": [
         "completed",
@@ -1824,42 +1680,6 @@
       "description": "TMF - 621 Trouble Ticket Release : 19.",
       "entities": [
         {
-          "name": "Attachment",
-          "mandatory": [],
-          "optional": [
-            "id",
-            "href",
-            "attachmentType",
-            "content",
-            "description",
-            "mimeType",
-            "name",
-            "url",
-            "size",
-            "validFor",
-            "@baseType",
-            "@schemaLocation"
-          ]
-        },
-        {
-          "name": "AttachmentRefOrValue",
-          "mandatory": [],
-          "optional": [
-            "id",
-            "href",
-            "attachmentType",
-            "content",
-            "description",
-            "mimeType",
-            "name",
-            "url",
-            "size",
-            "validFor",
-            "@baseType",
-            "@schemaLocation"
-          ]
-        },
-        {
           "name": "TroubleTicket",
           "mandatory": [],
           "optional": [
@@ -1878,18 +1698,30 @@
           ]
         },
         {
-          "name": "RelatedEntity",
-          "mandatory": [
-            "id",
-            "role",
-            "@referredType"
-          ],
+          "name": "TroubleTicketRelationship",
+          "mandatory": [],
           "optional": [
+            "id",
             "href",
             "name",
+            "relationshipType",
             "@baseType",
             "@schemaLocation",
             "@type"
+          ]
+        },
+        {
+          "name": "TroubleTicketCreateEventPayload",
+          "mandatory": [],
+          "optional": [
+            "troubleTicket"
+          ]
+        },
+        {
+          "name": "TroubleTicketAttributeValueChangeEventPayload",
+          "mandatory": [],
+          "optional": [
+            "troubleTicket"
           ]
         }
       ],
@@ -1969,47 +1801,30 @@
           ]
         },
         {
-          "name": "TrackingRecord",
-          "mandatory": [],
-          "optional": [
-            "id",
-            "description",
-            "systemId",
-            "time",
-            "user",
-            "characteristic",
-            "@baseType",
-            "@schemaLocation",
-            "@type"
-          ]
-        },
-        {
-          "name": "Characteristic",
-          "mandatory": [
-            "name",
-            "value"
-          ],
-          "optional": [
-            "id",
-            "valueType",
-            "characteristicRelationship",
-            "@baseType",
-            "@schemaLocation",
-            "@type"
-          ]
-        },
-        {
-          "name": "ProblemAcknowledgement",
+          "name": "ServiceProblemEventRecord",
           "mandatory": [],
           "optional": [
             "id",
             "href",
-            "ackProblem",
-            "problem",
-            "trackingRecord",
-            "@baseType",
-            "@schemaLocation",
-            "@type"
+            "eventTime",
+            "eventType",
+            "recordTime",
+            "notification",
+            "serviceProblem"
+          ]
+        },
+        {
+          "name": "ServiceProblemCreateEventPayload",
+          "mandatory": [],
+          "optional": [
+            "serviceProblem"
+          ]
+        },
+        {
+          "name": "ServiceProblemStateChangeEventPayload",
+          "mandatory": [],
+          "optional": [
+            "serviceProblem"
           ]
         }
       ],
@@ -2066,104 +1881,31 @@
       "description": "Party Release : 19.",
       "entities": [
         {
-          "name": "Individual",
-          "mandatory": [
-            "id"
-          ],
+          "name": "Party",
+          "mandatory": [],
           "optional": [
+            "id",
             "href",
-            "aristocraticTitle",
-            "birthDate",
-            "countryOfBirth",
-            "deathDate",
-            "familyName",
-            "familyNamePrefix",
-            "formattedName",
-            "fullName",
-            "gender",
-            "generation",
-            "givenName"
-          ]
-        },
-        {
-          "name": "Organization",
-          "mandatory": [
-            "id"
-          ],
-          "optional": [
-            "href",
-            "isHeadOffice",
-            "isLegalEntity",
-            "name",
-            "nameType",
-            "organizationType",
-            "tradingName",
             "contactMedium",
             "creditRating",
-            "existsDuring",
             "externalReference",
-            "organizationChildRelationship"
+            "partyCharacteristic",
+            "relatedParty",
+            "taxExemptionCertificate",
+            "@baseType",
+            "@schemaLocation",
+            "@type"
           ]
         },
         {
-          "name": "Attachment",
+          "name": "PartyCreditProfile",
           "mandatory": [],
           "optional": [
-            "id",
-            "href",
-            "attachmentType",
-            "content",
-            "description",
-            "mimeType",
-            "name",
-            "url",
-            "size",
+            "creditAgencyName",
+            "creditAgencyType",
+            "ratingReference",
+            "ratingScore",
             "validFor",
-            "@baseType",
-            "@schemaLocation"
-          ]
-        },
-        {
-          "name": "AttachmentRefOrValue",
-          "mandatory": [],
-          "optional": [
-            "id",
-            "href",
-            "attachmentType",
-            "content",
-            "description",
-            "mimeType",
-            "name",
-            "url",
-            "size",
-            "validFor",
-            "@baseType",
-            "@schemaLocation"
-          ]
-        }
-      ],
-      "lifecycle": [
-        "initialized",
-        "validated",
-        "deceaded"
-      ],
-      "terminal": [],
-      "transitions": []
-    },
-    "TMF688": {
-      "specRef": "TMF688 v4.0.0",
-      "description": "My api short documentation",
-      "entities": [
-        {
-          "name": "Characteristic",
-          "mandatory": [
-            "name",
-            "value"
-          ],
-          "optional": [
-            "id",
-            "valueType",
-            "characteristicRelationship",
             "@baseType",
             "@schemaLocation",
             "@type"
@@ -2185,32 +1927,69 @@
           ]
         },
         {
-          "name": "Topic",
-          "mandatory": [],
+          "name": "Individual",
+          "mandatory": [
+            "id"
+          ],
           "optional": [
-            "id",
             "href",
-            "contentQuery",
-            "headerQuery",
-            "name",
-            "@baseType",
-            "@schemaLocation",
-            "@type"
+            "aristocraticTitle",
+            "birthDate",
+            "countryOfBirth",
+            "deathDate",
+            "familyName",
+            "familyNamePrefix",
+            "formattedName",
+            "fullName",
+            "gender",
+            "generation",
+            "givenName"
+          ]
+        }
+      ],
+      "lifecycle": [
+        "initialized",
+        "validated",
+        "deceaded"
+      ],
+      "terminal": [],
+      "transitions": []
+    },
+    "TMF688": {
+      "specRef": "TMF688 v4.0.0",
+      "description": "My api short documentation",
+      "entities": [
+        {
+          "name": "EventSubscription",
+          "mandatory": [
+            "id",
+            "callback"
+          ],
+          "optional": [
+            "query"
           ]
         },
         {
-          "name": "Error",
+          "name": "EventSubscriptionInput",
           "mandatory": [
-            "code",
-            "reason"
+            "callback"
           ],
           "optional": [
-            "message",
-            "status",
-            "referenceError",
-            "@baseType",
-            "@schemaLocation",
-            "@type"
+            "query"
+          ]
+        },
+        {
+          "name": "TopicCreateEventPayload",
+          "mandatory": [],
+          "optional": [
+            "topic"
+          ]
+        },
+        {
+          "name": "TopicChangeEventPayload",
+          "mandatory": [],
+          "optional": [
+            "topic"
           ]
         }
       ],
