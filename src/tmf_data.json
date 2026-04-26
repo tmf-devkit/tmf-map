@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-25T10:45:07Z",
-  "parser_version": "0.2.4",
+  "generated_at": "2026-04-26T10:39:09Z",
+  "parser_version": "0.2.5",
   "apis": [
     {
       "id": "TMF629",
@@ -532,10 +532,13 @@
         }
       ],
       "lifecycle": [
-        "Not Started",
-        "Running",
-        "Succeeded",
-        "Failed"
+        "inStudy",
+        "inDesign",
+        "inTest",
+        "active",
+        "launched",
+        "retired",
+        "obsolete"
       ],
       "terminal": [
         "retired",
@@ -922,10 +925,12 @@
         }
       ],
       "lifecycle": [
-        "Not Started",
-        "Running",
-        "Succeeded",
-        "Failed"
+        "inStudy",
+        "inDesign",
+        "inTest",
+        "active",
+        "launched",
+        "retired"
       ],
       "terminal": [
         "retired"
@@ -1499,10 +1504,12 @@
         }
       ],
       "lifecycle": [
-        "Not Started",
-        "Running",
-        "Succeeded",
-        "Failed"
+        "inStudy",
+        "inDesign",
+        "inTest",
+        "active",
+        "launched",
+        "retired"
       ],
       "terminal": [
         "retired"
