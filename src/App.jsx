@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import * as d3 from "d3";
 import TMF_DATA from "./tmf_data.js";
+import ODA_DATA from "./oda_data.js";
 
 // ─── Domain config (UI only — colours not in spec data) ──────────────────────
 const DOMAINS = {
@@ -12,11 +13,26 @@ const DOMAINS = {
   common:     { label: "Common",      color: "#bf5af2" },
 };
 
+// ─── Functional Block colors for ODA Components ───────────────────────────────
+const FUNCTIONAL_BLOCKS = {
+  CoreCommerce:           { label: "Core Commerce",     color: "#ff9f0a" },
+  Production:             { label: "Production",        color: "#30d158" },
+  IntelligenceManagement: { label: "Intelligence",      color: "#bf5af2" },
+  PartyManagement:        { label: "Party Management",  color: "#00d4ff" },
+  OperationsManagement:   { label: "Operations",        color: "#5e9bff" },
+  PartyDomain:            { label: "Party Domain",      color: "#00d4aa" },
+  EngagementManagement:   { label: "Engagement",        color: "#ff6b6b" },
+  Common:                 { label: "Common",            color: "#8e8e93" },
+};
+
 // ─── Data from tmf-spec-parser (auto-generated) ───────────────────────────────
 const APIS        = TMF_DATA.apis;
 const LINKS       = TMF_DATA.links;
 const PATTERNS    = TMF_DATA.patterns;
 const API_DETAILS = TMF_DATA.details;
+
+// ODA Components data
+const COMPONENTS = ODA_DATA.components || [];
 
 // GITHUB_REPOS: built from the apis registry (id → repo name)
 const GITHUB_REPOS = Object.fromEntries(
@@ -190,7 +206,8 @@ function LifecycleDiagram({ lifecycle, transitions, terminal, domainColor }) {
 }
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
-const R = 23;
+const R_API = 23;
+const R_COMPONENT = 28;
 
 function SectionTitle({ children }) {
   return (
@@ -200,7 +217,7 @@ function SectionTitle({ children }) {
   );
 }
 
-// ─── Hover Tooltip ────────────────────────────────────────────────────────────
+// ─── Hover Tooltip (API view) ─────────────────────────────────────────────────
 function NodeTooltip({ hovered, apiMap, connCounts, canvasRef, statuses }) {
   if (!hovered) return null;
   const api    = apiMap[hovered.id];
@@ -250,6 +267,37 @@ function NodeTooltip({ hovered, apiMap, connCounts, canvasRef, statuses }) {
   );
 }
 
+// ─── Hover Tooltip (Component view) ───────────────────────────────────────────
+function ComponentTooltip({ hovered, compMap, canvasRef }) {
+  if (!hovered) return null;
+  const comp   = compMap[hovered.id];
+  const color  = FUNCTIONAL_BLOCKS[comp.functional_block]?.color || "#5e9bff";
+  const rect   = canvasRef.current?.getBoundingClientRect() ?? { left: 0, top: 0 };
+  const tx     = hovered.cx - rect.left + 18;
+  const ty     = hovered.cy - rect.top  - 20;
+
+  return (
+    <div style={{
+      position:"absolute", left:tx, top:ty, zIndex:50, pointerEvents:"none",
+      background:"rgba(6,11,20,0.97)", border:`1px solid ${color}30`,
+      borderLeft:`2px solid ${color}`,
+      borderRadius:7, padding:"9px 11px", maxWidth:240,
+      animation:"fadeUp 0.12s ease",
+    }}>
+      <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:13,color,marginBottom:2}}>{hovered.id}</div>
+      <div style={{fontSize:10.5,color:"rgba(224,232,240,0.5)",marginBottom:7,fontFamily:"'Syne',sans-serif"}}>{comp.name}</div>
+      <div style={{fontSize:10,lineHeight:1.65,color:"rgba(224,232,240,0.5)",marginBottom:8,fontFamily:"'Syne',sans-serif"}}>
+        {comp.description?.split(".")[0] + "." || ""}
+      </div>
+      <div style={{display:"flex",gap:10,fontFamily:"'JetBrains Mono',monospace",fontSize:9.5}}>
+        <span style={{color:"rgba(224,232,240,0.35)"}}>exposes <span style={{color}}>{comp.exposed_apis?.length || 0}</span></span>
+        <span style={{color:"rgba(224,232,240,0.35)"}}>depends <span style={{color}}>{comp.dependent_apis?.length || 0}</span></span>
+        <span style={{color:`${color}60`,marginLeft:"auto"}}>{FUNCTIONAL_BLOCKS[comp.functional_block]?.label || comp.functional_block}</span>
+      </div>
+    </div>
+  );
+}
+
 // ─── Main app ─────────────────────────────────────────────────────────────────
 export default function TMFMap() {
   const svgRef     = useRef(null);
@@ -260,11 +308,13 @@ export default function TMFMap() {
   const setHovRef  = useRef(null);
   const fileInputRef = useRef(null);
 
+  const [viewMode,  setViewMode]  = useState("api");           // "api" | "component"
   const [selected, setSelected] = useState(null);
   const [hovered,  setHovered]  = useState(null);
   const [pattern,  setPattern]  = useState(null);
   const [search,   setSearch]   = useState("");
   const [domains,  setDomains]  = useState(new Set(Object.keys(DOMAINS)));
+  const [functionalBlocks, setFunctionalBlocks] = useState(new Set(Object.keys(FUNCTIONAL_BLOCKS)));
 
   // Conformance overlay state
   // overlay = null | { name, report, statuses, loadedAt }
@@ -275,6 +325,7 @@ export default function TMFMap() {
   setHovRef.current = setHovered;
 
   const apiMap = useMemo(() => Object.fromEntries(APIS.map(a => [a.id, a])), []);
+  const compMap = useMemo(() => Object.fromEntries(COMPONENTS.map(c => [c.id, c])), []);
 
   const connCounts = useMemo(() => {
     const c = {};
@@ -288,14 +339,84 @@ export default function TMFMap() {
     return c;
   }, []);
 
-  const filtered = useMemo(() => new Set(
-    APIS
-      .filter(a => domains.has(a.domain))
-      .filter(a => !search || a.id.toLowerCase().includes(search.toLowerCase()) || a.name.toLowerCase().includes(search.toLowerCase()))
-      .map(a => a.id)
-  ), [search, domains]);
+  const filtered = useMemo(() => {
+    if (viewMode === "api") {
+      return new Set(
+        APIS
+          .filter(a => domains.has(a.domain))
+          .filter(a => !search || a.id.toLowerCase().includes(search.toLowerCase()) || a.name.toLowerCase().includes(search.toLowerCase()))
+          .map(a => a.id)
+      );
+    } else {
+      return new Set(
+        COMPONENTS
+          .filter(c => functionalBlocks.has(c.functional_block))
+          .filter(c => !search || c.id.toLowerCase().includes(search.toLowerCase()) || c.name.toLowerCase().includes(search.toLowerCase()))
+          .map(c => c.id)
+      );
+    }
+  }, [viewMode, search, domains, functionalBlocks]);
 
   const filteredKey = [...filtered].sort().join(",");
+
+  // ── Build Component graph data ────────────────────────────────────────────
+  const componentGraphData = useMemo(() => {
+    if (viewMode !== "component") return { nodes: [], links: [] };
+    
+    // Start with component nodes
+    const nodes = COMPONENTS.map(c => ({ ...c, type: "component" }));
+    
+    // Collect all unique API IDs referenced by components
+    const apiIds = new Set();
+    COMPONENTS.forEach(comp => {
+      comp.exposed_apis?.forEach(api => apiIds.add(api.id));
+      comp.dependent_apis?.forEach(api => apiIds.add(api.id));
+    });
+    
+    // Add API nodes (with ghost styling for APIs outside tmf-map's 16-API set)
+    apiIds.forEach(apiId => {
+      const apiData = apiMap[apiId];
+      if (apiData) {
+        // API exists in tmf-map's API set
+        nodes.push({ ...apiData, type: "api", isInSet: true });
+      } else {
+        // API not in tmf-map's 16-API set (out-of-set API)
+        nodes.push({ 
+          id: apiId, 
+          name: apiId,
+          domain: "common",
+          type: "api", 
+          isInSet: false 
+        });
+      }
+    });
+    
+    const links = [];
+    
+    COMPONENTS.forEach(comp => {
+      // Component → exposed APIs (dashed grey, low opacity)
+      comp.exposed_apis?.forEach(api => {
+        links.push({
+          source: comp.id,
+          target: api.id,
+          type: "exposes",
+          required: api.required,
+        });
+      });
+      
+      // Component → dependent APIs (solid if required, dashed if optional)
+      comp.dependent_apis?.forEach(api => {
+        links.push({
+          source: comp.id,
+          target: api.id,
+          type: "depends",
+          required: api.required,
+        });
+      });
+    });
+    
+    return { nodes, links };
+  }, [viewMode, apiMap]);
 
   // ── Overlay loaders ──────────────────────────────────────────────────────
   const loadBundled = useCallback(async (which) => {
@@ -349,7 +470,7 @@ export default function TMFMap() {
     setOverlayMenu(false);
   }, []);
 
-  // ── D3 setup (runs once) ──────────────────────────────────────────────────
+  // ── D3 setup (runs when viewMode changes) ─────────────────────────────────
   useEffect(() => {
     const el = svgRef.current;
     if (!el) return;
@@ -358,19 +479,41 @@ export default function TMFMap() {
     const svg = d3.select(el);
     svg.selectAll("*").remove();
 
+    const isComponentView = viewMode === "component";
+    const currentData = isComponentView ? componentGraphData : { nodes: APIS.map(a => ({...a})), links: LINKS.map(l => ({...l})) };
+    
     const defs = svg.append("defs");
-    Object.entries(DOMAINS).forEach(([k, d]) => {
-      defs.append("marker")
-        .attr("id",`arr-${k}`).attr("viewBox","0 -5 10 10")
-        .attr("refX",10).attr("refY",0).attr("markerWidth",5).attr("markerHeight",5).attr("orient","auto")
-        .append("path").attr("d","M0,-5L10,0L0,5").attr("fill",d.color).attr("opacity",0.75);
-      const f = defs.append("filter").attr("id",`glow-${k}`)
-        .attr("x","-60%").attr("y","-60%").attr("width","220%").attr("height","220%");
-      f.append("feGaussianBlur").attr("in","SourceGraphic").attr("stdDeviation","5").attr("result","blur");
-      const m = f.append("feMerge");
-      m.append("feMergeNode").attr("in","blur");
-      m.append("feMergeNode").attr("in","SourceGraphic");
-    });
+    
+    // Markers for API view
+    if (!isComponentView) {
+      Object.entries(DOMAINS).forEach(([k, d]) => {
+        defs.append("marker")
+          .attr("id",`arr-${k}`).attr("viewBox","0 -5 10 10")
+          .attr("refX",10).attr("refY",0).attr("markerWidth",5).attr("markerHeight",5).attr("orient","auto")
+          .append("path").attr("d","M0,-5L10,0L0,5").attr("fill",d.color).attr("opacity",0.75);
+        const f = defs.append("filter").attr("id",`glow-${k}`)
+          .attr("x","-60%").attr("y","-60%").attr("width","220%").attr("height","220%");
+        f.append("feGaussianBlur").attr("in","SourceGraphic").attr("stdDeviation","5").attr("result","blur");
+        const m = f.append("feMerge");
+        m.append("feMergeNode").attr("in","blur");
+        m.append("feMergeNode").attr("in","SourceGraphic");
+      });
+    } else {
+      // Markers for Component view
+      Object.entries(FUNCTIONAL_BLOCKS).forEach(([k, d]) => {
+        defs.append("marker")
+          .attr("id",`arr-comp-${k}`).attr("viewBox","0 -5 10 10")
+          .attr("refX",10).attr("refY",0).attr("markerWidth",5).attr("markerHeight",5).attr("orient","auto")
+          .append("path").attr("d","M0,-5L10,0L0,5").attr("fill",d.color).attr("opacity",0.75);
+        const f = defs.append("filter").attr("id",`glow-comp-${k}`)
+          .attr("x","-60%").attr("y","-60%").attr("width","220%").attr("height","220%");
+        f.append("feGaussianBlur").attr("in","SourceGraphic").attr("stdDeviation","5").attr("result","blur");
+        const m = f.append("feMerge");
+        m.append("feMergeNode").attr("in","blur");
+        m.append("feMergeNode").attr("in","SourceGraphic");
+      });
+    }
+    
     const fs = defs.append("filter").attr("id","glow-sel")
       .attr("x","-60%").attr("y","-60%").attr("width","220%").attr("height","220%");
     fs.append("feGaussianBlur").attr("in","SourceGraphic").attr("stdDeviation","9").attr("result","blur");
@@ -384,57 +527,150 @@ export default function TMFMap() {
     zoomRef.current = zoom;
     svg.call(zoom);
 
-    const nodes = APIS.map(a => ({...a}));
-    const links = LINKS.map(l => ({...l}));
+    const nodes = currentData.nodes;
+    const links = currentData.links;
 
     const counts = {};
-    APIS.forEach(a => { counts[a.id] = 0; });
-    LINKS.forEach(l => { counts[l.source]=(counts[l.source]||0)+1; counts[l.target]=(counts[l.target]||0)+1; });
-    const maxDeg = Math.max(...Object.values(counts));
-    const nodeR = d => R + Math.round((counts[d.id] / maxDeg) * 5);
+    nodes.forEach(n => { counts[n.id] = 0; });
+    links.forEach(l => { 
+      const src = typeof l.source === "object" ? l.source.id : l.source;
+      const tgt = typeof l.target === "object" ? l.target.id : l.target;
+      counts[src] = (counts[src] || 0) + 1;
+      counts[tgt] = (counts[tgt] || 0) + 1;
+    });
+    const maxDeg = Math.max(...Object.values(counts), 1);
+    const nodeR = d => {
+      const baseR = isComponentView ? R_COMPONENT : R_API;
+      return baseR + Math.round((counts[d.id] / maxDeg) * 5);
+    };
 
     const sim = d3.forceSimulation(nodes)
-      .force("link",      d3.forceLink(links).id(d=>d.id).distance(140).strength(0.45))
-      .force("charge",    d3.forceManyBody().strength(-580))
+      .force("link",      d3.forceLink(links).id(d=>d.id).distance(isComponentView ? 180 : 140).strength(0.45))
+      .force("charge",    d3.forceManyBody().strength(isComponentView ? -720 : -580))
       .force("center",    d3.forceCenter(W/2, H/2))
       .force("collision", d3.forceCollide(d => nodeR(d) + 22));
     simRef.current = sim;
 
     const linkLayer = g.append("g");
     const linkSel = linkLayer.selectAll("path").data(links).enter().append("path")
-      .attr("class","lnk").attr("fill","none").attr("stroke-width",1.5).attr("stroke-opacity",0.32)
-      .attr("stroke", d => { const a = APIS.find(x => x.id===(d.source.id||d.source)); return a ? DOMAINS[a.domain].color : "#5e9bff"; })
-      .attr("marker-end", d => { const a = APIS.find(x => x.id===(d.source.id||d.source)); return `url(#arr-${a?.domain||"service"})`; });
+      .attr("class","lnk")
+      .attr("fill","none")
+      .attr("stroke-width", d => isComponentView ? (d.type === "exposes" ? 1 : (d.required ? 2 : 1.5)) : 1.5)
+      .attr("stroke-opacity", d => isComponentView ? (d.type === "exposes" ? 0.15 : (d.required ? 0.45 : 0.25)) : 0.32)
+      .attr("stroke-dasharray", d => isComponentView ? (d.type === "exposes" ? "3 3" : (d.required ? null : "4 4")) : null)
+      .attr("stroke", d => {
+        if (isComponentView) {
+          const srcNode = nodes.find(n => n.id === (typeof d.source === "object" ? d.source.id : d.source));
+          if (!srcNode) return "#5e9bff";
+          const fb = srcNode.functional_block || "Common";
+          return FUNCTIONAL_BLOCKS[fb]?.color || "#5e9bff";
+        } else {
+          const srcNode = nodes.find(n => n.id === (typeof d.source === "object" ? d.source.id : d.source));
+          return srcNode ? DOMAINS[srcNode.domain]?.color || "#5e9bff" : "#5e9bff";
+        }
+      })
+      .attr("marker-end", d => {
+        if (isComponentView) {
+          const srcNode = nodes.find(n => n.id === (typeof d.source === "object" ? d.source.id : d.source));
+          if (!srcNode) return "url(#arr-comp-Common)";
+          const fb = srcNode.functional_block || "Common";
+          return `url(#arr-comp-${fb})`;
+        } else {
+          const srcNode = nodes.find(n => n.id === (typeof d.source === "object" ? d.source.id : d.source));
+          return `url(#arr-${srcNode?.domain || "service"})`;
+        }
+      });
 
     const nodeLayer = g.append("g");
     const nodeSel = nodeLayer.selectAll("g").data(nodes).enter().append("g")
       .attr("class","nd").attr("data-sel","0").style("cursor","pointer");
 
-    // Outer status ring (overlay) — hidden by default, populated by overlay effect.
-    nodeSel.append("circle").attr("class","nd-status")
-      .attr("r",d=>nodeR(d)+14).attr("fill","none")
-      .attr("stroke","transparent").attr("stroke-width",2.5)
-      .attr("stroke-opacity",0).attr("stroke-dasharray",null)
-      .style("transition","stroke 0.2s, stroke-opacity 0.2s");
-    nodeSel.append("circle").attr("class","nd-ring")
-      .attr("r",d=>nodeR(d)+8).attr("fill","none")
-      .attr("stroke",d=>DOMAINS[d.domain].color).attr("stroke-width",0.5).attr("stroke-opacity",0.18);
-    nodeSel.append("circle").attr("class","nd-body")
-      .attr("r",d=>nodeR(d))
-      .attr("fill",d=>`${DOMAINS[d.domain].color}16`)
-      .attr("stroke",d=>DOMAINS[d.domain].color)
-      .attr("stroke-width",1.8)
-      .attr("filter",d=>`url(#glow-${d.domain})`);
-    nodeSel.append("text")
-      .attr("text-anchor","middle").attr("dy","-3.5")
-      .attr("font-family","JetBrains Mono,monospace").attr("font-size","9px").attr("font-weight","700")
-      .attr("fill",d=>DOMAINS[d.domain].color).attr("pointer-events","none")
-      .text(d=>d.id);
-    nodeSel.append("text")
-      .attr("text-anchor","middle").attr("dy","9px")
-      .attr("font-family","Syne,sans-serif").attr("font-size","7px").attr("font-weight","600")
-      .attr("fill","rgba(224,232,240,0.42)").attr("pointer-events","none")
-      .text(d=>d.short);
+    if (!isComponentView) {
+      // API view nodes
+      nodeSel.append("circle").attr("class","nd-status")
+        .attr("r",d=>nodeR(d)+14).attr("fill","none")
+        .attr("stroke","transparent").attr("stroke-width",2.5)
+        .attr("stroke-opacity",0).attr("stroke-dasharray",null)
+        .style("transition","stroke 0.2s, stroke-opacity 0.2s");
+      nodeSel.append("circle").attr("class","nd-ring")
+        .attr("r",d=>nodeR(d)+8).attr("fill","none")
+        .attr("stroke",d=>DOMAINS[d.domain].color).attr("stroke-width",0.5).attr("stroke-opacity",0.18);
+      nodeSel.append("circle").attr("class","nd-body")
+        .attr("r",d=>nodeR(d))
+        .attr("fill",d=>`${DOMAINS[d.domain].color}16`)
+        .attr("stroke",d=>DOMAINS[d.domain].color)
+        .attr("stroke-width",1.8)
+        .attr("filter",d=>`url(#glow-${d.domain})`);
+      nodeSel.append("text")
+        .attr("text-anchor","middle").attr("dy","-3.5")
+        .attr("font-family","JetBrains Mono,monospace").attr("font-size","9px").attr("font-weight","700")
+        .attr("fill",d=>DOMAINS[d.domain].color).attr("pointer-events","none")
+        .text(d=>d.id);
+      nodeSel.append("text")
+        .attr("text-anchor","middle").attr("dy","9px")
+        .attr("font-family","Syne,sans-serif").attr("font-size","7px").attr("font-weight","600")
+        .attr("fill","rgba(224,232,240,0.42)").attr("pointer-events","none")
+        .text(d=>d.short);
+    } else {
+      // Component view nodes - differentiate between components and APIs
+      nodeSel.append("circle").attr("class","nd-ring")
+        .attr("r",d=>nodeR(d)+8).attr("fill","none")
+        .attr("stroke",d=>{
+          if (d.type === "component") {
+            return FUNCTIONAL_BLOCKS[d.functional_block]?.color || "#5e9bff";
+          } else {
+            // API node
+            return d.isInSet ? (DOMAINS[d.domain]?.color || "#5e9bff") : "rgba(224,232,240,0.2)";
+          }
+        })
+        .attr("stroke-width",d=>d.type==="api" && !d.isInSet ? 0.5 : 0.5)
+        .attr("stroke-opacity",d=>d.type==="api" && !d.isInSet ? 0.3 : 0.18)
+        .attr("stroke-dasharray",d=>d.type==="api" && !d.isInSet ? "2 2" : null);
+      nodeSel.append("circle").attr("class","nd-body")
+        .attr("r",d=>d.type==="component" ? nodeR(d) : nodeR(d)*0.7)  // APIs smaller
+        .attr("fill",d=>{
+          if (d.type === "component") {
+            return `${FUNCTIONAL_BLOCKS[d.functional_block]?.color || "#5e9bff"}16`;
+          } else {
+            return d.isInSet ? `${DOMAINS[d.domain]?.color || "#5e9bff"}10` : "rgba(224,232,240,0.03)";
+          }
+        })
+        .attr("stroke",d=>{
+          if (d.type === "component") {
+            return FUNCTIONAL_BLOCKS[d.functional_block]?.color || "#5e9bff";
+          } else {
+            return d.isInSet ? (DOMAINS[d.domain]?.color || "#5e9bff") : "rgba(224,232,240,0.25)";
+          }
+        })
+        .attr("stroke-width",d=>d.type==="api" && !d.isInSet ? 0.9 : 1.8)
+        .attr("stroke-opacity",d=>d.type==="api" && !d.isInSet ? 0.4 : 1)
+        .attr("filter",d=>{
+          if (d.type === "component") {
+            return `url(#glow-comp-${d.functional_block || "Common"})`;
+          } else {
+            return "none";  // No glow for API nodes in component view
+          }
+        });
+      nodeSel.append("text")
+        .attr("text-anchor","middle").attr("dy",d=>d.type==="component"?"-3.5":"0")
+        .attr("font-family","JetBrains Mono,monospace")
+        .attr("font-size",d=>d.type==="component"?"9px":"7.5px")
+        .attr("font-weight",d=>d.type==="component"?"700":"600")
+        .attr("fill",d=>{
+          if (d.type === "component") {
+            return FUNCTIONAL_BLOCKS[d.functional_block]?.color || "#5e9bff";
+          } else {
+            return d.isInSet ? (DOMAINS[d.domain]?.color || "#5e9bff") : "rgba(224,232,240,0.35)";
+          }
+        })
+        .attr("pointer-events","none")
+        .text(d=>d.id);
+      nodeSel.append("text")
+        .attr("text-anchor","middle").attr("dy","9px")
+        .attr("font-family","Syne,sans-serif").attr("font-size","6.5px").attr("font-weight","600")
+        .attr("fill","rgba(224,232,240,0.32)").attr("pointer-events","none")
+        .text(d=>d.type==="component" ? d.name?.substring(0, 12) || "" : "");
+    }
 
     const drag = d3.drag()
       .on("start",(e,d)=>{ if(!e.active) sim.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
@@ -446,17 +682,24 @@ export default function TMFMap() {
       .on("click",(e,d)=>{ e.stopPropagation(); setSelected(prev=>prev===d.id?null:d.id); })
       .on("mouseenter",(e,d)=>{
         const nr = nodeR(d);
-        d3.select(e.currentTarget).select(".nd-body").transition().duration(120).attr("r",nr+5).attr("stroke-width",2.5).attr("filter","url(#glow-sel)");
-        d3.select(e.currentTarget).select(".nd-ring").transition().duration(120).attr("r",nr+13).attr("stroke-opacity",0.4);
+        const targetR = (isComponentView && d.type === "api") ? nr*0.7 : nr;
+        d3.select(e.currentTarget).select(".nd-body").transition().duration(120)
+          .attr("r",targetR+5).attr("stroke-width",2.5).attr("filter","url(#glow-sel)");
+        d3.select(e.currentTarget).select(".nd-ring").transition().duration(120)
+          .attr("r",targetR+13).attr("stroke-opacity",0.4);
         setHovRef.current?.({ id: d.id, cx: e.clientX, cy: e.clientY });
       })
       .on("mousemove",(e,d)=>{ setHovRef.current?.({ id: d.id, cx: e.clientX, cy: e.clientY }); })
       .on("mouseleave",(e,d)=>{
         const nr = nodeR(d);
+        const targetR = (isComponentView && d.type === "api") ? nr*0.7 : nr;
         const isSel = d3.select(e.currentTarget).attr("data-sel")==="1";
+        const filterKey = isComponentView ? 
+          (d.type === "component" ? `glow-comp-${d.functional_block || "Common"}` : "none") : 
+          `glow-${d.domain}`;
         d3.select(e.currentTarget).select(".nd-body").transition().duration(120)
-          .attr("r",isSel?nr+3:nr).attr("stroke-width",isSel?2.8:1.8)
-          .attr("filter",isSel?"url(#glow-sel)":`url(#glow-${d.domain})`);
+          .attr("r",isSel?targetR+3:targetR).attr("stroke-width",isSel?2.8:1.8)
+          .attr("filter",isSel?"url(#glow-sel)":(filterKey==="none"?"none":`url(#${filterKey})`));
         d3.select(e.currentTarget).select(".nd-ring").transition().duration(120)
           .attr("r",nr+8).attr("stroke-opacity",isSel?0.35:0.18);
         setHovRef.current?.(null);
@@ -477,12 +720,12 @@ export default function TMFMap() {
 
     svg.call(zoom.transform, d3.zoomIdentity.translate(W*0.02,H*0.04).scale(0.92));
     return ()=>{ sim.stop(); };
-  }, []);
+  }, [viewMode, componentGraphData]);
 
   // ── Pattern + filter dimming ─────────────────────────────────────────────
   useEffect(()=>{
     const g = gRef.current;
-    if (!g) return;
+    if (!g || viewMode === "component") return; // Pattern highlighting only for API view
     const pNodes = pattern ? new Set(PATTERNS.find(p=>p.id===pattern)?.nodes||[]) : null;
     g.selectAll(".nd").each(function(d){
       const vis=filtered.has(d.id), hi=!pNodes||pNodes.has(d.id);
@@ -495,32 +738,61 @@ export default function TMFMap() {
         .attr("stroke-opacity",vis?(hi?(pNodes?0.75:0.32):0.03):0.02)
         .attr("stroke-width",hi&&pNodes?2.8:1.5);
     });
-  }, [pattern, filteredKey]);
+  }, [viewMode, pattern, filteredKey]);
+
+  // ── Filter dimming for Component view ────────────────────────────────────
+  useEffect(()=>{
+    const g = gRef.current;
+    if (!g || viewMode !== "component") return;
+    g.selectAll(".nd").each(function(d){
+      const vis = filtered.has(d.id);
+      d3.select(this).transition().duration(220).style("opacity", vis ? 1 : 0.08);
+    });
+    g.selectAll(".lnk").each(function(d){
+      const src = d.source.id || d.source;
+      const vis = filtered.has(src);
+      d3.select(this).transition().duration(220).attr("stroke-opacity", vis ? (d.type === "exposes" ? 0.15 : (d.required ? 0.45 : 0.25)) : 0.02);
+    });
+  }, [viewMode, filteredKey]);
 
   // ── Selection emphasis ────────────────────────────────────────────────────
   useEffect(()=>{
     const g = gRef.current;
     if (!g) return;
+    const isComponentView = viewMode === "component";
+    const currentNodes = isComponentView ? componentGraphData.nodes : APIS;
     const counts = {};
-    APIS.forEach(a => { counts[a.id] = 0; });
-    LINKS.forEach(l => { counts[l.source]=(counts[l.source]||0)+1; counts[l.target]=(counts[l.target]||0)+1; });
-    const maxDeg = Math.max(...Object.values(counts));
-    const nr = id => R + Math.round((counts[id] / maxDeg) * 5);
-    g.selectAll(".nd").each(function(d){
-      const isSel=d.id===selected, r=nr(d.id);
-      d3.select(this).attr("data-sel",isSel?"1":"0");
-      d3.select(this).select(".nd-body").transition().duration(150)
-        .attr("r",isSel?r+3:r).attr("stroke-width",isSel?2.8:1.8)
-        .attr("filter",isSel?"url(#glow-sel)":`url(#glow-${d.domain})`);
-      d3.select(this).select(".nd-ring").transition().duration(150)
-        .attr("stroke-opacity",isSel?0.35:0.18).attr("r",isSel?r+12:r+8);
+    currentNodes.forEach(n => { counts[n.id] = 0; });
+    const currentLinks = isComponentView ? componentGraphData.links : LINKS;
+    currentLinks.forEach(l => { 
+      const src = typeof l.source === "object" ? l.source.id : l.source;
+      const tgt = typeof l.target === "object" ? l.target.id : l.target;
+      counts[src] = (counts[src] || 0) + 1;
+      counts[tgt] = (counts[tgt] || 0) + 1;
     });
-  }, [selected]);
+    const maxDeg = Math.max(...Object.values(counts), 1);
+    const baseR = isComponentView ? R_COMPONENT : R_API;
+    const nr = id => baseR + Math.round((counts[id] / maxDeg) * 5);
+    
+    g.selectAll(".nd").each(function(d){
+      const isSel = d.id === selected;
+      const r = nr(d.id);
+      const filterKey = isComponentView ? `glow-comp-${d.functional_block || "Common"}` : `glow-${d.domain}`;
+      d3.select(this).attr("data-sel", isSel ? "1" : "0");
+      d3.select(this).select(".nd-body").transition().duration(150)
+        .attr("r", isSel ? r+3 : r)
+        .attr("stroke-width", isSel ? 2.8 : 1.8)
+        .attr("filter", isSel ? "url(#glow-sel)" : `url(#${filterKey})`);
+      d3.select(this).select(".nd-ring").transition().duration(150)
+        .attr("stroke-opacity", isSel ? 0.35 : 0.18)
+        .attr("r", isSel ? r+12 : r+8);
+    });
+  }, [selected, viewMode, componentGraphData]);
 
-  // ── Conformance overlay rendering ────────────────────────────────────────
+  // ── Conformance overlay rendering (API view only) ────────────────────────
   useEffect(() => {
     const g = gRef.current;
-    if (!g) return;
+    if (!g || viewMode === "component") return;
     g.selectAll(".nd").each(function(d) {
       const ring = d3.select(this).select(".nd-status");
       if (!overlay) {
@@ -535,9 +807,10 @@ export default function TMFMap() {
         .attr("stroke-opacity", isUntested ? 0.55 : 0.95)
         .attr("stroke-dasharray", isUntested ? "3 3" : null);
     });
-  }, [overlay]);
+  }, [overlay, viewMode]);
 
   const toggleDomain  = k => setDomains(prev=>{ const n=new Set(prev); if(n.has(k)){if(n.size>1)n.delete(k);}else n.add(k); return n; });
+  const toggleFunctionalBlock = k => setFunctionalBlocks(prev=>{ const n=new Set(prev); if(n.has(k)){if(n.size>1)n.delete(k);}else n.add(k); return n; });
   const togglePattern = id => setPattern(p=>p===id?null:id);
   const handleZoom    = d => d3.select(svgRef.current).transition().duration(200).call(zoomRef.current.scaleBy,d);
   const handleReset   = () => {
@@ -545,13 +818,13 @@ export default function TMFMap() {
     d3.select(el).transition().duration(400).call(zoomRef.current.transform,d3.zoomIdentity.translate(el.clientWidth*0.02,el.clientHeight*0.04).scale(0.92));
   };
 
-  const selData    = selected ? apiMap[selected] : null;
-  const selDetails = selected ? API_DETAILS[selected] : null;
-  const outbound   = selected ? LINKS.filter(l=>(l.source.id||l.source)===selected).map(l=>({id:l.target.id||l.target,label:l.label})) : [];
-  const inbound    = selected ? LINKS.filter(l=>(l.target.id||l.target)===selected).map(l=>({id:l.source.id||l.source,label:l.label})) : [];
+  const selData    = viewMode === "api" ? (selected ? apiMap[selected] : null) : (selected ? compMap[selected] : null);
+  const selDetails = viewMode === "api" && selected ? API_DETAILS[selected] : null;
+  const outbound   = viewMode === "api" && selected ? LINKS.filter(l=>(l.source.id||l.source)===selected).map(l=>({id:l.target.id||l.target,label:l.label})) : [];
+  const inbound    = viewMode === "api" && selected ? LINKS.filter(l=>(l.target.id||l.target)===selected).map(l=>({id:l.source.id||l.source,label:l.label})) : [];
   const activePatternData = pattern ? PATTERNS.find(p=>p.id===pattern) : null;
-  const githubUrl  = selected ? `https://github.com/tmforum-apis/${GITHUB_REPOS[selected]}` : null;
-  const selStat    = (selected && overlay) ? overlay.statuses[selected] : null;
+  const githubUrl  = viewMode === "api" && selected ? `https://github.com/tmforum-apis/${GITHUB_REPOS[selected]}` : null;
+  const selStat    = (viewMode === "api" && selected && overlay) ? overlay.statuses[selected] : null;
 
   // Sort failed → skipped → passed for the per-API conformance list.
   const SEV_ORDER = { fail: 0, skip: 1, pass: 2 };
@@ -578,6 +851,7 @@ export default function TMFMap() {
         .ovmenu-item:hover{background:rgba(94,155,255,0.12)!important;color:#fff!important}
         .ghlink{color:rgba(224,232,240,0.3);font-size:9.5px;font-family:'JetBrains Mono',monospace;text-decoration:none;display:flex;align-items:center;gap:4px;padding:2px 7px;border-radius:4px;border:1px solid rgba(255,255,255,0.08);transition:all 0.15s}
         .ghlink:hover{color:rgba(224,232,240,0.7);border-color:rgba(255,255,255,0.18);background:rgba(255,255,255,0.04)}
+        .viewbtn:hover{opacity:0.9}
         button{font-family:inherit;outline:none}
         input{font-family:inherit;outline:none}
       `}</style>
@@ -590,25 +864,61 @@ export default function TMFMap() {
           <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:16,letterSpacing:"-0.5px"}}>
             tmf<span style={{color:"#5e9bff"}}>-map</span>
           </div>
-          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,color:"rgba(224,232,240,0.3)",letterSpacing:"1.4px",textTransform:"uppercase"}}>API Relationship Explorer</div>
+          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,color:"rgba(224,232,240,0.3)",letterSpacing:"1.4px",textTransform:"uppercase"}}>
+            {viewMode === "api" ? "API Relationship Explorer" : "ODA Component Architecture"}
+          </div>
         </div>
+        
+        {/* View mode toggle */}
+        <div style={{display:"flex",gap:4,background:"rgba(255,255,255,0.03)",padding:3,borderRadius:7,border:"1px solid rgba(94,155,255,0.12)",flexShrink:0}}>
+          <button className="viewbtn" onClick={()=>{setViewMode("api");setSelected(null);setPattern(null);}}
+            style={{padding:"4px 12px",borderRadius:5,fontSize:10.5,fontWeight:600,cursor:"pointer",
+              border:"none",background:viewMode==="api"?"rgba(94,155,255,0.18)":"transparent",
+              color:viewMode==="api"?"#5e9bff":"rgba(224,232,240,0.4)",
+              fontFamily:"'Syne',sans-serif",transition:"all 0.15s"}}>
+            API View
+          </button>
+          <button className="viewbtn" onClick={()=>{setViewMode("component");setSelected(null);setPattern(null);}}
+            style={{padding:"4px 12px",borderRadius:5,fontSize:10.5,fontWeight:600,cursor:"pointer",
+              border:"none",background:viewMode==="component"?"rgba(94,155,255,0.18)":"transparent",
+              color:viewMode==="component"?"#5e9bff":"rgba(224,232,240,0.4)",
+              fontFamily:"'Syne',sans-serif",transition:"all 0.15s"}}>
+            Component View
+          </button>
+        </div>
+        
         <div style={{width:1,height:28,background:"rgba(94,155,255,0.1)",flexShrink:0}}/>
         <div style={{position:"relative",flexShrink:0}}>
           <svg style={{position:"absolute",left:9,top:"50%",transform:"translateY(-50%)",opacity:0.3,pointerEvents:"none"}} width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
           <input style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(94,155,255,0.16)",borderRadius:7,padding:"6px 10px 6px 28px",color:"#e0e8f0",fontFamily:"'JetBrains Mono',monospace",fontSize:11,width:200}}
-            placeholder="Search APIs…" value={search} onChange={e=>setSearch(e.target.value)}/>
+            placeholder={viewMode === "api" ? "Search APIs…" : "Search Components…"}
+            value={search} onChange={e=>setSearch(e.target.value)}/>
         </div>
-        <div style={{display:"flex",gap:5,flexWrap:"wrap"}}>
-          {Object.entries(DOMAINS).map(([k,d])=>(
-            <button key={k} className="dbadge" onClick={()=>toggleDomain(k)} style={{padding:"3px 9px",borderRadius:20,fontSize:10.5,fontWeight:600,cursor:"pointer",border:`1px solid ${domains.has(k)?d.color+"45":"rgba(255,255,255,0.07)"}`,background:domains.has(k)?d.color+"16":"rgba(255,255,255,0.02)",color:domains.has(k)?d.color:"rgba(224,232,240,0.22)",fontFamily:"'Syne',sans-serif",transition:"all 0.15s"}}>
-              {d.label}
-            </button>
-          ))}
-        </div>
+        
+        {viewMode === "api" && (
+          <div style={{display:"flex",gap:5,flexWrap:"wrap"}}>
+            {Object.entries(DOMAINS).map(([k,d])=>(
+              <button key={k} className="dbadge" onClick={()=>toggleDomain(k)} style={{padding:"3px 9px",borderRadius:20,fontSize:10.5,fontWeight:600,cursor:"pointer",border:`1px solid ${domains.has(k)?d.color+"45":"rgba(255,255,255,0.07)"}`,background:domains.has(k)?d.color+"16":"rgba(255,255,255,0.02)",color:domains.has(k)?d.color:"rgba(224,232,240,0.22)",fontFamily:"'Syne',sans-serif",transition:"all 0.15s"}}>
+                {d.label}
+              </button>
+            ))}
+          </div>
+        )}
+        
+        {viewMode === "component" && (
+          <div style={{display:"flex",gap:5,flexWrap:"wrap"}}>
+            {Object.entries(FUNCTIONAL_BLOCKS).map(([k,d])=>(
+              <button key={k} className="dbadge" onClick={()=>toggleFunctionalBlock(k)} style={{padding:"3px 9px",borderRadius:20,fontSize:10.5,fontWeight:600,cursor:"pointer",border:`1px solid ${functionalBlocks.has(k)?d.color+"45":"rgba(255,255,255,0.07)"}`,background:functionalBlocks.has(k)?d.color+"16":"rgba(255,255,255,0.02)",color:functionalBlocks.has(k)?d.color:"rgba(224,232,240,0.22)",fontFamily:"'Syne',sans-serif",transition:"all 0.15s"}}>
+                {d.label}
+              </button>
+            ))}
+          </div>
+        )}
+        
         <div style={{marginLeft:"auto",fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:"rgba(224,232,240,0.28)",borderLeft:"1px solid rgba(94,155,255,0.1)",paddingLeft:10,flexShrink:0}}>
-          {filtered.size}/{APIS.length}
+          {filtered.size}/{viewMode === "api" ? APIS.length : COMPONENTS.length}
         </div>
       </div>
 
@@ -616,8 +926,14 @@ export default function TMFMap() {
       <div ref={canvasRef} style={{flex:1,position:"relative",overflow:"hidden",zIndex:1}}>
         <svg ref={svgRef} style={{width:"100%",height:"100%",cursor:"grab",display:"block"}} onClick={()=>setSelected(null)}/>
 
-        <NodeTooltip hovered={hovered} apiMap={apiMap} connCounts={connCounts} canvasRef={canvasRef}
-                     statuses={overlay?.statuses}/>
+        {viewMode === "api" && (
+          <NodeTooltip hovered={hovered} apiMap={apiMap} connCounts={connCounts} canvasRef={canvasRef}
+                       statuses={overlay?.statuses}/>
+        )}
+        
+        {viewMode === "component" && (
+          <ComponentTooltip hovered={hovered} compMap={compMap} canvasRef={canvasRef}/>
+        )}
 
         {/* Zoom controls */}
         <div style={{position:"absolute",bottom:62,left:14,display:"flex",flexDirection:"column",gap:4,zIndex:20}}>
@@ -630,23 +946,47 @@ export default function TMFMap() {
 
         {/* Legend */}
         <div style={{position:"absolute",bottom:62,right:selected?348:14,background:"rgba(6,11,20,0.9)",border:"1px solid rgba(94,155,255,0.1)",borderRadius:8,padding:"10px 13px",zIndex:20,backdropFilter:"blur(12px)",transition:"right 0.2s"}}>
-          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,letterSpacing:"1.5px",textTransform:"uppercase",color:"rgba(224,232,240,0.28)",marginBottom:8}}>Domains</div>
-          {Object.entries(DOMAINS).map(([k,d])=>(
+          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,letterSpacing:"1.5px",textTransform:"uppercase",color:"rgba(224,232,240,0.28)",marginBottom:8}}>
+            {viewMode === "api" ? "Domains" : "Functional Blocks"}
+          </div>
+          {viewMode === "api" && Object.entries(DOMAINS).map(([k,d])=>(
             <div key={k} style={{display:"flex",alignItems:"center",gap:7,marginBottom:5,fontSize:11,color:domains.has(k)?d.color:"rgba(224,232,240,0.3)"}}>
               <div style={{width:7,height:7,borderRadius:"50%",background:d.color,flexShrink:0,opacity:domains.has(k)?1:0.3}}/>{d.label}
+            </div>
+          ))}
+          {viewMode === "component" && Object.entries(FUNCTIONAL_BLOCKS).map(([k,d])=>(
+            <div key={k} style={{display:"flex",alignItems:"center",gap:7,marginBottom:5,fontSize:11,color:functionalBlocks.has(k)?d.color:"rgba(224,232,240,0.3)"}}>
+              <div style={{width:7,height:7,borderRadius:"50%",background:d.color,flexShrink:0,opacity:functionalBlocks.has(k)?1:0.3}}/>{d.label}
             </div>
           ))}
           <div style={{marginTop:8,paddingTop:8,borderTop:"1px solid rgba(94,155,255,0.08)",fontSize:9,color:"rgba(224,232,240,0.2)",fontFamily:"'JetBrains Mono',monospace"}}>
             node size ∝ connections
           </div>
-          {activePatternData && (
+          {viewMode === "component" && (
+            <div style={{marginTop:8,paddingTop:8,borderTop:"1px solid rgba(94,155,255,0.08)"}}>
+              <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,letterSpacing:"1.5px",textTransform:"uppercase",color:"rgba(224,232,240,0.28)",marginBottom:5}}>Edge Types</div>
+              <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:3,fontSize:10,color:"rgba(224,232,240,0.65)"}}>
+                <div style={{width:16,height:1,borderTop:"2px solid rgba(94,155,255,0.6)",flexShrink:0}}/>
+                Depends (required)
+              </div>
+              <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:3,fontSize:10,color:"rgba(224,232,240,0.65)"}}>
+                <div style={{width:16,height:1,borderTop:"1.5px dashed rgba(94,155,255,0.4)",flexShrink:0}}/>
+                Depends (optional)
+              </div>
+              <div style={{display:"flex",alignItems:"center",gap:7,fontSize:10,color:"rgba(224,232,240,0.65)"}}>
+                <div style={{width:16,height:1,borderTop:"1px dashed rgba(94,155,255,0.2)",flexShrink:0}}/>
+                Exposes API
+              </div>
+            </div>
+          )}
+          {activePatternData && viewMode === "api" && (
             <div style={{marginTop:8,paddingTop:8,borderTop:"1px solid rgba(94,155,255,0.08)"}}>
               <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,letterSpacing:"1.5px",textTransform:"uppercase",color:"rgba(224,232,240,0.28)",marginBottom:5}}>Active Pattern</div>
               <div style={{fontSize:11,color:activePatternData.color,fontWeight:600}}>{activePatternData.name}</div>
               <div style={{fontSize:10,color:"rgba(224,232,240,0.4)",marginTop:2,lineHeight:1.5,maxWidth:130}}>{activePatternData.desc}</div>
             </div>
           )}
-          {overlay && (
+          {overlay && viewMode === "api" && (
             <div style={{marginTop:8,paddingTop:8,borderTop:"1px solid rgba(94,155,255,0.08)"}}>
               <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,letterSpacing:"1.5px",textTransform:"uppercase",color:"rgba(224,232,240,0.28)",marginBottom:5}}>Conformance</div>
               {["pass","skip","fail","untested"].map(k => (
@@ -661,8 +1001,8 @@ export default function TMFMap() {
           )}
         </div>
 
-        {/* ── Detail Panel ── */}
-        {selected && selData && (
+        {/* ── Detail Panel (API view) ── */}
+        {viewMode === "api" && selected && selData && (
           <div style={{position:"absolute",top:0,right:0,width:334,height:"100%",background:"rgba(6,11,20,0.96)",backdropFilter:"blur(24px)",borderLeft:"1px solid rgba(94,155,255,0.1)",overflowY:"auto",zIndex:30,padding:"18px 18px 28px",animation:"slideIn 0.18s ease"}} onClick={e=>e.stopPropagation()}>
             <button onClick={()=>setSelected(null)} style={{position:"absolute",top:14,right:14,background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:6,color:"rgba(224,232,240,0.45)",width:26,height:26,cursor:"pointer",fontSize:15,display:"flex",alignItems:"center",justifyContent:"center",lineHeight:1}}>×</button>
 
@@ -836,107 +1176,192 @@ export default function TMFMap() {
             </div>
           </div>
         )}
+        
+        {/* ── Detail Panel (Component view) ── */}
+        {viewMode === "component" && selected && selData && (
+          <div style={{position:"absolute",top:0,right:0,width:334,height:"100%",background:"rgba(6,11,20,0.96)",backdropFilter:"blur(24px)",borderLeft:"1px solid rgba(94,155,255,0.1)",overflowY:"auto",zIndex:30,padding:"18px 18px 28px",animation:"slideIn 0.18s ease"}} onClick={e=>e.stopPropagation()}>
+            <button onClick={()=>setSelected(null)} style={{position:"absolute",top:14,right:14,background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:6,color:"rgba(224,232,240,0.45)",width:26,height:26,cursor:"pointer",fontSize:15,display:"flex",alignItems:"center",justifyContent:"center",lineHeight:1}}>×</button>
+
+            <div style={{animation:"fadeUp 0.2s ease"}}>
+              <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:21,fontWeight:700,color:FUNCTIONAL_BLOCKS[selData.functional_block]?.color || "#5e9bff",marginBottom:2}}>{selected}</div>
+              <div style={{fontSize:12,color:"rgba(224,232,240,0.42)",marginBottom:8}}>{selData.name}</div>
+
+              <div style={{display:"flex",gap:6,marginBottom:10,alignItems:"center",flexWrap:"wrap"}}>
+                <div style={{padding:"2px 8px",borderRadius:4,background:`${FUNCTIONAL_BLOCKS[selData.functional_block]?.color || "#5e9bff"}14`,border:`1px solid ${FUNCTIONAL_BLOCKS[selData.functional_block]?.color || "#5e9bff"}35`,color:FUNCTIONAL_BLOCKS[selData.functional_block]?.color || "#5e9bff",fontSize:9.5,fontFamily:"'JetBrains Mono',monospace"}}>
+                  {FUNCTIONAL_BLOCKS[selData.functional_block]?.label || selData.functional_block}
+                </div>
+                {selData.version && (
+                  <div style={{padding:"2px 8px",borderRadius:4,background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.09)",color:"rgba(224,232,240,0.32)",fontSize:9.5,fontFamily:"'JetBrains Mono',monospace"}}>
+                    v{selData.version}
+                  </div>
+                )}
+                {selData.status && (
+                  <div style={{padding:"2px 8px",borderRadius:4,background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.09)",color:"rgba(224,232,240,0.32)",fontSize:9.5,fontFamily:"'JetBrains Mono',monospace"}}>
+                    {selData.status}
+                  </div>
+                )}
+              </div>
+
+              <div style={{display:"flex",gap:8,marginBottom:12,paddingBottom:12,borderBottom:"1px solid rgba(94,155,255,0.08)"}}>
+                <div style={{flex:1,background:"rgba(255,255,255,0.025)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:6,padding:"7px 10px",textAlign:"center"}}>
+                  <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:17,fontWeight:700,color:FUNCTIONAL_BLOCKS[selData.functional_block]?.color || "#5e9bff"}}>{selData.exposed_apis?.length || 0}</div>
+                  <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"rgba(224,232,240,0.3)",marginTop:2}}>exposed APIs</div>
+                </div>
+                <div style={{flex:1,background:"rgba(255,255,255,0.025)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:6,padding:"7px 10px",textAlign:"center"}}>
+                  <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:17,fontWeight:700,color:FUNCTIONAL_BLOCKS[selData.functional_block]?.color || "#5e9bff"}}>{selData.dependent_apis?.length || 0}</div>
+                  <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"rgba(224,232,240,0.3)",marginTop:2}}>dependent APIs</div>
+                </div>
+              </div>
+
+              {selData.description && (
+                <div style={{fontSize:11.5,lineHeight:1.75,color:"rgba(224,232,240,0.62)",marginBottom:16,paddingBottom:14,borderBottom:"1px solid rgba(94,155,255,0.07)"}}>
+                  {selData.description}
+                </div>
+              )}
+
+              {selData.exposed_apis?.length > 0 && (
+                <div style={{marginBottom:16}}>
+                  <SectionTitle>Exposed APIs ({selData.exposed_apis.length})</SectionTitle>
+                  {selData.exposed_apis.map((api,i)=>(
+                    <div key={i} style={{display:"flex",alignItems:"center",gap:7,padding:"6px 8px",borderRadius:6,background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.045)",marginBottom:4}}>
+                      <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10.5,fontWeight:700,color:FUNCTIONAL_BLOCKS[selData.functional_block]?.color || "#5e9bff",flexShrink:0}}>{api.id}</span>
+                      <span style={{fontSize:10.5,color:"rgba(224,232,240,0.38)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{api.name}</span>
+                      {api.required && (
+                        <span style={{marginLeft:"auto",fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"rgba(255,107,107,0.5)",flexShrink:0}}>required</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {selData.dependent_apis?.length > 0 && (
+                <div>
+                  <SectionTitle>Dependent APIs ({selData.dependent_apis.length})</SectionTitle>
+                  {selData.dependent_apis.map((api,i)=>(
+                    <div key={i} style={{display:"flex",alignItems:"center",gap:7,padding:"6px 8px",borderRadius:6,background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.045)",marginBottom:4}}>
+                      <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10.5,fontWeight:700,color:FUNCTIONAL_BLOCKS[selData.functional_block]?.color || "#5e9bff",flexShrink:0}}>{api.id}</span>
+                      <span style={{fontSize:10.5,color:"rgba(224,232,240,0.38)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{api.name}</span>
+                      {api.required && (
+                        <span style={{marginLeft:"auto",fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"rgba(255,107,107,0.5)",flexShrink:0}}>required</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ── Pattern Bar ── */}
       <div style={{padding:"7px 18px",display:"flex",gap:8,alignItems:"center",borderTop:"1px solid rgba(94,155,255,0.08)",background:"rgba(6,11,20,0.97)",zIndex:10,position:"relative",flexShrink:0}}>
-        <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,letterSpacing:"1.2px",textTransform:"uppercase",color:"rgba(224,232,240,0.22)",flexShrink:0}}>Patterns</span>
-        {PATTERNS.map(p=>(
-          <button key={p.id} className="pbtn" onClick={()=>togglePattern(p.id)} title={p.desc}
-            style={{padding:"4px 11px",borderRadius:6,fontSize:10.5,fontWeight:600,cursor:"pointer",border:`1px solid ${pattern===p.id?p.color+"50":"rgba(255,255,255,0.07)"}`,background:pattern===p.id?p.color+"16":"rgba(255,255,255,0.025)",color:pattern===p.id?p.color:"rgba(224,232,240,0.38)",fontFamily:"'Syne',sans-serif",transition:"all 0.15s"}}>
-            {p.name}
-          </button>
-        ))}
+        {viewMode === "api" && (
+          <>
+            <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,letterSpacing:"1.2px",textTransform:"uppercase",color:"rgba(224,232,240,0.22)",flexShrink:0}}>Patterns</span>
+            {PATTERNS.map(p=>(
+              <button key={p.id} className="pbtn" onClick={()=>togglePattern(p.id)} title={p.desc}
+                style={{padding:"4px 11px",borderRadius:6,fontSize:10.5,fontWeight:600,cursor:"pointer",border:`1px solid ${pattern===p.id?p.color+"50":"rgba(255,255,255,0.07)"}`,background:pattern===p.id?p.color+"16":"rgba(255,255,255,0.025)",color:pattern===p.id?p.color:"rgba(224,232,240,0.38)",fontFamily:"'Syne',sans-serif",transition:"all 0.15s"}}>
+                {p.name}
+              </button>
+            ))}
+          </>
+        )}
 
-        {/* ── Conformance overlay toggle ── */}
-        <div style={{position:"relative",marginLeft:6}}>
-          <button className="ovbtn"
-            onClick={() => setOverlayMenu(v => !v)}
-            title="Overlay tmf-lint conformance results onto the graph"
-            style={{padding:"4px 11px",borderRadius:6,fontSize:10.5,fontWeight:600,cursor:"pointer",
-              border:`1px solid ${overlay ? "#30d15850" : "rgba(255,255,255,0.07)"}`,
-              background: overlay ? "rgba(48,209,88,0.10)" : "rgba(255,255,255,0.025)",
-              color: overlay ? "#30d158" : "rgba(224,232,240,0.38)",
-              fontFamily:"'Syne',sans-serif",transition:"all 0.15s",
-              display:"flex",alignItems:"center",gap:5}}>
-            <span style={{display:"inline-block",width:6,height:6,borderRadius:"50%",
-              background: overlay ? "#30d158" : "rgba(224,232,240,0.22)"}}/>
-            Conformance {overlay ? "ON" : "OFF"}
-            <span style={{fontSize:8,opacity:0.6,marginLeft:1}}>▾</span>
-          </button>
-          {overlayMenu && (
-            <>
-              <div onClick={() => setOverlayMenu(false)}
-                   style={{position:"fixed",inset:0,zIndex:35}}/>
-              <div style={{position:"absolute",bottom:"calc(100% + 6px)",left:0,minWidth:220,
-                background:"rgba(6,11,20,0.98)",border:"1px solid rgba(94,155,255,0.18)",
-                borderRadius:7,padding:6,zIndex:40,backdropFilter:"blur(12px)",
-                boxShadow:"0 4px 16px rgba(0,0,0,0.4)"}}>
-                <div className="ovmenu-item" onClick={() => loadBundled("demo")}
-                  style={{padding:"7px 9px",fontSize:11,color:"rgba(224,232,240,0.7)",
-                          cursor:"pointer",borderRadius:5,fontFamily:"'Syne',sans-serif",
-                          transition:"all 0.12s"}}>
-                  <div style={{fontWeight:600}}>Load demo report</div>
-                  <div style={{fontSize:9.5,color:"rgba(224,232,240,0.35)",marginTop:1,
-                               fontFamily:"'JetBrains Mono',monospace"}}>
-                    mixed pass/fail/skip · for visual demo
-                  </div>
-                </div>
-                <div className="ovmenu-item" onClick={() => loadBundled("sample")}
-                  style={{padding:"7px 9px",fontSize:11,color:"rgba(224,232,240,0.7)",
-                          cursor:"pointer",borderRadius:5,fontFamily:"'Syne',sans-serif",
-                          transition:"all 0.12s"}}>
-                  <div style={{fontWeight:600}}>Load real sample report</div>
-                  <div style={{fontSize:9.5,color:"rgba(224,232,240,0.35)",marginTop:1,
-                               fontFamily:"'JetBrains Mono',monospace"}}>
-                    captured from tmf-mock + tmf-lint
-                  </div>
-                </div>
-                <div className="ovmenu-item" onClick={() => fileInputRef.current?.click()}
-                  style={{padding:"7px 9px",fontSize:11,color:"rgba(224,232,240,0.7)",
-                          cursor:"pointer",borderRadius:5,fontFamily:"'Syne',sans-serif",
-                          transition:"all 0.12s"}}>
-                  <div style={{fontWeight:600}}>Upload report…</div>
-                  <div style={{fontSize:9.5,color:"rgba(224,232,240,0.35)",marginTop:1,
-                               fontFamily:"'JetBrains Mono',monospace"}}>
-                    JSON from <code>tmf-lint check --format json</code>
-                  </div>
-                </div>
-                {overlay && (
-                  <>
-                    <div style={{height:1,background:"rgba(94,155,255,0.1)",margin:"4px 0"}}/>
-                    <div className="ovmenu-item" onClick={clearOverlay}
-                      style={{padding:"7px 9px",fontSize:11,color:"rgba(255,107,107,0.75)",
-                              cursor:"pointer",borderRadius:5,fontFamily:"'Syne',sans-serif",
-                              transition:"all 0.12s"}}>
-                      Turn overlay off
+        {/* ── Conformance overlay toggle (API view only) ── */}
+        {viewMode === "api" && (
+          <div style={{position:"relative",marginLeft:6}}>
+            <button className="ovbtn"
+              onClick={() => setOverlayMenu(v => !v)}
+              title="Overlay tmf-lint conformance results onto the graph"
+              style={{padding:"4px 11px",borderRadius:6,fontSize:10.5,fontWeight:600,cursor:"pointer",
+                border:`1px solid ${overlay ? "#30d15850" : "rgba(255,255,255,0.07)"}`,
+                background: overlay ? "rgba(48,209,88,0.10)" : "rgba(255,255,255,0.025)",
+                color: overlay ? "#30d158" : "rgba(224,232,240,0.38)",
+                fontFamily:"'Syne',sans-serif",transition:"all 0.15s",
+                display:"flex",alignItems:"center",gap:5}}>
+              <span style={{display:"inline-block",width:6,height:6,borderRadius:"50%",
+                background: overlay ? "#30d158" : "rgba(224,232,240,0.22)"}}/>
+              Conformance {overlay ? "ON" : "OFF"}
+              <span style={{fontSize:8,opacity:0.6,marginLeft:1}}>▾</span>
+            </button>
+            {overlayMenu && (
+              <>
+                <div onClick={() => setOverlayMenu(false)}
+                     style={{position:"fixed",inset:0,zIndex:35}}/>
+                <div style={{position:"absolute",bottom:"calc(100% + 6px)",left:0,minWidth:220,
+                  background:"rgba(6,11,20,0.98)",border:"1px solid rgba(94,155,255,0.18)",
+                  borderRadius:7,padding:6,zIndex:40,backdropFilter:"blur(12px)",
+                  boxShadow:"0 4px 16px rgba(0,0,0,0.4)"}}>
+                  <div className="ovmenu-item" onClick={() => loadBundled("demo")}
+                    style={{padding:"7px 9px",fontSize:11,color:"rgba(224,232,240,0.7)",
+                            cursor:"pointer",borderRadius:5,fontFamily:"'Syne',sans-serif",
+                            transition:"all 0.12s"}}>
+                    <div style={{fontWeight:600}}>Load demo report</div>
+                    <div style={{fontSize:9.5,color:"rgba(224,232,240,0.35)",marginTop:1,
+                                 fontFamily:"'JetBrains Mono',monospace"}}>
+                      mixed pass/fail/skip · for visual demo
                     </div>
-                  </>
-                )}
-                {overlayError && (
-                  <>
-                    <div style={{height:1,background:"rgba(94,155,255,0.1)",margin:"4px 0"}}/>
-                    <div style={{padding:"6px 9px",fontSize:10,color:"#ff8585",
-                                 fontFamily:"'JetBrains Mono',monospace",lineHeight:1.4}}>
-                      {overlayError}
+                  </div>
+                  <div className="ovmenu-item" onClick={() => loadBundled("sample")}
+                    style={{padding:"7px 9px",fontSize:11,color:"rgba(224,232,240,0.7)",
+                            cursor:"pointer",borderRadius:5,fontFamily:"'Syne',sans-serif",
+                            transition:"all 0.12s"}}>
+                    <div style={{fontWeight:600}}>Load real sample report</div>
+                    <div style={{fontSize:9.5,color:"rgba(224,232,240,0.35)",marginTop:1,
+                                 fontFamily:"'JetBrains Mono',monospace"}}>
+                      captured from tmf-mock + tmf-lint
                     </div>
-                  </>
-                )}
-              </div>
-            </>
-          )}
-          <input ref={fileInputRef} type="file" accept=".json,application/json"
-            onChange={handleFileChange}
-            style={{display:"none"}}/>
-        </div>
+                  </div>
+                  <div className="ovmenu-item" onClick={() => fileInputRef.current?.click()}
+                    style={{padding:"7px 9px",fontSize:11,color:"rgba(224,232,240,0.7)",
+                            cursor:"pointer",borderRadius:5,fontFamily:"'Syne',sans-serif",
+                            transition:"all 0.12s"}}>
+                    <div style={{fontWeight:600}}>Upload report…</div>
+                    <div style={{fontSize:9.5,color:"rgba(224,232,240,0.35)",marginTop:1,
+                                 fontFamily:"'JetBrains Mono',monospace"}}>
+                      JSON from <code>tmf-lint check --format json</code>
+                    </div>
+                  </div>
+                  {overlay && (
+                    <>
+                      <div style={{height:1,background:"rgba(94,155,255,0.1)",margin:"4px 0"}}/>
+                      <div className="ovmenu-item" onClick={clearOverlay}
+                        style={{padding:"7px 9px",fontSize:11,color:"rgba(255,107,107,0.75)",
+                                cursor:"pointer",borderRadius:5,fontFamily:"'Syne',sans-serif",
+                                transition:"all 0.12s"}}>
+                        Turn overlay off
+                      </div>
+                    </>
+                  )}
+                  {overlayError && (
+                    <>
+                      <div style={{height:1,background:"rgba(94,155,255,0.1)",margin:"4px 0"}}/>
+                      <div style={{padding:"6px 9px",fontSize:10,color:"#ff8585",
+                                   fontFamily:"'JetBrains Mono',monospace",lineHeight:1.4}}>
+                        {overlayError}
+                      </div>
+                    </>
+                  )}
+                </div>
+              </>
+            )}
+            <input ref={fileInputRef} type="file" accept=".json,application/json"
+              onChange={handleFileChange}
+              style={{display:"none"}}/>
+          </div>
+        )}
 
         <span style={{marginLeft:"auto",fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,color:"rgba(224,232,240,0.14)"}}>
-          {overlay
+          {overlay && viewMode === "api"
             ? <>conformance · {overlay.name} · {fmtHost(overlay.report.base_url)} · {overlay.report.summary.passed}/{overlay.report.summary.total} passed · loaded {fmtTime(overlay.loadedAt)}</>
-            : <>tmf-devkit · Apache 2.0 · {APIS.length} APIs · {LINKS.length} relationships</>}
+            : viewMode === "api"
+              ? <>tmf-devkit · Apache 2.0 · {APIS.length} APIs · {LINKS.length} relationships</>
+              : <>tmf-devkit · Apache 2.0 · {COMPONENTS.length} Components · {ODA_DATA.spec_source}</>}
         </span>
         <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"rgba(224,232,240,0.1)",marginLeft:12,flexShrink:0}}>
-          Edges show schema $ref links between API models — not ODA Component dependencies
+          {viewMode === "api" 
+            ? "Edges show schema $ref links between API models — not ODA Component dependencies"
+            : "Component architectural dependencies from ODA Canvas v1.0.0"}
         </span>
       </div>
     </div>
