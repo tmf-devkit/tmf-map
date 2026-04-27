@@ -20,8 +20,71 @@ solution architects, pre-sales consultants, and TMForum certification candidates
 - **Click any node** → slide-in detail panel with entity model, lifecycle state machine,
   and cross-API reference list
 - **Integration patterns** — Order-to-Activate, Catalog-to-Inventory, Trouble-to-Resolve
+- **Conformance overlay** — load a tmf-lint report to colour-code each API by test status
 - **Domain filters** and live search
 - **Node size** proportional to number of connections
+
+---
+
+## Conformance overlay (tmf-lint integration)
+
+tmf-map can display conformance results from [tmf-lint](https://github.com/tmf-devkit/tmf-lint)
+as a visual overlay on the graph.
+
+### Quick start
+
+**1. Start a TMF API server** (or use tmf-mock for a local demo):
+
+```bash
+pip install tmf-mock
+tmf-mock start --host 127.0.0.1 --port 8000
+```
+
+**2. Run tmf-lint and capture the report:**
+
+```bash
+pip install tmf-lint
+tmf-lint check --url http://127.0.0.1:8000 --apis 638,639,641 --format json > conformance_report.json
+```
+
+**3. Load the report into tmf-map:**
+
+Open https://tmf-devkit.github.io/tmf-map → click **Conformance ▾** in the bottom bar
+→ **Upload report…** → select your `conformance_report.json`.
+
+### What you see
+
+Each API node gets a status ring:
+
+| Ring | Meaning |
+|---|---|
+| 🟢 Solid green | All rules passed |
+| 🟡 Solid yellow | All attempted rules passed, but some were skipped (incomplete coverage) |
+| 🔴 Solid red | One or more rules failed |
+| ⚪ Dashed grey | API not present in the report (not tested) |
+
+Click a node while the overlay is active to see the full rule-by-rule breakdown —
+failed rules pinned at the top, then skipped, then passed — with category labels and
+failure messages.
+
+The footer switches to a status line showing the report filename, target server,
+pass/fail summary, and load time.
+
+### Bundled reports
+
+Two sample reports are bundled for demo purposes (no setup needed):
+
+- **Demo report** — hand-crafted mixed state (TMF638 green, TMF639 yellow, TMF641 red)
+  to showcase all four visual states. Select **Conformance ▾ → Load demo report**.
+- **Real sample** — captured from an actual tmf-mock + tmf-lint run (all 39 rules pass).
+  Select **Conformance ▾ → Load real sample report**.
+
+### tmf-lint coverage (v0.1)
+
+tmf-lint v0.1 covers 39 rules across TMF638, TMF639, and TMF641. The remaining 13 APIs
+in tmf-map render with dashed grey rings when a report is loaded.
+
+---
 
 ## What edges represent
 
@@ -39,7 +102,9 @@ in the [TM Forum ODA Components directory](https://www.tmforum.org/oda/directory
 The architectural dependency graph at the component level is a different — and complementary
 — view. An ODAC component map is on the roadmap as a future mode.
 
-## APIs covered (v0.1)
+---
+
+## APIs covered
 
 Customer · Product · Service Mgmt · Resource · Engagement · Common domains —
 TMF629, TMF632, TMF620, TMF622, TMF637, TMF633, TMF638, TMF641, TMF645,
@@ -64,14 +129,19 @@ pip install tmf-spec-parser
 tmf-spec-parser generate --out src/tmf_data.json --js
 ```
 
+---
+
 ## TMF DevKit
 
 | Module | Description |
 |---|---|
-| [tmf-mock](https://github.com/tmf-devkit/tmf-mock) | Smart TMF mock server |
-| [tmf-lint](https://github.com/tmf-devkit/tmf-lint) | Runtime conformance checker |
+| [tmf-mock](https://github.com/tmf-devkit/tmf-mock) | Smart TMF mock server with domain-aware seed data |
+| [tmf-lint](https://github.com/tmf-devkit/tmf-lint) | Runtime conformance checker — validates live APIs against TMF rules |
 | [tmf-spec-parser](https://github.com/tmf-devkit/tmf-spec-parser) | Spec extraction and drift detection |
-| **tmf-map** | Interactive API relationship graph (this repo) |
+| **tmf-map** | Interactive API relationship graph with conformance overlay (this repo) |
+
+The tools are designed to work together: tmf-mock generates traffic, tmf-lint validates it,
+and tmf-map visualises both the API landscape and the conformance results.
 
 ## License
 

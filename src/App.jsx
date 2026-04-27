@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import * as d3 from "d3";
 import TMF_DATA from "./tmf_data.js";
 
@@ -22,6 +22,76 @@ const API_DETAILS = TMF_DATA.details;
 const GITHUB_REPOS = Object.fromEntries(
   TMF_DATA.apis.map(a => [a.id, a.repo])
 );
+
+// ─── Conformance overlay config (tmf-lint integration) ───────────────────────
+const STATUS_COLORS = {
+  pass:     "#30d158",                     // green
+  fail:     "#ff453a",                     // red
+  skip:     "#ffd60a",                     // yellow (passed but incomplete coverage)
+  untested: "rgba(224,232,240,0.22)",      // grey
+};
+const STATUS_LABELS = {
+  pass:     "All passed",
+  fail:     "Failures",
+  skip:     "Incomplete (skipped)",
+  untested: "Not tested",
+};
+const apiKey = n => `TMF${n}`;
+
+/**
+ * Take a parsed tmf-lint report and return per-API status keyed by tmf-map id.
+ * Every API in tmf-map gets an entry; APIs not present in the report are "untested".
+ *
+ * Severity mapping:
+ *   any "fail"           → fail   (red)
+ *   no fails, ≥1 "skip"  → skip   (yellow)
+ *   all "pass"           → pass   (green)
+ *   no results           → untested (grey)
+ */
+function computeApiStatuses(report) {
+  const statuses = {};
+  for (const api of APIS) {
+    statuses[api.id] = { state: "untested", passed: 0, failed: 0, skipped: 0, total: 0, results: [] };
+  }
+  if (!report || !Array.isArray(report.results)) return statuses;
+
+  for (const r of report.results) {
+    const id = apiKey(r.api);
+    if (!statuses[id]) continue;          // ignore APIs not in tmf-map
+    statuses[id].results.push(r);
+    statuses[id].total += 1;
+    if (r.severity === "pass")      statuses[id].passed  += 1;
+    else if (r.severity === "fail") statuses[id].failed  += 1;
+    else if (r.severity === "skip") statuses[id].skipped += 1;
+  }
+  for (const id of Object.keys(statuses)) {
+    const s = statuses[id];
+    if (s.total === 0)       s.state = "untested";
+    else if (s.failed > 0)   s.state = "fail";
+    else if (s.skipped > 0)  s.state = "skip";
+    else                     s.state = "pass";
+  }
+  return statuses;
+}
+
+/** Validate that a parsed JSON object looks like a tmf-lint report. */
+function validateReport(obj) {
+  if (!obj || typeof obj !== "object") return "Not a JSON object.";
+  if (typeof obj.base_url !== "string") return "Missing 'base_url' field.";
+  if (!Array.isArray(obj.apis))         return "Missing 'apis' array.";
+  if (!Array.isArray(obj.results))      return "Missing 'results' array.";
+  if (!obj.summary || typeof obj.summary !== "object") return "Missing 'summary' object.";
+  for (const r of obj.results) {
+    if (typeof r.rule_id !== "string" || typeof r.api !== "number" ||
+        typeof r.severity !== "string") {
+      return "Result entries must have rule_id, api, severity.";
+    }
+  }
+  return null;  // valid
+}
+
+const fmtTime = d => d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+const fmtHost = url => { try { return new URL(url).host; } catch { return url; } };
 
 // ─── State abbreviations for compact diagram display ─────────────────────────
 const STATE_ABBREV = {
@@ -131,7 +201,7 @@ function SectionTitle({ children }) {
 }
 
 // ─── Hover Tooltip ────────────────────────────────────────────────────────────
-function NodeTooltip({ hovered, apiMap, connCounts, canvasRef }) {
+function NodeTooltip({ hovered, apiMap, connCounts, canvasRef, statuses }) {
   if (!hovered) return null;
   const api    = apiMap[hovered.id];
   const detail = API_DETAILS[hovered.id];
@@ -141,6 +211,7 @@ function NodeTooltip({ hovered, apiMap, connCounts, canvasRef }) {
   const tx     = hovered.cx - rect.left + 18;
   const ty     = hovered.cy - rect.top  - 20;
   const desc   = detail?.description?.split(".")[0] + "." || "";
+  const stat   = statuses ? statuses[hovered.id] : null;
 
   return (
     <div style={{
@@ -158,6 +229,23 @@ function NodeTooltip({ hovered, apiMap, connCounts, canvasRef }) {
         <span style={{color:"rgba(224,232,240,0.35)"}}>in <span style={{color}}>{cc.in}</span></span>
         <span style={{color:`${color}60`,marginLeft:"auto"}}>{DOMAINS[api.domain].label}</span>
       </div>
+      {stat && stat.state !== "untested" && (
+        <div style={{marginTop:7,paddingTop:7,borderTop:"1px solid rgba(255,255,255,0.06)",
+                     display:"flex",alignItems:"center",gap:6,fontFamily:"'JetBrains Mono',monospace",fontSize:9.5}}>
+          <span style={{display:"inline-block",width:7,height:7,borderRadius:"50%",background:STATUS_COLORS[stat.state]}}/>
+          <span style={{color:STATUS_COLORS[stat.state]}}>
+            {stat.passed}/{stat.total} passed
+            {stat.failed  ? ` · ${stat.failed} failed`  : ""}
+            {stat.skipped ? ` · ${stat.skipped} skipped` : ""}
+          </span>
+        </div>
+      )}
+      {stat && stat.state === "untested" && (
+        <div style={{marginTop:7,paddingTop:7,borderTop:"1px solid rgba(255,255,255,0.06)",
+                     fontFamily:"'JetBrains Mono',monospace",fontSize:9.5,color:"rgba(224,232,240,0.3)"}}>
+          not in conformance report
+        </div>
+      )}
     </div>
   );
 }
@@ -170,12 +258,19 @@ export default function TMFMap() {
   const simRef     = useRef(null);
   const zoomRef    = useRef(null);
   const setHovRef  = useRef(null);
+  const fileInputRef = useRef(null);
 
   const [selected, setSelected] = useState(null);
   const [hovered,  setHovered]  = useState(null);
   const [pattern,  setPattern]  = useState(null);
   const [search,   setSearch]   = useState("");
   const [domains,  setDomains]  = useState(new Set(Object.keys(DOMAINS)));
+
+  // Conformance overlay state
+  // overlay = null | { name, report, statuses, loadedAt }
+  const [overlay,      setOverlay]      = useState(null);
+  const [overlayMenu,  setOverlayMenu]  = useState(false);
+  const [overlayError, setOverlayError] = useState(null);
 
   setHovRef.current = setHovered;
 
@@ -202,6 +297,59 @@ export default function TMFMap() {
 
   const filteredKey = [...filtered].sort().join(",");
 
+  // ── Overlay loaders ──────────────────────────────────────────────────────
+  const loadBundled = useCallback(async (which) => {
+    setOverlayError(null);
+    setOverlayMenu(false);
+    try {
+      const mod = which === "demo"
+        ? await import("./conformance_demo.json")
+        : await import("./conformance_sample.json");
+      const report = mod.default;
+      const err = validateReport(report);
+      if (err) { setOverlayError(`Invalid bundled report: ${err}`); return; }
+      setOverlay({
+        name:     which === "demo" ? "demo report" : "sample report",
+        report,
+        statuses: computeApiStatuses(report),
+        loadedAt: new Date(),
+      });
+    } catch (e) {
+      setOverlayError(`Failed to load: ${e.message || e}`);
+    }
+  }, []);
+
+  const handleFileChange = useCallback(async (evt) => {
+    setOverlayError(null);
+    const file = evt.target.files?.[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const report = JSON.parse(text);
+      const err = validateReport(report);
+      if (err) { setOverlayError(err); return; }
+      setOverlay({
+        name:     file.name,
+        report,
+        statuses: computeApiStatuses(report),
+        loadedAt: new Date(),
+      });
+      setOverlayMenu(false);
+    } catch (e) {
+      setOverlayError(`Invalid JSON: ${e.message || e}`);
+    } finally {
+      // reset so the same file can be re-uploaded
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }, []);
+
+  const clearOverlay = useCallback(() => {
+    setOverlay(null);
+    setOverlayError(null);
+    setOverlayMenu(false);
+  }, []);
+
+  // ── D3 setup (runs once) ──────────────────────────────────────────────────
   useEffect(() => {
     const el = svgRef.current;
     if (!el) return;
@@ -262,6 +410,12 @@ export default function TMFMap() {
     const nodeSel = nodeLayer.selectAll("g").data(nodes).enter().append("g")
       .attr("class","nd").attr("data-sel","0").style("cursor","pointer");
 
+    // Outer status ring (overlay) — hidden by default, populated by overlay effect.
+    nodeSel.append("circle").attr("class","nd-status")
+      .attr("r",d=>nodeR(d)+14).attr("fill","none")
+      .attr("stroke","transparent").attr("stroke-width",2.5)
+      .attr("stroke-opacity",0).attr("stroke-dasharray",null)
+      .style("transition","stroke 0.2s, stroke-opacity 0.2s");
     nodeSel.append("circle").attr("class","nd-ring")
       .attr("r",d=>nodeR(d)+8).attr("fill","none")
       .attr("stroke",d=>DOMAINS[d.domain].color).attr("stroke-width",0.5).attr("stroke-opacity",0.18);
@@ -325,6 +479,7 @@ export default function TMFMap() {
     return ()=>{ sim.stop(); };
   }, []);
 
+  // ── Pattern + filter dimming ─────────────────────────────────────────────
   useEffect(()=>{
     const g = gRef.current;
     if (!g) return;
@@ -342,6 +497,7 @@ export default function TMFMap() {
     });
   }, [pattern, filteredKey]);
 
+  // ── Selection emphasis ────────────────────────────────────────────────────
   useEffect(()=>{
     const g = gRef.current;
     if (!g) return;
@@ -361,6 +517,26 @@ export default function TMFMap() {
     });
   }, [selected]);
 
+  // ── Conformance overlay rendering ────────────────────────────────────────
+  useEffect(() => {
+    const g = gRef.current;
+    if (!g) return;
+    g.selectAll(".nd").each(function(d) {
+      const ring = d3.select(this).select(".nd-status");
+      if (!overlay) {
+        ring.transition().duration(200).attr("stroke-opacity", 0).attr("stroke", "transparent");
+        return;
+      }
+      const stat = overlay.statuses[d.id];
+      const color = STATUS_COLORS[stat?.state || "untested"];
+      const isUntested = !stat || stat.state === "untested";
+      ring.transition().duration(200)
+        .attr("stroke", color)
+        .attr("stroke-opacity", isUntested ? 0.55 : 0.95)
+        .attr("stroke-dasharray", isUntested ? "3 3" : null);
+    });
+  }, [overlay]);
+
   const toggleDomain  = k => setDomains(prev=>{ const n=new Set(prev); if(n.has(k)){if(n.size>1)n.delete(k);}else n.add(k); return n; });
   const togglePattern = id => setPattern(p=>p===id?null:id);
   const handleZoom    = d => d3.select(svgRef.current).transition().duration(200).call(zoomRef.current.scaleBy,d);
@@ -375,6 +551,15 @@ export default function TMFMap() {
   const inbound    = selected ? LINKS.filter(l=>(l.target.id||l.target)===selected).map(l=>({id:l.source.id||l.source,label:l.label})) : [];
   const activePatternData = pattern ? PATTERNS.find(p=>p.id===pattern) : null;
   const githubUrl  = selected ? `https://github.com/tmforum-apis/${GITHUB_REPOS[selected]}` : null;
+  const selStat    = (selected && overlay) ? overlay.statuses[selected] : null;
+
+  // Sort failed → skipped → passed for the per-API conformance list.
+  const SEV_ORDER = { fail: 0, skip: 1, pass: 2 };
+  const sortedSelResults = selStat ? [...selStat.results].sort((a,b) => {
+    const sa = SEV_ORDER[a.severity] ?? 3, sb = SEV_ORDER[b.severity] ?? 3;
+    if (sa !== sb) return sa - sb;
+    return a.rule_id.localeCompare(b.rule_id);
+  }) : [];
 
   return (
     <div style={{background:"#060b14",color:"#e0e8f0",height:"100vh",display:"flex",flexDirection:"column",overflow:"hidden",position:"relative",fontFamily:"'Syne',sans-serif"}}>
@@ -389,6 +574,8 @@ export default function TMFMap() {
         .dbadge:hover{opacity:0.85}
         .refrow:hover{background:rgba(255,255,255,0.06)!important;cursor:pointer}
         .pbtn:hover{opacity:0.85}
+        .ovbtn:hover{background:rgba(94,155,255,0.14)!important}
+        .ovmenu-item:hover{background:rgba(94,155,255,0.12)!important;color:#fff!important}
         .ghlink{color:rgba(224,232,240,0.3);font-size:9.5px;font-family:'JetBrains Mono',monospace;text-decoration:none;display:flex;align-items:center;gap:4px;padding:2px 7px;border-radius:4px;border:1px solid rgba(255,255,255,0.08);transition:all 0.15s}
         .ghlink:hover{color:rgba(224,232,240,0.7);border-color:rgba(255,255,255,0.18);background:rgba(255,255,255,0.04)}
         button{font-family:inherit;outline:none}
@@ -429,7 +616,8 @@ export default function TMFMap() {
       <div ref={canvasRef} style={{flex:1,position:"relative",overflow:"hidden",zIndex:1}}>
         <svg ref={svgRef} style={{width:"100%",height:"100%",cursor:"grab",display:"block"}} onClick={()=>setSelected(null)}/>
 
-        <NodeTooltip hovered={hovered} apiMap={apiMap} connCounts={connCounts} canvasRef={canvasRef}/>
+        <NodeTooltip hovered={hovered} apiMap={apiMap} connCounts={connCounts} canvasRef={canvasRef}
+                     statuses={overlay?.statuses}/>
 
         {/* Zoom controls */}
         <div style={{position:"absolute",bottom:62,left:14,display:"flex",flexDirection:"column",gap:4,zIndex:20}}>
@@ -456,6 +644,19 @@ export default function TMFMap() {
               <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,letterSpacing:"1.5px",textTransform:"uppercase",color:"rgba(224,232,240,0.28)",marginBottom:5}}>Active Pattern</div>
               <div style={{fontSize:11,color:activePatternData.color,fontWeight:600}}>{activePatternData.name}</div>
               <div style={{fontSize:10,color:"rgba(224,232,240,0.4)",marginTop:2,lineHeight:1.5,maxWidth:130}}>{activePatternData.desc}</div>
+            </div>
+          )}
+          {overlay && (
+            <div style={{marginTop:8,paddingTop:8,borderTop:"1px solid rgba(94,155,255,0.08)"}}>
+              <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,letterSpacing:"1.5px",textTransform:"uppercase",color:"rgba(224,232,240,0.28)",marginBottom:5}}>Conformance</div>
+              {["pass","skip","fail","untested"].map(k => (
+                <div key={k} style={{display:"flex",alignItems:"center",gap:7,marginBottom:3,fontSize:10,color:"rgba(224,232,240,0.65)"}}>
+                  <div style={{width:9,height:9,borderRadius:"50%",border:`2px solid ${STATUS_COLORS[k]}`,
+                               background:"transparent",flexShrink:0,
+                               borderStyle:k==="untested"?"dashed":"solid"}}/>
+                  {STATUS_LABELS[k]}
+                </div>
+              ))}
             </div>
           )}
         </div>
@@ -558,6 +759,53 @@ export default function TMFMap() {
                 </div>
               )}
 
+              {/* ── Conformance section (only when overlay is active) ── */}
+              {overlay && selStat && (
+                <div style={{marginBottom:16}}>
+                  <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-between",marginBottom:7}}>
+                    <SectionTitle>Conformance</SectionTitle>
+                    {selStat.state !== "untested" && (
+                      <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9.5,color:"rgba(224,232,240,0.45)"}}>
+                        <span style={{color:STATUS_COLORS.pass}}>{selStat.passed} passed</span>
+                        {selStat.failed  > 0 && <> · <span style={{color:STATUS_COLORS.fail}}>{selStat.failed} failed</span></>}
+                        {selStat.skipped > 0 && <> · <span style={{color:STATUS_COLORS.skip}}>{selStat.skipped} skipped</span></>}
+                      </div>
+                    )}
+                  </div>
+                  {selStat.state === "untested" ? (
+                    <div style={{fontSize:11,lineHeight:1.6,color:"rgba(224,232,240,0.42)",fontStyle:"italic",
+                                 padding:"9px 11px",background:"rgba(255,255,255,0.02)",
+                                 border:"1px dashed rgba(255,255,255,0.08)",borderRadius:7}}>
+                      Not covered by tmf-lint v0.1 — current rules target TMF638, TMF639, and TMF641 only.
+                    </div>
+                  ) : (
+                    sortedSelResults.map((r) => {
+                      const c = STATUS_COLORS[r.severity] || STATUS_COLORS.untested;
+                      const glyph = r.severity === "pass" ? "✓" : r.severity === "fail" ? "✗" : "⏭";
+                      return (
+                        <div key={r.rule_id} style={{
+                          background:"rgba(255,255,255,0.025)",
+                          border:`1px solid ${c}26`,
+                          borderLeft:`2px solid ${c}`,
+                          borderRadius:6,padding:"7px 10px",marginBottom:5}}>
+                          <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:2}}>
+                            <span style={{color:c,fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:11,width:11,textAlign:"center"}}>{glyph}</span>
+                            <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:"rgba(224,232,240,0.85)"}}>{r.rule_id}</span>
+                            <span style={{marginLeft:"auto",fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"rgba(224,232,240,0.32)",textTransform:"uppercase",letterSpacing:"0.5px"}}>{r.category}</span>
+                          </div>
+                          <div style={{fontSize:10.5,lineHeight:1.5,color:"rgba(224,232,240,0.55)",marginLeft:17}}>{r.description}</div>
+                          {r.message && (
+                            <div style={{fontSize:9.5,lineHeight:1.5,color:`${c}c0`,marginLeft:17,marginTop:3,fontFamily:"'JetBrains Mono',monospace"}}>
+                              {r.severity === "skip" ? "skipped: " : ""}{r.message}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              )}
+
               {outbound.length > 0 && (
                 <div style={{marginBottom:12}}>
                   <SectionTitle>References →</SectionTitle>
@@ -599,8 +847,93 @@ export default function TMFMap() {
             {p.name}
           </button>
         ))}
+
+        {/* ── Conformance overlay toggle ── */}
+        <div style={{position:"relative",marginLeft:6}}>
+          <button className="ovbtn"
+            onClick={() => setOverlayMenu(v => !v)}
+            title="Overlay tmf-lint conformance results onto the graph"
+            style={{padding:"4px 11px",borderRadius:6,fontSize:10.5,fontWeight:600,cursor:"pointer",
+              border:`1px solid ${overlay ? "#30d15850" : "rgba(255,255,255,0.07)"}`,
+              background: overlay ? "rgba(48,209,88,0.10)" : "rgba(255,255,255,0.025)",
+              color: overlay ? "#30d158" : "rgba(224,232,240,0.38)",
+              fontFamily:"'Syne',sans-serif",transition:"all 0.15s",
+              display:"flex",alignItems:"center",gap:5}}>
+            <span style={{display:"inline-block",width:6,height:6,borderRadius:"50%",
+              background: overlay ? "#30d158" : "rgba(224,232,240,0.22)"}}/>
+            Conformance {overlay ? "ON" : "OFF"}
+            <span style={{fontSize:8,opacity:0.6,marginLeft:1}}>▾</span>
+          </button>
+          {overlayMenu && (
+            <>
+              <div onClick={() => setOverlayMenu(false)}
+                   style={{position:"fixed",inset:0,zIndex:35}}/>
+              <div style={{position:"absolute",bottom:"calc(100% + 6px)",left:0,minWidth:220,
+                background:"rgba(6,11,20,0.98)",border:"1px solid rgba(94,155,255,0.18)",
+                borderRadius:7,padding:6,zIndex:40,backdropFilter:"blur(12px)",
+                boxShadow:"0 4px 16px rgba(0,0,0,0.4)"}}>
+                <div className="ovmenu-item" onClick={() => loadBundled("demo")}
+                  style={{padding:"7px 9px",fontSize:11,color:"rgba(224,232,240,0.7)",
+                          cursor:"pointer",borderRadius:5,fontFamily:"'Syne',sans-serif",
+                          transition:"all 0.12s"}}>
+                  <div style={{fontWeight:600}}>Load demo report</div>
+                  <div style={{fontSize:9.5,color:"rgba(224,232,240,0.35)",marginTop:1,
+                               fontFamily:"'JetBrains Mono',monospace"}}>
+                    mixed pass/fail/skip · for visual demo
+                  </div>
+                </div>
+                <div className="ovmenu-item" onClick={() => loadBundled("sample")}
+                  style={{padding:"7px 9px",fontSize:11,color:"rgba(224,232,240,0.7)",
+                          cursor:"pointer",borderRadius:5,fontFamily:"'Syne',sans-serif",
+                          transition:"all 0.12s"}}>
+                  <div style={{fontWeight:600}}>Load real sample report</div>
+                  <div style={{fontSize:9.5,color:"rgba(224,232,240,0.35)",marginTop:1,
+                               fontFamily:"'JetBrains Mono',monospace"}}>
+                    captured from tmf-mock + tmf-lint
+                  </div>
+                </div>
+                <div className="ovmenu-item" onClick={() => fileInputRef.current?.click()}
+                  style={{padding:"7px 9px",fontSize:11,color:"rgba(224,232,240,0.7)",
+                          cursor:"pointer",borderRadius:5,fontFamily:"'Syne',sans-serif",
+                          transition:"all 0.12s"}}>
+                  <div style={{fontWeight:600}}>Upload report…</div>
+                  <div style={{fontSize:9.5,color:"rgba(224,232,240,0.35)",marginTop:1,
+                               fontFamily:"'JetBrains Mono',monospace"}}>
+                    JSON from <code>tmf-lint check --format json</code>
+                  </div>
+                </div>
+                {overlay && (
+                  <>
+                    <div style={{height:1,background:"rgba(94,155,255,0.1)",margin:"4px 0"}}/>
+                    <div className="ovmenu-item" onClick={clearOverlay}
+                      style={{padding:"7px 9px",fontSize:11,color:"rgba(255,107,107,0.75)",
+                              cursor:"pointer",borderRadius:5,fontFamily:"'Syne',sans-serif",
+                              transition:"all 0.12s"}}>
+                      Turn overlay off
+                    </div>
+                  </>
+                )}
+                {overlayError && (
+                  <>
+                    <div style={{height:1,background:"rgba(94,155,255,0.1)",margin:"4px 0"}}/>
+                    <div style={{padding:"6px 9px",fontSize:10,color:"#ff8585",
+                                 fontFamily:"'JetBrains Mono',monospace",lineHeight:1.4}}>
+                      {overlayError}
+                    </div>
+                  </>
+                )}
+              </div>
+            </>
+          )}
+          <input ref={fileInputRef} type="file" accept=".json,application/json"
+            onChange={handleFileChange}
+            style={{display:"none"}}/>
+        </div>
+
         <span style={{marginLeft:"auto",fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,color:"rgba(224,232,240,0.14)"}}>
-          tmf-devkit · Apache 2.0 · {APIS.length} APIs · {LINKS.length} relationships
+          {overlay
+            ? <>conformance · {overlay.name} · {fmtHost(overlay.report.base_url)} · {overlay.report.summary.passed}/{overlay.report.summary.total} passed · loaded {fmtTime(overlay.loadedAt)}</>
+            : <>tmf-devkit · Apache 2.0 · {APIS.length} APIs · {LINKS.length} relationships</>}
         </span>
         <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"rgba(224,232,240,0.1)",marginLeft:12,flexShrink:0}}>
           Edges show schema $ref links between API models — not ODA Component dependencies
