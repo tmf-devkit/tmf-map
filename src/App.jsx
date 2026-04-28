@@ -271,6 +271,8 @@ function NodeTooltip({ hovered, apiMap, connCounts, canvasRef, statuses }) {
 function ComponentTooltip({ hovered, compMap, canvasRef }) {
   if (!hovered) return null;
   const comp   = compMap[hovered.id];
+  // API nodes aren't in compMap - don't show tooltip for them
+  if (!comp) return null;
   const color  = FUNCTIONAL_BLOCKS[comp.functional_block]?.color || "#5e9bff";
   const rect   = canvasRef.current?.getBoundingClientRect() ?? { left: 0, top: 0 };
   const tx     = hovered.cx - rect.left + 18;
@@ -548,7 +550,10 @@ export default function TMFMap() {
       .force("link",      d3.forceLink(links).id(d=>d.id).distance(isComponentView ? 180 : 140).strength(0.45))
       .force("charge",    d3.forceManyBody().strength(isComponentView ? -720 : -580))
       .force("center",    d3.forceCenter(W/2, H/2))
-      .force("collision", d3.forceCollide(d => nodeR(d) + 22));
+      .force("collision", d3.forceCollide(d => nodeR(d) + 22))
+      .alphaDecay(0.05)        // Stop simulation faster
+      .velocityDecay(0.7)      // Dampen movement quicker
+      .alphaMin(0.001);        // Lower threshold to stop
     simRef.current = sim;
 
     const linkLayer = g.append("g");
@@ -678,6 +683,9 @@ export default function TMFMap() {
       .on("end",  (e,d)=>{ if(!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; });
     nodeSel.call(drag);
 
+    let tickCount = 0;
+    const maxTicks = isComponentView ? 200 : 300;
+
     nodeSel
       .on("click",(e,d)=>{ e.stopPropagation(); setSelected(prev=>prev===d.id?null:d.id); })
       .on("mouseenter",(e,d)=>{
@@ -706,6 +714,8 @@ export default function TMFMap() {
       });
 
     sim.on("tick", ()=>{
+      if (++tickCount > maxTicks) { sim.stop(); return; }
+      
       linkSel.attr("d", d=>{
         const sx=d.source.x, sy=d.source.y, tx=d.target.x, ty=d.target.y;
         const dx=tx-sx, dy=ty-sy, dist=Math.sqrt(dx*dx+dy*dy)||1;
@@ -745,8 +755,14 @@ export default function TMFMap() {
     const g = gRef.current;
     if (!g || viewMode !== "component") return;
     g.selectAll(".nd").each(function(d){
-      const vis = filtered.has(d.id);
-      d3.select(this).transition().duration(220).style("opacity", vis ? 1 : 0.08);
+      // Only filter components - APIs should always be visible
+      if (d.type === "component") {
+        const vis = filtered.has(d.id);
+        d3.select(this).transition().duration(220).style("opacity", vis ? 1 : 0.08);
+      } else {
+        // APIs always visible in component view
+        d3.select(this).transition().duration(220).style("opacity", 1);
+      }
     });
     g.selectAll(".lnk").each(function(d){
       const src = d.source.id || d.source;
