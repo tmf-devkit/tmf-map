@@ -25,25 +25,6 @@ const FUNCTIONAL_BLOCKS = {
   Common:                 { label: "Common",            color: "#8e8e93" },
 };
 
-// ─── Cluster Configuration for Component View Layout ──────────────────────────
-const CLUSTER_CONFIG = {
-  CoreCommerce:           { x: 200,  y: 150,  width: 240, height: 200 },
-  Production:             { x: 480,  y: 150,  width: 280, height: 240 },
-  IntelligenceManagement: { x: 800,  y: 150,  width: 220, height: 180 },
-  PartyManagement:        { x: 200,  y: 400,  width: 240, height: 220 },
-  OperationsManagement:   { x: 480,  y: 440,  width: 260, height: 240 },
-  PartyDomain:            { x: 780,  y: 380,  width: 200, height: 160 },
-  EngagementManagement:   { x: 200,  y: 670,  width: 220, height: 160 },
-  Common:                 { x: 460,  y: 720,  width: 180, height: 140 },
-  _API_POOL: { x: 1080, y: 450, width: 220, height: 500 },
-};
-
-const getClusterCenter = (funcBlock) => {
-  const cfg = CLUSTER_CONFIG[funcBlock];
-  if (!cfg) return { x: 600, y: 450 };
-  return { x: cfg.x + cfg.width / 2, y: cfg.y + cfg.height / 2 };
-};
-
 // ─── Data from tmf-spec-parser (auto-generated) ───────────────────────────────
 const APIS        = TMF_DATA.apis;
 const LINKS       = TMF_DATA.links;
@@ -227,7 +208,6 @@ function LifecycleDiagram({ lifecycle, transitions, terminal, domainColor }) {
 // ─── Utilities ────────────────────────────────────────────────────────────────
 const R_API = 23;
 const R_COMPONENT = 28;
-const R_API_IN_POOL = 11;  // smaller size for APIs in component view pool
 
 function SectionTitle({ children }) {
   return (
@@ -562,119 +542,19 @@ export default function TMFMap() {
     });
     const maxDeg = Math.max(...Object.values(counts), 1);
     const nodeR = d => {
-      let baseR;
-      if (isComponentView) {
-        baseR = d.type === "component" ? R_COMPONENT : R_API_IN_POOL;
-      } else {
-        baseR = R_API;
-      }
+      const baseR = isComponentView ? R_COMPONENT : R_API;
       return baseR + Math.round((counts[d.id] / maxDeg) * 5);
     };
 
     const sim = d3.forceSimulation(nodes)
-      .force("link",      d3.forceLink(links).id(d=>d.id).distance(isComponentView ? 120 : 140).strength(isComponentView ? 0.35 : 0.45))
-      .force("charge",    d3.forceManyBody().strength(isComponentView ? -400 : -580))
+      .force("link",      d3.forceLink(links).id(d=>d.id).distance(isComponentView ? 180 : 140).strength(0.45))
+      .force("charge",    d3.forceManyBody().strength(isComponentView ? -720 : -580))
       .force("center",    d3.forceCenter(W/2, H/2))
-      .force("collision", d3.forceCollide(d => nodeR(d) + 22));
-    
-    // Add cluster forces for Component View
-    if (isComponentView) {
-      sim
-        .force("clusterX", d3.forceX(d => {
-          if (d.type === "api") {
-            return CLUSTER_CONFIG._API_POOL.x + CLUSTER_CONFIG._API_POOL.width / 2;
-          }
-          const center = getClusterCenter(d.functional_block);
-          return center.x;
-        }).strength(0.15))
-        .force("clusterY", d3.forceY(d => {
-          if (d.type === "api") {
-            return CLUSTER_CONFIG._API_POOL.y + CLUSTER_CONFIG._API_POOL.height / 2;
-          }
-          const center = getClusterCenter(d.functional_block);
-          return center.y;
-        }).strength(0.15));
-    }
-    
-    sim
+      .force("collision", d3.forceCollide(d => nodeR(d) + 22))
       .alphaDecay(0.05)        // Stop simulation faster
       .velocityDecay(0.7)      // Dampen movement quicker
       .alphaMin(0.001);        // Lower threshold to stop
     simRef.current = sim;
-
-    // Draw cluster containers for Component View
-    if (isComponentView) {
-      const clusterLayer = g.append("g").attr("class", "cluster-containers");
-      
-      // Component clusters
-      Object.entries(FUNCTIONAL_BLOCKS).forEach(([key, { label, color }]) => {
-        const cfg = CLUSTER_CONFIG[key];
-        if (!cfg) return;
-        
-        const clusterG = clusterLayer.append("g").attr("class", `cluster-${key}`);
-        
-        // Container rectangle
-        clusterG.append("rect")
-          .attr("x", cfg.x)
-          .attr("y", cfg.y)
-          .attr("width", cfg.width)
-          .attr("height", cfg.height)
-          .attr("rx", 12)
-          .attr("ry", 12)
-          .attr("fill", `${color}08`)
-          .attr("stroke", color)
-          .attr("stroke-width", 2)
-          .attr("stroke-dasharray", "6 4")
-          .attr("opacity", 0.6);
-        
-        // Cluster label
-        clusterG.append("text")
-          .attr("x", cfg.x + cfg.width / 2)
-          .attr("y", cfg.y + 20)
-          .attr("text-anchor", "middle")
-          .attr("fill", color)
-          .attr("font-size", "12px")
-          .attr("font-weight", "600")
-          .attr("opacity", 0.9)
-          .text(label);
-      });
-      
-      // API Pool container
-      const apiCfg = CLUSTER_CONFIG._API_POOL;
-      const apiPoolG = clusterLayer.append("g").attr("class", "cluster-api-pool");
-      
-      apiPoolG.append("rect")
-        .attr("x", apiCfg.x)
-        .attr("y", apiCfg.y)
-        .attr("width", apiCfg.width)
-        .attr("height", apiCfg.height)
-        .attr("rx", 12)
-        .attr("ry", 12)
-        .attr("fill", "#5e9bff05")
-        .attr("stroke", "#5e9bff60")
-        .attr("stroke-width", 2)
-        .attr("stroke-dasharray", "6 4")
-        .attr("opacity", 0.5);
-      
-      apiPoolG.append("text")
-        .attr("x", apiCfg.x + apiCfg.width / 2)
-        .attr("y", apiCfg.y + 25)
-        .attr("text-anchor", "middle")
-        .attr("fill", "#5e9bff")
-        .attr("font-size", "13px")
-        .attr("font-weight", "600")
-        .attr("opacity", 0.8)
-        .text("APIs");
-      
-      apiPoolG.append("text")
-        .attr("x", apiCfg.x + apiCfg.width / 2)
-        .attr("y", apiCfg.y + 45)
-        .attr("text-anchor", "middle")
-        .attr("fill", "#8e8e93")
-        .attr("font-size", "10px")
-        .attr("opacity", 0.6)
-        .text(`(${nodes.filter(n => n.type === "api").length} nodes)`);
-    }
 
     const linkLayer = g.append("g");
     const linkSel = linkLayer.selectAll("path").data(links).enter().append("path")
