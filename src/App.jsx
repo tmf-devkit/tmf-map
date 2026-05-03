@@ -316,7 +316,9 @@ export default function TMFMap() {
   const [pattern,  setPattern]  = useState(null);
   const [search,   setSearch]   = useState("");
   const [domains,  setDomains]  = useState(new Set(Object.keys(DOMAINS)));
-  const [functionalBlocks, setFunctionalBlocks] = useState(new Set(Object.keys(FUNCTIONAL_BLOCKS)));
+  // Filter-first landing for the Component view: start empty so the first
+  // thing the user sees is a chooser, not a wall of nodes.
+  const [functionalBlocks, setFunctionalBlocks] = useState(new Set());
 
   // Conformance overlay state
   // overlay = null | { name, report, statuses, loadedAt }
@@ -350,10 +352,14 @@ export default function TMFMap() {
           .map(a => a.id)
       );
     } else {
+      // When the user types a search, bypass the functional-block filter
+      // so search "just works" even from the filter-first empty state.
+      const q = search.trim().toLowerCase();
       return new Set(
         COMPONENTS
-          .filter(c => functionalBlocks.has(c.functional_block))
-          .filter(c => !search || c.id.toLowerCase().includes(search.toLowerCase()) || c.name.toLowerCase().includes(search.toLowerCase()))
+          .filter(c => q
+            ? c.id.toLowerCase().includes(q) || c.name.toLowerCase().includes(q)
+            : functionalBlocks.has(c.functional_block))
           .map(c => c.id)
       );
     }
@@ -541,9 +547,14 @@ export default function TMFMap() {
       counts[tgt] = (counts[tgt] || 0) + 1;
     });
     const maxDeg = Math.max(...Object.values(counts), 1);
+    // Sqrt scale so node AREA is roughly proportional to degree, not radius.
+    // High-connectivity hubs (e.g. TMF669, exposed by every ODA Component)
+    // become clear focal points without dominating; isolated nodes stay legible.
+    const sizeFactor = d3.scaleSqrt().domain([1, maxDeg]).range([0, 1]);
     const nodeR = d => {
       const baseR = isComponentView ? R_COMPONENT : R_API;
-      return baseR + Math.round((counts[d.id] / maxDeg) * 5);
+      const k = sizeFactor(Math.max(counts[d.id] || 1, 1));
+      return Math.round(baseR * (1 + k * 0.7));
     };
 
     const sim = d3.forceSimulation(nodes)
@@ -754,22 +765,54 @@ export default function TMFMap() {
   useEffect(()=>{
     const g = gRef.current;
     if (!g || viewMode !== "component") return;
+    const isEmpty = functionalBlocks.size === 0 && !search.trim();
+
+    // Compute the set of API IDs reachable from visible components so that
+    // unrelated APIs dim out alongside their owners. Without this, picking
+    // "Production" leaves every API in the graph fully bright — including
+    // ones referenced only by other functional blocks.
+    const visibleApiIds = new Set();
+    if (!isEmpty) {
+      COMPONENTS.forEach(comp => {
+        if (!filtered.has(comp.id)) return;
+        comp.exposed_apis?.forEach(api   => visibleApiIds.add(api.id));
+        comp.dependent_apis?.forEach(api => visibleApiIds.add(api.id));
+      });
+    }
+
     g.selectAll(".nd").each(function(d){
-      // Only filter components - APIs should always be visible
+      if (isEmpty) {
+        // Filter-first empty state: dim every node to a faint preview so the
+        // empty-state panel reads as the primary call-to-action.
+        d3.select(this).transition().duration(220).style("opacity", 0.12);
+        return;
+      }
       if (d.type === "component") {
         const vis = filtered.has(d.id);
-        d3.select(this).transition().duration(220).style("opacity", vis ? 1 : 0.08);
+        d3.select(this).transition().duration(220).style("opacity", vis ? 1 : 0.04);
       } else {
-        // APIs always visible in component view
-        d3.select(this).transition().duration(220).style("opacity", 1);
+        // APIs only visible when referenced by a visible component.
+        const vis = visibleApiIds.has(d.id);
+        d3.select(this).transition().duration(220).style("opacity", vis ? 1 : 0.04);
       }
     });
     g.selectAll(".lnk").each(function(d){
+      if (isEmpty) {
+        d3.select(this).transition().duration(220).attr("stroke-opacity", 0.04);
+        return;
+      }
       const src = d.source.id || d.source;
-      const vis = filtered.has(src);
-      d3.select(this).transition().duration(220).attr("stroke-opacity", vis ? (d.type === "exposes" ? 0.15 : (d.required ? 0.45 : 0.25)) : 0.02);
+      const tgt = d.target.id || d.target;
+      // Edges are only fully bright when BOTH endpoints are visible. This
+      // prevents the "halo of dim edges" between filtered-out components
+      // that crosses the bright cluster.
+      const srcVis = filtered.has(src);
+      const tgtVis = visibleApiIds.has(tgt) || filtered.has(tgt);
+      const fullyVisible = srcVis && tgtVis;
+      d3.select(this).transition().duration(220).attr("stroke-opacity",
+        fullyVisible ? (d.type === "exposes" ? 0.15 : (d.required ? 0.45 : 0.25)) : 0.008);
     });
-  }, [viewMode, filteredKey]);
+  }, [viewMode, filteredKey, functionalBlocks, search]);
 
   // ── Selection emphasis ────────────────────────────────────────────────────
   useEffect(()=>{
@@ -788,7 +831,13 @@ export default function TMFMap() {
     });
     const maxDeg = Math.max(...Object.values(counts), 1);
     const baseR = isComponentView ? R_COMPONENT : R_API;
-    const nr = id => baseR + Math.round((counts[id] / maxDeg) * 5);
+    // Match the sqrt scaling used in the main D3 setup so selection emphasis
+    // and idle sizes agree.
+    const sizeFactor = d3.scaleSqrt().domain([1, maxDeg]).range([0, 1]);
+    const nr = id => {
+      const k = sizeFactor(Math.max(counts[id] || 1, 1));
+      return Math.round(baseR * (1 + k * 0.7));
+    };
     
     g.selectAll(".nd").each(function(d){
       const isSel = d.id === selected;
@@ -826,7 +875,9 @@ export default function TMFMap() {
   }, [overlay, viewMode]);
 
   const toggleDomain  = k => setDomains(prev=>{ const n=new Set(prev); if(n.has(k)){if(n.size>1)n.delete(k);}else n.add(k); return n; });
-  const toggleFunctionalBlock = k => setFunctionalBlocks(prev=>{ const n=new Set(prev); if(n.has(k)){if(n.size>1)n.delete(k);}else n.add(k); return n; });
+  // Component view allows zero blocks so users can return to the empty state.
+  const toggleFunctionalBlock = k => setFunctionalBlocks(prev=>{ const n=new Set(prev); if(n.has(k))n.delete(k); else n.add(k); return n; });
+  const showAllFunctionalBlocks = () => setFunctionalBlocks(new Set(Object.keys(FUNCTIONAL_BLOCKS)));
   const togglePattern = id => setPattern(p=>p===id?null:id);
   const handleZoom    = d => d3.select(svgRef.current).transition().duration(200).call(zoomRef.current.scaleBy,d);
   const handleReset   = () => {
@@ -1194,6 +1245,60 @@ export default function TMFMap() {
         )}
         
         {/* ── Detail Panel (Component view) ── */}
+        {/* ── Filter-first empty state (Component view) ── */}
+        {viewMode === "component" && functionalBlocks.size === 0 && !search.trim() && (
+          <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",zIndex:25,pointerEvents:"none"}}>
+            <div onClick={e=>e.stopPropagation()} style={{
+              pointerEvents:"auto",
+              maxWidth:520,
+              padding:"22px 26px 24px",
+              background:"rgba(6,11,20,0.92)",
+              border:"1px solid rgba(94,155,255,0.14)",
+              borderRadius:10,
+              backdropFilter:"blur(14px)",
+              boxShadow:"0 10px 40px rgba(0,0,0,0.45)",
+            }}>
+              <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,letterSpacing:"1.6px",textTransform:"uppercase",color:"rgba(224,232,240,0.32)",marginBottom:8}}>
+                ODA Component Architecture
+              </div>
+              <div style={{fontFamily:"'Syne',sans-serif",fontSize:18,fontWeight:700,color:"#e0e8f0",marginBottom:6,lineHeight:1.25}}>
+                Pick a functional block to explore
+              </div>
+              <div style={{fontSize:11.5,lineHeight:1.6,color:"rgba(224,232,240,0.5)",marginBottom:16}}>
+                {COMPONENTS.length} ODA Components across {Object.keys(FUNCTIONAL_BLOCKS).length} functional blocks. Pick one to start, or show everything at once.
+              </div>
+              <div style={{display:"flex",flexWrap:"wrap",gap:6,marginBottom:14}}>
+                {Object.entries(FUNCTIONAL_BLOCKS).map(([k,d])=>{
+                  const count = COMPONENTS.filter(c => c.functional_block === k).length;
+                  return (
+                    <button key={k} onClick={()=>toggleFunctionalBlock(k)} style={{
+                      padding:"6px 11px",borderRadius:6,fontSize:11,fontWeight:600,cursor:"pointer",
+                      border:`1px solid ${d.color}40`,
+                      background:`${d.color}12`,color:d.color,
+                      fontFamily:"'Syne',sans-serif",transition:"all 0.15s",
+                      display:"flex",alignItems:"center",gap:6,
+                    }}>
+                      {d.label}
+                      <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,opacity:0.65}}>{count}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              <button onClick={showAllFunctionalBlocks} style={{
+                padding:"7px 13px",borderRadius:6,fontSize:11,fontWeight:600,cursor:"pointer",
+                border:"1px solid rgba(255,255,255,0.12)",
+                background:"rgba(255,255,255,0.04)",color:"rgba(224,232,240,0.78)",
+                fontFamily:"'Syne',sans-serif",transition:"all 0.15s",
+              }}>
+                Show all {COMPONENTS.length} components
+              </button>
+              <div style={{marginTop:14,paddingTop:12,borderTop:"1px solid rgba(94,155,255,0.08)",fontFamily:"'JetBrains Mono',monospace",fontSize:9.5,color:"rgba(224,232,240,0.32)",lineHeight:1.5}}>
+                Source: ODA Components v1.0.0 · Edges show architectural <code>dependentAPIs</code>; thicker = required
+              </div>
+            </div>
+          </div>
+        )}
+
         {viewMode === "component" && selected && selData && (
           <div style={{position:"absolute",top:0,right:0,width:334,height:"100%",background:"rgba(6,11,20,0.96)",backdropFilter:"blur(24px)",borderLeft:"1px solid rgba(94,155,255,0.1)",overflowY:"auto",zIndex:30,padding:"18px 18px 28px",animation:"slideIn 0.18s ease"}} onClick={e=>e.stopPropagation()}>
             <button onClick={()=>setSelected(null)} style={{position:"absolute",top:14,right:14,background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:6,color:"rgba(224,232,240,0.45)",width:26,height:26,cursor:"pointer",fontSize:15,display:"flex",alignItems:"center",justifyContent:"center",lineHeight:1}}>×</button>

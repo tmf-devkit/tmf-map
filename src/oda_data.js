@@ -2,8 +2,8 @@
 // Source: github.com/tmforum-rand/TMForum-ODA-Ready-for-publication@v1.0.0
 // Regenerate with: tmf-spec-parser oda --out ../tmf-map/src/oda_data.json --js
 const ODA_DATA = {
-  "generated_at": "2026-04-27T11:01:04Z",
-  "parser_version": "0.3.0",
+  "generated_at": "2026-05-03T08:12:54Z",
+  "parser_version": "0.3.1",
   "spec_source": "github.com/tmforum-rand/TMForum-ODA-Ready-for-publication@v1.0.0",
   "components": [
     {
@@ -20,19 +20,29 @@ const ODA_DATA = {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF671",
           "name": "promotion-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -40,61 +50,71 @@ const ODA_DATA = {
           "id": "TMF633",
           "name": "service-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF634",
           "name": "resource-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF651",
           "name": "agreement-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF675",
           "name": "geographic-location-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF662",
           "name": "entity-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -112,19 +132,29 @@ const ODA_DATA = {
           "id": "TMF648",
           "name": "quote-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF663",
           "name": "shopping-cart-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -132,109 +162,127 @@ const ODA_DATA = {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF637",
           "name": "product-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF679",
           "name": "product-offering-qualification-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF646",
           "name": "appointment-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF716",
           "name": "resource-reservation",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF687",
           "name": "stock-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF666",
           "name": "account-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF676",
           "name": "payment-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF683",
           "name": "party-interaction-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF638",
           "name": "service-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF760",
           "name": "product-configuration-management-api",
           "version": "v5.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF651",
           "name": "agreement-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -252,13 +300,22 @@ const ODA_DATA = {
           "id": "TMF622",
           "name": "product-ordering-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -266,61 +323,71 @@ const ODA_DATA = {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF622",
           "name": "product-ordering-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF637",
           "name": "product-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF633",
           "name": "service-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF638",
           "name": "service-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF641",
           "name": "service-ordering-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF634",
           "name": "resource-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF652",
           "name": "resource-order-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -338,13 +405,22 @@ const ODA_DATA = {
           "id": "TMF637",
           "name": "product-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -352,73 +428,85 @@ const ODA_DATA = {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF651",
           "name": "agreement-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF675",
           "name": "geographic-location-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF666",
           "name": "account-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF637",
           "name": "product-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF638",
           "name": "service-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF622",
           "name": "product-ordering-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -436,19 +524,29 @@ const ODA_DATA = {
           "id": "TMF633",
           "name": "service-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF657",
           "name": "service-quality-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -456,25 +554,29 @@ const ODA_DATA = {
           "id": "TMF634",
           "name": "resource-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF662",
           "name": "entity-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -492,13 +594,22 @@ const ODA_DATA = {
           "id": "TMF641",
           "name": "service-ordering-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -506,109 +617,127 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF633",
           "name": "service-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF634",
           "name": "resource-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF638",
           "name": "service-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF640",
           "name": "service-activation-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF641",
           "name": "service-ordering-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF645",
           "name": "service-qualification-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF646",
           "name": "appointment-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF652",
           "name": "resource-order-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF653",
           "name": "service-test-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF675",
           "name": "geographic-location-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF681",
           "name": "communication-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF697",
           "name": "work-order-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -626,13 +755,22 @@ const ODA_DATA = {
           "id": "TMF638",
           "name": "service-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -640,55 +778,64 @@ const ODA_DATA = {
           "id": "TMF633",
           "name": "service-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF638",
           "name": "service-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF675",
           "name": "geographic-location-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF641",
           "name": "service-ordering-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -706,7 +853,15 @@ const ODA_DATA = {
           "id": "TMF645",
           "name": "service-qualification-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -714,55 +869,64 @@ const ODA_DATA = {
           "id": "TMF633",
           "name": "service-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF638",
           "name": "service-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF634",
           "name": "resource-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF675",
           "name": "geographic-location-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -780,13 +944,22 @@ const ODA_DATA = {
           "id": "TMF634",
           "name": "resource-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -794,25 +967,29 @@ const ODA_DATA = {
           "id": "TMF634",
           "name": "resource-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF662",
           "name": "entity-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -830,13 +1007,22 @@ const ODA_DATA = {
           "id": "TMF652",
           "name": "resource-order-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -844,61 +1030,71 @@ const ODA_DATA = {
           "id": "TMF702",
           "name": "resource-activation-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF685",
           "name": "resource-pool-management-api",
           "version": "v5.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF634",
           "name": "resource-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF664",
           "name": "resource-function-activation-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF646",
           "name": "appointment-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF675",
           "name": "geographic-location-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -916,25 +1112,36 @@ const ODA_DATA = {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF685",
           "name": "resource-pool-management-api",
           "version": "v5.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF716",
           "name": "resource-reservation",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -942,43 +1149,50 @@ const ODA_DATA = {
           "id": "TMF634",
           "name": "resource-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF675",
           "name": "geographic-location-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -996,25 +1210,36 @@ const ODA_DATA = {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF675",
           "name": "geographic-location-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": []
@@ -1033,13 +1258,22 @@ const ODA_DATA = {
           "id": "TMF720",
           "name": "digital-identity-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1047,19 +1281,22 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1077,13 +1314,22 @@ const ODA_DATA = {
           "id": "TMF644",
           "name": "privacy-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1091,25 +1337,29 @@ const ODA_DATA = {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF667",
           "name": "document-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         }
       ]
     },
@@ -1127,13 +1377,22 @@ const ODA_DATA = {
           "id": "TMF683",
           "name": "party-interaction-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1141,37 +1400,43 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF662",
           "name": "entity-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF667",
           "name": "document-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF681",
           "name": "communication-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1189,13 +1454,22 @@ const ODA_DATA = {
           "id": "TMF666",
           "name": "account-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1203,31 +1477,36 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF670",
           "name": "payment-method-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF676",
           "name": "payment-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1245,19 +1524,29 @@ const ODA_DATA = {
           "id": "TMF679",
           "name": "product-offering-qualification-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF760",
           "name": "product-configuration-management-api",
           "version": "v5.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1265,79 +1554,92 @@ const ODA_DATA = {
           "id": "TMF637",
           "name": "product-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF622",
           "name": "product-ordering-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF666",
           "name": "account-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF662",
           "name": "entity-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF921",
           "name": "intent-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF645",
           "name": "service-qualification-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF651",
           "name": "agreement-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1355,13 +1657,22 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1369,37 +1680,43 @@ const ODA_DATA = {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF675",
           "name": "geographic-location-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF688",
           "name": "event-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1417,19 +1734,29 @@ const ODA_DATA = {
           "id": "TMF670",
           "name": "payment-method-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF676",
           "name": "payment-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1437,31 +1764,36 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF666",
           "name": "account-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF675",
           "name": "geographic-location-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1479,13 +1811,22 @@ const ODA_DATA = {
           "id": "TMF678",
           "name": "customer-bill-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1493,43 +1834,50 @@ const ODA_DATA = {
           "id": "TMF666",
           "name": "account-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF676",
           "name": "payment-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF667",
           "name": "document-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF637",
           "name": "product-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1547,13 +1895,22 @@ const ODA_DATA = {
           "id": "TMF678",
           "name": "customer-bill-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1561,37 +1918,43 @@ const ODA_DATA = {
           "id": "TMF666",
           "name": "account-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF637",
           "name": "product-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF635",
           "name": "usage-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1609,13 +1972,22 @@ const ODA_DATA = {
           "id": "TMF672",
           "name": "user-role-permission-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1623,13 +1995,15 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1647,13 +2021,22 @@ const ODA_DATA = {
           "id": "TMF699",
           "name": "sales-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1661,43 +2044,50 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF651",
           "name": "agreement-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF648",
           "name": "quote-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF622",
           "name": "product-ordering-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1715,19 +2105,29 @@ const ODA_DATA = {
           "id": "TMF649",
           "name": "performance-thresholding-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF642",
           "name": "alarm-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1735,37 +2135,43 @@ const ODA_DATA = {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF638",
           "name": "service-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF657",
           "name": "service-quality-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1783,19 +2189,29 @@ const ODA_DATA = {
           "id": "TMF649",
           "name": "performance-thresholding-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF642",
           "name": "alarm-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1803,37 +2219,43 @@ const ODA_DATA = {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF674",
           "name": "geographic-site-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF675",
           "name": "geographic-location-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF688",
           "name": "event-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1851,13 +2273,22 @@ const ODA_DATA = {
           "id": "TMF651",
           "name": "agreement-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1865,37 +2296,43 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF637",
           "name": "product-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF667",
           "name": "document-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1913,19 +2350,29 @@ const ODA_DATA = {
           "id": "TMF635",
           "name": "usage-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF677",
           "name": "usage-consumption-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -1933,31 +2380,36 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF637",
           "name": "product-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -1970,7 +2422,15 @@ const ODA_DATA = {
       "publication_date": "2024-11-19 00:00:00",
       "description": "The Anomaly Management component is responsible for predicting, detecting and managing anomalous patterns in the usage and behavior of products, services and resources in order to avoid occurrence of problems. Anomaly Management has functionality for predicting, detecting and flagging unusual patterns or outliers for products, services and resource entities, and initiating mitigatory actions to prevent outlier patterns in usage or behavior becoming problems. In the event of failure to predict or detect an early warning sign of a possible problem occurrence, the component hands off mitigatory actions to the Party Problem Management component.",
       "crd_version": "v1",
-      "exposed_apis": [],
+      "exposed_apis": [
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
+        }
+      ],
       "dependent_apis": []
     },
     {
@@ -1987,19 +2447,29 @@ const ODA_DATA = {
           "id": "TMF642",
           "name": "alarm-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF656",
           "name": "service-problem-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": []
@@ -2018,13 +2488,22 @@ const ODA_DATA = {
           "id": "TMF646",
           "name": "appointment-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -2032,19 +2511,22 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -2062,13 +2544,22 @@ const ODA_DATA = {
           "id": "TMF680",
           "name": "recommendation-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -2076,91 +2567,106 @@ const ODA_DATA = {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF637",
           "name": "product-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF622",
           "name": "product-ordering-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF679",
           "name": "product-offering-qualification-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF666",
           "name": "account-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF629",
           "name": "customer-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF663",
           "name": "shopping-cart-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF671",
           "name": "promotion-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF673",
           "name": "geographic-address-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF675",
           "name": "geographic-location-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF678",
           "name": "customer-bill-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF621",
           "name": "trouble-ticket-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF635",
           "name": "usage-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -2178,13 +2684,22 @@ const ODA_DATA = {
           "id": "TMF769",
           "name": "product-test-api",
           "version": "v5.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -2192,49 +2707,57 @@ const ODA_DATA = {
           "id": "TMF620",
           "name": "product-catalog-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF637",
           "name": "product-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF653",
           "name": "service-test-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF638",
           "name": "service-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF724",
           "name": "incident-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -2252,13 +2775,22 @@ const ODA_DATA = {
           "id": "TMF653",
           "name": "service-test-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -2266,37 +2798,43 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF633",
           "name": "service-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF638",
           "name": "service-inventory-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -2314,31 +2852,43 @@ const ODA_DATA = {
           "id": "TMF713",
           "name": "work-management",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF697",
           "name": "work-order-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF714",
           "name": "work-qualification-management",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF688",
           "name": "event-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -2346,31 +2896,36 @@ const ODA_DATA = {
           "id": "TMF632",
           "name": "party-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF669",
           "name": "party-role-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF646",
           "name": "appointment-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF701",
           "name": "process-flow-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF688",
           "name": "event-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     },
@@ -2388,13 +2943,22 @@ const ODA_DATA = {
           "id": "TMF702",
           "name": "resource-activation-management-api",
           "version": "v4.0.0",
-          "required": true
+          "required": true,
+          "function": "core"
         },
         {
           "id": "TMF664",
           "name": "resource-function-activation-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
+        },
+        {
+          "id": "TMF669",
+          "name": "party-role-management-api",
+          "version": "v4.0.0",
+          "required": true,
+          "function": "security"
         }
       ],
       "dependent_apis": [
@@ -2402,13 +2966,15 @@ const ODA_DATA = {
           "id": "TMF634",
           "name": "resource-catalog-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         },
         {
           "id": "TMF639",
           "name": "resource-inventory-management-api",
           "version": "v4.0.0",
-          "required": false
+          "required": false,
+          "function": "core"
         }
       ]
     }
@@ -3839,7 +4405,7 @@ const ODA_DATA = {
   ],
   "stats": {
     "components": 35,
-    "exposed_api_count": 83,
+    "exposed_api_count": 118,
     "dependent_api_count": 237,
     "unique_apis_referenced": 58,
     "apis_outside_tmf_map_set": 42
