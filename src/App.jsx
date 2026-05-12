@@ -1369,6 +1369,53 @@ export default function TMFMap() {
                   ))}
                 </div>
               )}
+
+              {/* ── eTOM Processes ── */}
+              {selData.etom_processes?.length > 0 && (
+                <div style={{marginTop:16}}>
+                  <SectionTitle>eTOM Processes ({selData.etom_processes.length})</SectionTitle>
+                  {selData.etom_processes.map((p,i)=>(
+                    <div key={i} style={{display:"flex",alignItems:"baseline",gap:7,padding:"5px 8px",borderRadius:6,background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.045)",marginBottom:3}}>
+                      <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9.5,color:FUNCTIONAL_BLOCKS[selData.functional_block]?.color || "#5e9bff",flexShrink:0,opacity:0.7}}>{p.id}</span>
+                      <span style={{fontSize:10.5,color:"rgba(224,232,240,0.65)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{p.name}</span>
+                      <span style={{marginLeft:"auto",fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"rgba(224,232,240,0.2)",flexShrink:0}}>{p.version}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* ── SID ABEs ── */}
+              {selData.sid_abes?.length > 0 && (
+                <div style={{marginTop:16}}>
+                  <SectionTitle>SID ABEs ({selData.sid_abes.length})</SectionTitle>
+                  {selData.sid_abes.map((s,i)=>(
+                    <div key={i} style={{padding:"5px 8px",borderRadius:6,background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.045)",marginBottom:3}}>
+                      <div style={{display:"flex",alignItems:"baseline",gap:6}}>
+                        <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:FUNCTIONAL_BLOCKS[selData.functional_block]?.color || "#5e9bff",flexShrink:0,opacity:0.65}}>{s.domain}</span>
+                        <span style={{fontSize:10.5,color:"rgba(224,232,240,0.65)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{s.abe_l1}</span>
+                        <span style={{marginLeft:"auto",fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"rgba(224,232,240,0.2)",flexShrink:0}}>{s.version}</span>
+                      </div>
+                      {s.abe_l2 && (
+                        <div style={{fontSize:9.5,color:"rgba(224,232,240,0.35)",marginTop:2,paddingLeft:4}}>↳ {s.abe_l2}</div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* ── FF Functions ── */}
+              {selData.ff_functions?.length > 0 && (
+                <div style={{marginTop:16,marginBottom:8}}>
+                  <SectionTitle>Functional Framework ({selData.ff_functions.length})</SectionTitle>
+                  {selData.ff_functions.map((f,i)=>(
+                    <div key={i} style={{display:"flex",alignItems:"baseline",gap:7,padding:"5px 8px",borderRadius:6,background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.045)",marginBottom:3}}>
+                      <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9.5,color:FUNCTIONAL_BLOCKS[selData.functional_block]?.color || "#5e9bff",flexShrink:0,opacity:0.7}}>{f.id}</span>
+                      <span style={{fontSize:10.5,color:"rgba(224,232,240,0.65)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{f.name}</span>
+                      <span style={{marginLeft:"auto",fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"rgba(224,232,240,0.2)",flexShrink:0}}>{f.version}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
