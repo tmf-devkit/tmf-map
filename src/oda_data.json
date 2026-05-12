@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-10T04:17:16Z",
-  "parser_version": "0.3.2",
+  "generated_at": "2026-05-12T10:56:09Z",
+  "parser_version": "0.3.3",
   "spec_source": "github.com/tmforum-rand/TMForum-ODA-Ready-for-publication@v1.0.0",
   "components": [
     {
@@ -116,221 +116,259 @@
       ],
       "etom_processes": [
         {
-          "id": "1.2.20|Product",
-          "name": "Catalog Lifecycle Management|v24.0",
-          "version": ""
+          "id": "1.2.20",
+          "name": "Product Catalog Lifecycle Management",
+          "version": "v24.0"
         },
         {
-          "id": "1.1.19|Loyalty",
-          "name": "Program Management|v24.0",
-          "version": ""
+          "id": "1.1.19",
+          "name": "Loyalty Program Management",
+          "version": "v24.0"
         },
         {
-          "id": "1.1.19.1|Loyalty",
-          "name": "Program Development & Retirement|v24.0",
-          "version": ""
+          "id": "1.1.19.1",
+          "name": "Loyalty Program Development & Retirement",
+          "version": "v24.0"
         },
         {
-          "id": "1.2.7|Product",
-          "name": "Specification & Offering Development & Retirement|v24.0",
-          "version": ""
+          "id": "1.2.7",
+          "name": "Product Specification & Offering Development & Retirement",
+          "version": "v24.0"
         },
         {
-          "id": "1.2.8.7|Implement",
-          "name": "Product Capacity Plan|v24.0",
-          "version": ""
+          "id": "1.2.8.7",
+          "name": "Implement Product Capacity Plan",
+          "version": "v24.0"
         },
         {
-          "id": "1.6.4|Business",
-          "name": "Partner Offering Development & Retirement|v24.0",
-          "version": ""
+          "id": "1.6.4",
+          "name": "Business Partner Offering Development & Retirement",
+          "version": "v24.0"
         },
         {
-          "id": "1.2.8|Product",
-          "name": "Capacity Management|v24.0",
-          "version": ""
+          "id": "1.2.8",
+          "name": "Product Capacity Management",
+          "version": "v24.0"
         },
         {
-          "id": "1.2.22|Product",
-          "name": "Catalog Content Management|v24.0",
-          "version": ""
+          "id": "1.2.22",
+          "name": "Product Catalog Content Management",
+          "version": "v24.0"
         },
         {
-          "id": "1.2.21|Product",
-          "name": "Catalog Operational Readiness Management|v24.0",
-          "version": ""
+          "id": "1.2.21",
+          "name": "Product Catalog Operational Readiness Management",
+          "version": "v24.0"
         },
         {
-          "id": "1.2.19|Product",
-          "name": "Catalog Planning Management|v24.0",
-          "version": ""
+          "id": "1.2.19",
+          "name": "Product Catalog Planning Management",
+          "version": "v24.0"
         },
         {
-          "id": "1.2.23|Product",
-          "name": "Specification Management|v24.0",
-          "version": ""
+          "id": "1.2.23",
+          "name": "Product Specification Management",
+          "version": "v24.0"
         },
         {
-          "id": "1.2.8.7.1|Specify",
-          "name": "Required Product Capacity|v24.0",
-          "version": ""
+          "id": "1.2.8.7.1",
+          "name": "Specify Required Product Capacity",
+          "version": "v24.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "3|Repository",
-          "name": "Entity Relations Configuration|v24.0",
-          "version": ""
+          "id": "3",
+          "name": "Repository Entity Relations Configuration",
+          "version": "v24.0"
         },
         {
-          "id": "4|Repository",
-          "name": "Entity Grouping Configuration|v24.0",
-          "version": ""
+          "id": "4",
+          "name": "Repository Entity Grouping Configuration",
+          "version": "v24.0"
         },
         {
-          "id": "6|Repository",
-          "name": "Entity Data Model Configuration|v24.0",
-          "version": ""
+          "id": "6",
+          "name": "Repository Entity Data Model Configuration",
+          "version": "v24.0"
         },
         {
-          "id": "11|Repository",
-          "name": "Entity Hierarchy Management|v24.0",
-          "version": ""
+          "id": "11",
+          "name": "Repository Entity Hierarchy Management",
+          "version": "v24.0"
         },
         {
-          "id": "123|Product",
-          "name": "Catalog Browsing|v24.0",
-          "version": ""
+          "id": "123",
+          "name": "Product Catalog Browsing",
+          "version": "v24.0"
         },
         {
-          "id": "210|Centralized",
-          "name": "Ordering Rules Management|v24.0",
-          "version": ""
+          "id": "210",
+          "name": "Centralized Ordering Rules Management",
+          "version": "v24.0"
         },
         {
-          "id": "238|Customer",
-          "name": "Loyalty Rules Management|v24.0",
-          "version": ""
+          "id": "238",
+          "name": "Customer Loyalty Rules Management",
+          "version": "v24.0"
         },
         {
-          "id": "263|Product",
-          "name": "Compatibility Checking|v24.0",
-          "version": ""
+          "id": "263",
+          "name": "Product Compatibility Checking",
+          "version": "v24.0"
         },
         {
-          "id": "360|Product",
-          "name": "Agreement Specification Design|v24.0",
-          "version": ""
+          "id": "360",
+          "name": "Product Agreement Specification Design",
+          "version": "v24.0"
         },
         {
-          "id": "407|Product",
-          "name": "Modeling Support|v24.0",
-          "version": ""
+          "id": "407",
+          "name": "Product Modeling Support",
+          "version": "v24.0"
         },
         {
-          "id": "408|Product",
-          "name": "Retirement|v24.0",
-          "version": ""
+          "id": "408",
+          "name": "Product Retirement",
+          "version": "v24.0"
         },
         {
-          "id": "415|Product",
-          "name": "Strategy linking|v24.0",
-          "version": ""
+          "id": "415",
+          "name": "Product Strategy linking",
+          "version": "v24.0"
         },
         {
-          "id": "649|Product",
-          "name": "Sourcing Registration|v24.0",
-          "version": ""
+          "id": "649",
+          "name": "Product Sourcing Registration",
+          "version": "v24.0"
         },
         {
-          "id": "650|Partner",
-          "name": "Product Certification|v24.0",
-          "version": ""
+          "id": "650",
+          "name": "Partner Product Certification",
+          "version": "v24.0"
         },
         {
-          "id": "662|Sourcing",
-          "name": "Reference Data Collection|v24.0",
-          "version": ""
+          "id": "662",
+          "name": "Sourcing Reference Data Collection",
+          "version": "v24.0"
         },
         {
-          "id": "721|Customer",
-          "name": "Order Rules Configuration|v24.0",
-          "version": ""
+          "id": "721",
+          "name": "Customer Order Rules Configuration",
+          "version": "v24.0"
         },
         {
-          "id": "722|Order",
-          "name": "Rules Retrieval|v24.0",
-          "version": ""
+          "id": "722",
+          "name": "Order Rules Retrieval",
+          "version": "v24.0"
         },
         {
-          "id": "992|Entity",
-          "name": "Management Notification|v24.0",
-          "version": ""
+          "id": "992",
+          "name": "Entity Management Notification",
+          "version": "v24.0"
         },
         {
-          "id": "993|Entity",
-          "name": "Management Reporting|v24.0",
-          "version": ""
+          "id": "993",
+          "name": "Entity Management Reporting",
+          "version": "v24.0"
         },
         {
-          "id": "1050|Product",
-          "name": "Onboarding Management|v24.0",
-          "version": ""
+          "id": "1050",
+          "name": "Product Onboarding Management",
+          "version": "v24.0"
         },
         {
-          "id": "1053|Onboarded",
-          "name": "Product Workflows Definition|v24.0",
-          "version": ""
+          "id": "1053",
+          "name": "Onboarded Product Workflows Definition",
+          "version": "v24.0"
         },
         {
-          "id": "1076|Product",
-          "name": "Specification Design|v24.0",
-          "version": ""
+          "id": "1076",
+          "name": "Product Specification Design",
+          "version": "v24.0"
         },
         {
-          "id": "1077|Product",
-          "name": "Offering Design|v24.0",
-          "version": ""
+          "id": "1077",
+          "name": "Product Offering Design",
+          "version": "v24.0"
         },
         {
-          "id": "1078|Product",
-          "name": "Specification and Offering Change Auditing|v24.0",
-          "version": ""
+          "id": "1078",
+          "name": "Product Specification and Offering Change Auditing",
+          "version": "v24.0"
         },
         {
-          "id": "1079|Product",
-          "name": "Specification and Offering Repository Management|v24.0",
-          "version": ""
+          "id": "1079",
+          "name": "Product Specification and Offering Repository Management",
+          "version": "v24.0"
         },
         {
-          "id": "416|Product",
-          "name": "Propositions Operations Planning|v24.0",
-          "version": ""
+          "id": "416",
+          "name": "Product Propositions Operations Planning",
+          "version": "v24.0"
         },
         {
-          "id": "417|Product",
-          "name": "Strategy to Proposition Alignment|v24.0",
-          "version": ""
+          "id": "417",
+          "name": "Product Strategy to Proposition Alignment",
+          "version": "v24.0"
         },
         {
-          "id": "418|Product",
-          "name": "Strategy/Propositions Creation|v24.0",
-          "version": ""
+          "id": "418",
+          "name": "Product Strategy/Propositions Creation",
+          "version": "v24.0"
         },
         {
-          "id": "419|Product",
-          "name": "Strategy performance reporting|v24.0",
-          "version": ""
+          "id": "419",
+          "name": "Product Strategy performance reporting",
+          "version": "v24.0"
         },
         {
-          "id": "897|Building",
-          "name": "Access Control|v24.0",
-          "version": ""
+          "id": "897",
+          "name": "Building Access Control",
+          "version": "v24.0"
         },
         {
-          "id": "900|Authorization",
-          "name": "Control Management|v24.0",
-          "version": ""
+          "id": "900",
+          "name": "Authorization Control Management",
+          "version": "v24.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Product",
+          "abe_l1": "Product Offering Specification ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Product",
+          "abe_l1": "Product Specification ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Product",
+          "abe_l1": "Product Configuration ABE",
+          "abe_l2": "ProductConfigSpec BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Product",
+          "abe_l1": "Loyalty ABE",
+          "abe_l2": "Product Usage Spec ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Product",
+          "abe_l1": "Product Usage ABE",
+          "abe_l2": "Loyalty Program Specification ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Business Partner",
+          "abe_l1": "Party Product Specification and Offering ABE",
+          "abe_l2": "",
+          "version": "v25.0"
         }
       ]
     },
@@ -503,156 +541,170 @@
       ],
       "etom_processes": [
         {
-          "id": "1.1.9|Selling|v23.0",
-          "name": "",
-          "version": ""
+          "id": "1.1.9",
+          "name": "Selling",
+          "version": "v23.0"
         },
         {
-          "id": "1.1.9.2|Develop",
-          "name": "Sales Proposal|v23.0",
-          "version": ""
+          "id": "1.1.9.2",
+          "name": "Develop Sales Proposal",
+          "version": "v23.0"
         },
         {
-          "id": "1.1.9.5|Negotiate",
-          "name": "Sales/Contract|v23.0",
-          "version": ""
+          "id": "1.1.9.5",
+          "name": "Negotiate Sales/Contract",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.3|Customer",
-          "name": "Order Handling|v23.0",
-          "version": ""
+          "id": "1.3.3",
+          "name": "Customer Order Handling",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.3.10|Manage",
-          "name": "Customer Order Placement|v23.0",
-          "version": ""
+          "id": "1.3.3.10",
+          "name": "Manage Customer Order Placement",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "16|Fallout",
-          "name": "Automated Correction|v23.0",
-          "version": ""
+          "id": "16",
+          "name": "Fallout Automated Correction",
+          "version": "v23.0"
         },
         {
-          "id": "17|Fallout",
-          "name": "Correction Information Collection|v23.0",
-          "version": ""
+          "id": "17",
+          "name": "Fallout Correction Information Collection",
+          "version": "v23.0"
         },
         {
-          "id": "18|Fallout",
-          "name": "Management to Fulfillment Application Accessing|v23.0",
-          "version": ""
+          "id": "18",
+          "name": "Fallout Management to Fulfillment Application Accessing",
+          "version": "v23.0"
         },
         {
-          "id": "19|Fallout",
-          "name": "Manual Correction Queuing|v23.0",
-          "version": ""
+          "id": "19",
+          "name": "Fallout Manual Correction Queuing",
+          "version": "v23.0"
         },
         {
-          "id": "20|Fallout",
-          "name": "Notification|v23.0",
-          "version": ""
+          "id": "20",
+          "name": "Fallout Notification",
+          "version": "v23.0"
         },
         {
-          "id": "21|Fallout",
-          "name": "Orchestration|v23.0",
-          "version": ""
+          "id": "21",
+          "name": "Fallout Orchestration",
+          "version": "v23.0"
         },
         {
-          "id": "22|Fallout",
-          "name": "Reporting|v23.0",
-          "version": ""
+          "id": "22",
+          "name": "Fallout Reporting",
+          "version": "v23.0"
         },
         {
-          "id": "23|Fallout",
-          "name": "Dashboard System Log-in Accessing|v23.0",
-          "version": ""
+          "id": "23",
+          "name": "Fallout Dashboard System Log-in Accessing",
+          "version": "v23.0"
         },
         {
-          "id": "24|Pre-populated",
-          "name": "Fallout Information Presentation|v23.0",
-          "version": ""
+          "id": "24",
+          "name": "Pre-populated Fallout Information Presentation",
+          "version": "v23.0"
         },
         {
-          "id": "120|Customer",
-          "name": "Order Capturing|v23.0",
-          "version": ""
+          "id": "120",
+          "name": "Customer Order Capturing",
+          "version": "v23.0"
         },
         {
-          "id": "176|Customer",
-          "name": "Order Capturing Access|v23.0",
-          "version": ""
+          "id": "176",
+          "name": "Customer Order Capturing Access",
+          "version": "v23.0"
         },
         {
-          "id": "177|Customer",
-          "name": "Order Take-over Management|v23.0",
-          "version": ""
+          "id": "177",
+          "name": "Customer Order Take-over Management",
+          "version": "v23.0"
         },
         {
-          "id": "181|Product",
-          "name": "Order Data Collection|v23.0",
-          "version": ""
+          "id": "181",
+          "name": "Product Order Data Collection",
+          "version": "v23.0"
         },
         {
-          "id": "204|Customer",
-          "name": "Order Completion|v23.0",
-          "version": ""
+          "id": "204",
+          "name": "Customer Order Completion",
+          "version": "v23.0"
         },
         {
-          "id": "217|Customer",
-          "name": "Order Establishment Tracking|v23.0",
-          "version": ""
+          "id": "217",
+          "name": "Customer Order Establishment Tracking",
+          "version": "v23.0"
         },
         {
-          "id": "236|Customer",
-          "name": "Loyalty Subscription Management|v23.0",
-          "version": ""
+          "id": "236",
+          "name": "Customer Loyalty Subscription Management",
+          "version": "v23.0"
         },
         {
-          "id": "259|External",
-          "name": "Call Center Access|v23.0",
-          "version": ""
+          "id": "259",
+          "name": "External Call Center Access",
+          "version": "v23.0"
         },
         {
-          "id": "277|Shopping",
-          "name": "Cart Purchasing Access|v23.0",
-          "version": ""
+          "id": "277",
+          "name": "Shopping Cart Purchasing Access",
+          "version": "v23.0"
         },
         {
-          "id": "317|Product",
-          "name": "Availability Area Checking|v23.0",
-          "version": ""
+          "id": "317",
+          "name": "Product Availability Area Checking",
+          "version": "v23.0"
         },
         {
-          "id": "343|Mass",
-          "name": "Transaction Ordering|v23.0",
-          "version": ""
+          "id": "343",
+          "name": "Mass Transaction Ordering",
+          "version": "v23.0"
         },
         {
-          "id": "379|Product",
-          "name": "Customization Offering Management|v23.0",
-          "version": ""
+          "id": "379",
+          "name": "Product Customization Offering Management",
+          "version": "v23.0"
         },
         {
-          "id": "388|Sales",
-          "name": "Order Reporting|v23.0",
-          "version": ""
+          "id": "388",
+          "name": "Sales Order Reporting",
+          "version": "v23.0"
         },
         {
-          "id": "756|Fallout",
-          "name": "Rule Based Error Correction|v23.0",
-          "version": ""
+          "id": "756",
+          "name": "Fallout Rule Based Error Correction",
+          "version": "v23.0"
         },
         {
-          "id": "934|Sales",
-          "name": "Negotiation Support|v23.0",
-          "version": ""
+          "id": "934",
+          "name": "Sales Negotiation Support",
+          "version": "v23.0"
         },
         {
-          "id": "1063|Sales",
-          "name": "Quote Management|v23.0",
-          "version": ""
+          "id": "1063",
+          "name": "Sales Quote Management",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Customer",
+          "abe_l1": "Customer Product Order ABE",
+          "abe_l2": "SalesQuote BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Customer",
+          "abe_l1": "Customer Product Order ABE",
+          "abe_l2": "ShoppingCart BE",
+          "version": "v25.0"
         }
       ]
     },
@@ -762,253 +814,254 @@
       ],
       "etom_processes": [
         {
-          "id": "1.3.3|Customer",
-          "name": "Order Processing Management|v23.0",
-          "version": ""
+          "id": "1.3.3",
+          "name": "Customer Order Processing Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.3.12|Customer",
-          "name": "Order Fulfilment|v23.0",
-          "version": ""
+          "id": "1.3.3.12",
+          "name": "Customer Order Fulfilment",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.3.12.1|Manage",
-          "name": "Customer Order Fallout|v23.0",
-          "version": ""
+          "id": "1.3.3.12.1",
+          "name": "Manage Customer Order Fallout",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.3.12.1|Manage",
-          "name": "Customer Order Delivery|v23.0",
-          "version": ""
+          "id": "1.3.3.12.1",
+          "name": "Manage Customer Order Delivery",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.3.15|Manage",
-          "name": "Customer Order Completion|v23.0",
-          "version": ""
+          "id": "1.3.3.15",
+          "name": "Manage Customer Order Completion",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.3.16|Manage Customer",
-          "name": "Order Management Reporting|v23.0",
-          "version": ""
+          "id": "1.3.3.16",
+          "name": "Manage Customer Order Management Reporting",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.3.17|Manage",
-          "name": "Customer Order Closure|v23.0",
-          "version": ""
+          "id": "1.3.3.17",
+          "name": "Manage Customer Order Closure",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.27.2|Manage Product",
-          "name": "Order Fulfilment|v23.0",
-          "version": ""
+          "id": "1.2.27.2",
+          "name": "Manage Product Order Fulfilment",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.27.3|Manage Product",
-          "name": "Order Delivery|v23.0",
-          "version": ""
+          "id": "1.2.27.3",
+          "name": "Manage Product Order Delivery",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.27.4|Manage Product",
-          "name": "Order Cancellation|v23.0",
-          "version": ""
+          "id": "1.2.27.4",
+          "name": "Manage Product Order Cancellation",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.27.5|Manage Product",
-          "name": "Order Management Reports|v23.0",
-          "version": ""
+          "id": "1.2.27.5",
+          "name": "Manage Product Order Management Reports",
+          "version": "v23.0"
         },
         {
-          "id": "1.4.5|Service",
-          "name": "Configuration & Activation|v23.0",
-          "version": ""
+          "id": "1.4.5",
+          "name": "Service Configuration & Activation",
+          "version": "v23.0"
         },
         {
-          "id": "1.4.5.6|Issue",
-          "name": "Service Order|v23.0",
-          "version": ""
+          "id": "1.4.5.6",
+          "name": "Issue Service Order",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.6|Resource",
-          "name": "Provisioning|v23.0",
-          "version": ""
+          "id": "1.5.6",
+          "name": "Resource Provisioning",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.6.7|Issue",
-          "name": "Resource Order|v23.0",
-          "version": ""
+          "id": "1.5.6.7",
+          "name": "Issue Resource Order",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.8|Business",
-          "name": "Partner Order Managemenrt|v23.0",
-          "version": ""
+          "id": "1.6.8",
+          "name": "Business Partner Order Managemenrt",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.8.1|Issue",
-          "name": "Business Partner|v23.0",
-          "version": ""
+          "id": "1.6.8.1",
+          "name": "Issue Business Partner",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "16|Fallout",
-          "name": "Automated Correction|v23.0",
-          "version": ""
+          "id": "16",
+          "name": "Fallout Automated Correction",
+          "version": "v23.0"
         },
         {
-          "id": "17|Fallout",
-          "name": "Correction Information Collection|v23.0",
-          "version": ""
+          "id": "17",
+          "name": "Fallout Correction Information Collection",
+          "version": "v23.0"
         },
         {
-          "id": "18|Fallout",
-          "name": "Management to Fulfillment Application Accessing|v23.0",
-          "version": ""
+          "id": "18",
+          "name": "Fallout Management to Fulfillment Application Accessing",
+          "version": "v23.0"
         },
         {
-          "id": "19|Fallout",
-          "name": "Manual Correction Queuing|v23.0",
-          "version": ""
+          "id": "19",
+          "name": "Fallout Manual Correction Queuing",
+          "version": "v23.0"
         },
         {
-          "id": "20|Fallout",
-          "name": "Notification|v23.0",
-          "version": ""
+          "id": "20",
+          "name": "Fallout Notification",
+          "version": "v23.0"
         },
         {
-          "id": "21|Fallout",
-          "name": "Orchestration|v23.0",
-          "version": ""
+          "id": "21",
+          "name": "Fallout Orchestration",
+          "version": "v23.0"
         },
         {
-          "id": "22|Fallout",
-          "name": "Reporting|v23.0",
-          "version": ""
+          "id": "22",
+          "name": "Fallout Reporting",
+          "version": "v23.0"
         },
         {
-          "id": "23|Fallout",
-          "name": "Dashboard System Log-in Accessing|v23.0",
-          "version": ""
+          "id": "23",
+          "name": "Fallout Dashboard System Log-in Accessing",
+          "version": "v23.0"
         },
         {
-          "id": "24|Pre-populated",
-          "name": "Fallout Information Presentation|v23.0",
-          "version": ""
+          "id": "24",
+          "name": "Pre-populated Fallout Information Presentation",
+          "version": "v23.0"
         },
         {
-          "id": "172|Customer",
-          "name": "Order Reporting|v23.0",
-          "version": ""
+          "id": "172",
+          "name": "Customer Order Reporting",
+          "version": "v23.0"
         },
         {
-          "id": "175|Customer",
-          "name": "Support Jeopardy Notification|v23.0",
-          "version": ""
+          "id": "175",
+          "name": "Customer Support Jeopardy Notification",
+          "version": "v23.0"
         },
         {
-          "id": "174|Customer",
-          "name": "Order Error Resolution Support|v23.0",
-          "version": ""
+          "id": "174",
+          "name": "Customer Order Error Resolution Support",
+          "version": "v23.0"
         },
         {
-          "id": "178|Customer",
-          "name": "Order Administration|v23.0",
-          "version": ""
+          "id": "178",
+          "name": "Customer Order Administration",
+          "version": "v23.0"
         },
         {
-          "id": "208|Customer",
-          "name": "Order Change Management|v23.0",
-          "version": ""
+          "id": "208",
+          "name": "Customer Order Change Management",
+          "version": "v23.0"
         },
         {
-          "id": "209|Customer",
-          "name": "Order Cancellation|v23.0",
-          "version": ""
+          "id": "209",
+          "name": "Customer Order Cancellation",
+          "version": "v23.0"
         },
         {
-          "id": "211|Customer",
-          "name": "Order Activity Supervision|v23.0",
-          "version": ""
+          "id": "211",
+          "name": "Customer Order Activity Supervision",
+          "version": "v23.0"
         },
         {
-          "id": "212|Customer",
-          "name": "Order Versioning|v23.0",
-          "version": ""
+          "id": "212",
+          "name": "Customer Order Versioning",
+          "version": "v23.0"
         },
         {
-          "id": "213|Pending",
-          "name": "Customer Order Manteinance|v23.0",
-          "version": ""
+          "id": "213",
+          "name": "Pending Customer Order Manteinance",
+          "version": "v23.0"
         },
         {
-          "id": "214|Customer",
-          "name": "Order Orchestration|v23.0",
-          "version": ""
+          "id": "214",
+          "name": "Customer Order Orchestration",
+          "version": "v23.0"
         },
         {
-          "id": "215|Retro-active",
-          "name": "order orchestration|v23.0",
-          "version": ""
+          "id": "215",
+          "name": "Retro-active order orchestration",
+          "version": "v23.0"
         },
         {
-          "id": "217Customer",
-          "name": "Order Establishment Tracking|v23.0",
-          "version": ""
+          "id": "217Customer_Order_Establishment_Tracking",
+          "name": "",
+          "version": "v23.0"
         },
         {
-          "id": "716|Order",
-          "name": "Data Enrichment|v23.0",
-          "version": ""
+          "id": "716",
+          "name": "Order Data Enrichment",
+          "version": "v23.0"
         },
         {
-          "id": "716|Order-Data",
-          "name": "Enrichment|v23.0",
-          "version": ""
+          "id": "716",
+          "name": "Order-Data Enrichment",
+          "version": "v23.0"
         },
         {
-          "id": "717|Calculated-Order-Data",
-          "name": "Enrichment|v23.0",
-          "version": ""
+          "id": "717",
+          "name": "Calculated-Order-Data Enrichment",
+          "version": "v23.0"
         },
         {
-          "id": "718|Customer",
-          "name": "Order Validation|v23.0",
-          "version": ""
+          "id": "718",
+          "name": "Customer Order Validation",
+          "version": "v23.0"
         },
         {
-          "id": "719|Customer",
-          "name": "Order Storage|v23.0",
-          "version": ""
+          "id": "719",
+          "name": "Customer Order Storage",
+          "version": "v23.0"
         },
         {
-          "id": "720|Customer",
-          "name": "Order Searching|v23.0",
-          "version": ""
+          "id": "720",
+          "name": "Customer Order Searching",
+          "version": "v23.0"
         },
         {
-          "id": "756|Fallout",
-          "name": "Rule Based Error Correction|v23.0",
-          "version": ""
+          "id": "756",
+          "name": "Fallout Rule Based Error Correction",
+          "version": "v23.0"
         },
         {
-          "id": "1070|Orchestration",
-          "name": "Customer Order Error Resolution|v23.0",
-          "version": ""
+          "id": "1070",
+          "name": "Orchestration Customer Order Error Resolution",
+          "version": "v23.0"
         },
         {
-          "id": "1202|Delivery",
-          "name": "Items Identification|v23.0",
-          "version": ""
+          "id": "1202",
+          "name": "Delivery Items Identification",
+          "version": "v23.0"
         },
         {
-          "id": "1203|Order",
-          "name": "Preparation|v23.0",
-          "version": ""
+          "id": "1203",
+          "name": "Order Preparation",
+          "version": "v23.0"
         },
         {
-          "id": "1325|Customer",
-          "name": "Order Distribution|v23.0",
-          "version": ""
+          "id": "1325",
+          "name": "Customer Order Distribution",
+          "version": "v23.0"
         }
-      ]
+      ],
+      "sid_abes": []
     },
     {
       "id": "TMFC005",
@@ -1130,66 +1183,86 @@
       ],
       "etom_processes": [
         {
-          "id": "1.2.11|Product",
-          "name": "Inventory Management|v24.0",
-          "version": ""
+          "id": "1.2.11",
+          "name": "Product Inventory Management",
+          "version": "v24.0"
         },
         {
-          "id": "1.1.19|Loyalty",
-          "name": "Program Management|v24.0",
-          "version": ""
+          "id": "1.1.19",
+          "name": "Loyalty Program Management",
+          "version": "v24.0"
         },
         {
-          "id": "1.1.19.2|Loyalty",
-          "name": "Program Operation|v24.0",
-          "version": ""
+          "id": "1.1.19.2",
+          "name": "Loyalty Program Operation",
+          "version": "v24.0"
         },
         {
-          "id": "1.1.19.2.5|Manage",
-          "name": "Loyalty Program Account|v24.0",
-          "version": ""
+          "id": "1.1.19.2.5",
+          "name": "Manage Loyalty Program Account",
+          "version": "v24.0"
         },
         {
-          "id": "1.1.19.2.7|Provide",
-          "name": "Loyalty Program Operation Report|v24.0",
-          "version": ""
+          "id": "1.1.19.2.7",
+          "name": "Provide Loyalty Program Operation Report",
+          "version": "v24.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "180|Assigned",
-          "name": "Products Maintenance|v24.0",
-          "version": ""
+          "id": "180",
+          "name": "Assigned Products Maintenance",
+          "version": "v24.0"
         },
         {
-          "id": "197|Customer",
-          "name": "Product Storage|v24.0",
-          "version": ""
+          "id": "197",
+          "name": "Customer Product Storage",
+          "version": "v24.0"
         },
         {
-          "id": "198|Customer",
-          "name": "Loyalty Score Balance Management|v24.0",
-          "version": ""
+          "id": "198",
+          "name": "Customer Loyalty Score Balance Management",
+          "version": "v24.0"
         },
         {
-          "id": "237|Customer",
-          "name": "Loyalty Communication|v24.0",
-          "version": ""
+          "id": "237",
+          "name": "Customer Loyalty Communication",
+          "version": "v24.0"
         },
         {
-          "id": "361|Contract",
-          "name": "Implementation|v24.0",
-          "version": ""
+          "id": "361",
+          "name": "Contract Implementation",
+          "version": "v24.0"
         },
         {
-          "id": "362|Contract",
-          "name": "Searching|v24.0",
-          "version": ""
+          "id": "362",
+          "name": "Contract Searching",
+          "version": "v24.0"
         },
         {
-          "id": "363|Contract",
-          "name": "Storage|v24.0",
-          "version": ""
+          "id": "363",
+          "name": "Contract Storage",
+          "version": "v24.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Product",
+          "abe_l1": "Product and Offering Instance ABE",
+          "abe_l2": "Product ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Product",
+          "abe_l1": "ProductOfferingInstance ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Product",
+          "abe_l1": "Loyalty ABE",
+          "abe_l2": "Loyalty Program ABE",
+          "version": "v25.0"
         }
       ]
     },
@@ -1264,86 +1337,118 @@
       ],
       "etom_processes": [
         {
-          "id": "1.4.13|Service",
-          "name": "Catalog Lifecycle Management|v23.0",
-          "version": ""
+          "id": "1.4.13",
+          "name": "Service Catalog Lifecycle Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.4.14|Service",
-          "name": "Catalog Operational Readiness Management|v23.0",
-          "version": ""
+          "id": "1.4.14",
+          "name": "Service Catalog Operational Readiness Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.4.15|Service",
-          "name": "Catalog Content Management|v23.0",
-          "version": ""
+          "id": "1.4.15",
+          "name": "Service Catalog Content Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.4.16|Service",
-          "name": "Catalog Planning Management|v23.0",
-          "version": ""
+          "id": "1.4.16",
+          "name": "Service Catalog Planning Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.4.19|Service",
-          "name": "Specification Management|v23.0",
-          "version": ""
+          "id": "1.4.19",
+          "name": "Service Specification Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.4.3|Service",
-          "name": "Specification Development & Retirement|v23.0",
-          "version": ""
+          "id": "1.4.3",
+          "name": "Service Specification Development & Retirement",
+          "version": "v23.0"
         },
         {
-          "id": "1.4.3.4|Develop",
-          "name": "Detailed Service Specifications|v23.0",
-          "version": ""
+          "id": "1.4.3.4",
+          "name": "Develop Detailed Service Specifications",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "1135|Technical",
-          "name": "Solution Policy Design|v23.0",
-          "version": ""
+          "id": "1135",
+          "name": "Technical Solution Policy Design",
+          "version": "v23.0"
         },
         {
-          "id": "995|Service",
-          "name": "Task Item Policy Control Configuration|v23.0",
-          "version": ""
+          "id": "995",
+          "name": "Service Task Item Policy Control Configuration",
+          "version": "v23.0"
         },
         {
-          "id": "1080|Service",
-          "name": "Specification Change Auditing|v23.0",
-          "version": ""
+          "id": "1080",
+          "name": "Service Specification Change Auditing",
+          "version": "v23.0"
         },
         {
-          "id": "1081|Service",
-          "name": "Specification Repository Management|v23.0",
-          "version": ""
+          "id": "1081",
+          "name": "Service Specification Repository Management",
+          "version": "v23.0"
         },
         {
-          "id": "1084|Know-How",
-          "name": "Specification Design|v23.0",
-          "version": ""
+          "id": "1084",
+          "name": "Know-How Specification Design",
+          "version": "v23.0"
         },
         {
-          "id": "1085|Technical",
-          "name": "Solution Design|v23.0",
-          "version": ""
+          "id": "1085",
+          "name": "Technical Solution Design",
+          "version": "v23.0"
         },
         {
-          "id": "1086|Service",
-          "name": "Specification to Supplier Product Specification Relationship Design|v23.0",
-          "version": ""
+          "id": "1086",
+          "name": "Service Specification to Supplier Product Specification Relationship Design",
+          "version": "v23.0"
         },
         {
-          "id": "897|Building",
-          "name": "Access Control|v23.0",
-          "version": ""
+          "id": "897",
+          "name": "Building Access Control",
+          "version": "v23.0"
         },
         {
-          "id": "900|Authorization",
-          "name": "Control Management|v23.0",
-          "version": ""
+          "id": "900",
+          "name": "Authorization Control Management",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Service",
+          "abe_l1": "Service Specification ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Service",
+          "abe_l1": "Service Performance ABE",
+          "abe_l2": "Service Level Spec ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Service",
+          "abe_l1": "Service Performance ABE",
+          "abe_l2": "Service Performance Specification ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Service",
+          "abe_l1": "Service Usage ABE",
+          "abe_l2": "ServiceUsageSpec BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Service",
+          "abe_l1": "Service Configuration ABE",
+          "abe_l2": "ServiceConfigSpec BE",
+          "version": "v25.0"
         }
       ]
     },
@@ -1509,186 +1614,194 @@
       ],
       "etom_processes": [
         {
-          "id": "1.4.5|Service",
-          "name": "Configuration & Activation|v21.5",
-          "version": ""
+          "id": "1.4.5",
+          "name": "Service Configuration & Activation",
+          "version": "v21.5"
         },
         {
-          "id": "1.4.5.1|Design",
-          "name": "Solution|v21.5",
-          "version": ""
+          "id": "1.4.5.1",
+          "name": "Design Solution",
+          "version": "v21.5"
         },
         {
-          "id": "1.4.5.2|Allocate",
-          "name": "Specific Service Parameters to Services|v21.5",
-          "version": ""
+          "id": "1.4.5.2",
+          "name": "Allocate Specific Service Parameters to Services",
+          "version": "v21.5"
         },
         {
-          "id": "1.4.5.3|Track",
-          "name": "& Manage Service Provisioning|v21.5",
-          "version": ""
+          "id": "1.4.5.3",
+          "name": "Track & Manage Service Provisioning",
+          "version": "v21.5"
         },
         {
-          "id": "1.4.5.4|Implement,",
-          "name": "configure & activate service|v21.5",
-          "version": ""
+          "id": "1.4.5.4",
+          "name": "Implement, configure & activate service",
+          "version": "v21.5"
         },
         {
-          "id": "1.4.5.6|Issue",
-          "name": "Service Order|v21.5",
-          "version": ""
+          "id": "1.4.5.6",
+          "name": "Issue Service Order",
+          "version": "v21.5"
         },
         {
-          "id": "1.4.5.7|Report",
-          "name": "service provisioning|v21.5",
-          "version": ""
+          "id": "1.4.5.7",
+          "name": "Report service provisioning",
+          "version": "v21.5"
         },
         {
-          "id": "1.4.5.8|Close",
-          "name": "Service Order|v21.5",
-          "version": ""
+          "id": "1.4.5.8",
+          "name": "Close Service Order",
+          "version": "v21.5"
         },
         {
-          "id": "1.5.6|Resource",
-          "name": "Provisioning|v21.5",
-          "version": ""
+          "id": "1.5.6",
+          "name": "Resource Provisioning",
+          "version": "v21.5"
         },
         {
-          "id": "1.5.6.7|Issue",
-          "name": "Resource Order|v21.5",
-          "version": ""
+          "id": "1.5.6.7",
+          "name": "Issue Resource Order",
+          "version": "v21.5"
         }
       ],
       "ff_functions": [
         {
-          "id": "584|Service",
-          "name": "Activation Planning|v21.5",
-          "version": ""
+          "id": "584",
+          "name": "Service Activation Planning",
+          "version": "v21.5"
         },
         {
-          "id": "588|Service",
-          "name": "Orchestration Configuration|v21.5",
-          "version": ""
+          "id": "588",
+          "name": "Service Orchestration Configuration",
+          "version": "v21.5"
         },
         {
-          "id": "591|Service",
-          "name": "Parameters Allocation|v21.5",
-          "version": ""
+          "id": "591",
+          "name": "Service Parameters Allocation",
+          "version": "v21.5"
         },
         {
-          "id": "596|Service",
-          "name": "Order Transfer Supervision|v21.5",
-          "version": ""
+          "id": "596",
+          "name": "Service Order Transfer Supervision",
+          "version": "v21.5"
         },
         {
-          "id": "598|Service",
-          "name": "Order Orchestration|v21.5",
-          "version": ""
+          "id": "598",
+          "name": "Service Order Orchestration",
+          "version": "v21.5"
         },
         {
-          "id": "733|Service",
-          "name": "Order Decomposition|v21.5",
-          "version": ""
+          "id": "733",
+          "name": "Service Order Decomposition",
+          "version": "v21.5"
         },
         {
-          "id": "734|Service",
-          "name": "Data Collection|v21.5",
-          "version": ""
+          "id": "734",
+          "name": "Service Data Collection",
+          "version": "v21.5"
         },
         {
-          "id": "963|Service",
-          "name": "Task Item Decomposition|v21.5",
-          "version": ""
+          "id": "963",
+          "name": "Service Task Item Decomposition",
+          "version": "v21.5"
         },
         {
-          "id": "968|Service",
-          "name": "Work Item Sequence Execution|v21.5",
-          "version": ""
+          "id": "968",
+          "name": "Service Work Item Sequence Execution",
+          "version": "v21.5"
         },
         {
-          "id": "969|Service",
-          "name": "Work Item Sequence Execution Configuration|v21.5",
-          "version": ""
+          "id": "969",
+          "name": "Service Work Item Sequence Execution Configuration",
+          "version": "v21.5"
         },
         {
-          "id": "571|Service",
-          "name": "Delivery Due Date Calculation|v21.5",
-          "version": ""
+          "id": "571",
+          "name": "Service Delivery Due Date Calculation",
+          "version": "v21.5"
         },
         {
-          "id": "1061|Service",
-          "name": "Order Initiation|v21.5",
-          "version": ""
+          "id": "1061",
+          "name": "Service Order Initiation",
+          "version": "v21.5"
         },
         {
-          "id": "595|Service",
-          "name": "Order Completion|v21.5",
-          "version": ""
+          "id": "595",
+          "name": "Service Order Completion",
+          "version": "v21.5"
         },
         {
-          "id": "600|Service",
-          "name": "Order Validation|v21.5",
-          "version": ""
+          "id": "600",
+          "name": "Service Order Validation",
+          "version": "v21.5"
         },
         {
-          "id": "583|Activation",
-          "name": "Notification|v21.5",
-          "version": ""
+          "id": "583",
+          "name": "Activation Notification",
+          "version": "v21.5"
         },
         {
-          "id": "594|Service",
-          "name": "Order Storage|v21.5",
-          "version": ""
+          "id": "594",
+          "name": "Service Order Storage",
+          "version": "v21.5"
         },
         {
-          "id": "597|Service",
-          "name": "Order Exposure|v21.5",
-          "version": ""
+          "id": "597",
+          "name": "Service Order Exposure",
+          "version": "v21.5"
         },
         {
-          "id": "599|Service",
-          "name": "Order Tracking|v21.5",
-          "version": ""
+          "id": "599",
+          "name": "Service Order Tracking",
+          "version": "v21.5"
         },
         {
-          "id": "735|Access",
-          "name": "Provider Selection|v21.5",
-          "version": ""
+          "id": "735",
+          "name": "Access Provider Selection",
+          "version": "v21.5"
         },
         {
-          "id": "341|Service",
-          "name": "Activation|v21.5",
-          "version": ""
+          "id": "341",
+          "name": "Service Activation",
+          "version": "v21.5"
         },
         {
-          "id": "342|Mass",
-          "name": "Service Pre-activation|v21.5",
-          "version": ""
+          "id": "342",
+          "name": "Mass Service Pre-activation",
+          "version": "v21.5"
         },
         {
-          "id": "570|Solution",
-          "name": "Services Design Management|v21.5",
-          "version": ""
+          "id": "570",
+          "name": "Solution Services Design Management",
+          "version": "v21.5"
         },
         {
-          "id": "589|Cross",
-          "name": "Services Dependencies Configuration|v21.5",
-          "version": ""
+          "id": "589",
+          "name": "Cross Services Dependencies Configuration",
+          "version": "v21.5"
         },
         {
-          "id": "590|Service",
-          "name": "Configuration|v21.5",
-          "version": ""
+          "id": "590",
+          "name": "Service Configuration",
+          "version": "v21.5"
         },
         {
-          "id": "585|Service",
-          "name": "Configuration Activation|v21.5",
-          "version": ""
+          "id": "585",
+          "name": "Service Configuration Activation",
+          "version": "v21.5"
         },
         {
-          "id": "592|Service",
-          "name": "Parameters Reservation|v21.5",
-          "version": ""
+          "id": "592",
+          "name": "Service Parameters Reservation",
+          "version": "v21.5"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Service",
+          "abe_l1": "Service Order ABE",
+          "abe_l2": "",
+          "version": "v25.0"
         }
       ]
     },
@@ -1791,56 +1904,64 @@
       ],
       "etom_processes": [
         {
-          "id": "1.4.4|Service",
-          "name": "Support Readiness|v23.0",
-          "version": ""
+          "id": "1.4.4",
+          "name": "Service Support Readiness",
+          "version": "v23.0"
         },
         {
-          "id": "1.4.4.1|Manage",
-          "name": "Service Inventory|v23.0",
-          "version": ""
+          "id": "1.4.4.1",
+          "name": "Manage Service Inventory",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "576|Service",
-          "name": "Data Retrieval|v23.0",
-          "version": ""
+          "id": "576",
+          "name": "Service Data Retrieval",
+          "version": "v23.0"
         },
         {
-          "id": "593|Service",
-          "name": "Inventory Repository Updating|v23.0",
-          "version": ""
+          "id": "593",
+          "name": "Service Inventory Repository Updating",
+          "version": "v23.0"
         },
         {
-          "id": "628|Service",
-          "name": "to Resource Relationship Management|v23.0",
-          "version": ""
+          "id": "628",
+          "name": "Service to Resource Relationship Management",
+          "version": "v23.0"
         },
         {
-          "id": "629|Service",
-          "name": "to Resource Relationship Synchronization|v23.0",
-          "version": ""
+          "id": "629",
+          "name": "Service to Resource Relationship Synchronization",
+          "version": "v23.0"
         },
         {
-          "id": "630|Service-Resource",
-          "name": "Relationship Management Notifications|v23.0",
-          "version": ""
+          "id": "630",
+          "name": "Service-Resource Relationship Management Notifications",
+          "version": "v23.0"
         },
         {
-          "id": "964|Onboarded",
-          "name": "Service Integration Configuration|v23.0",
-          "version": ""
+          "id": "964",
+          "name": "Onboarded Service Integration Configuration",
+          "version": "v23.0"
         },
         {
-          "id": "965|Service",
-          "name": "Instance Lifecycle Management|v23.0",
-          "version": ""
+          "id": "965",
+          "name": "Service Instance Lifecycle Management",
+          "version": "v23.0"
         },
         {
-          "id": "1344|Service",
-          "name": "Topology Discovery|v23.0",
-          "version": ""
+          "id": "1344",
+          "name": "Service Topology Discovery",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Service",
+          "abe_l1": "Service ABE",
+          "abe_l2": "",
+          "version": "v25.0"
         }
       ]
     },
@@ -1936,28 +2057,29 @@
       ],
       "etom_processes": [
         {
-          "id": "1.4.5|Service",
-          "name": "Configuration & Activation|v23.0",
-          "version": ""
+          "id": "1.4.5",
+          "name": "Service Configuration & Activation",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "319|Service",
-          "name": "Feasibility Checking|v23.0",
-          "version": ""
+          "id": "319",
+          "name": "Service Feasibility Checking",
+          "version": "v23.0"
         },
         {
-          "id": "586|Service",
-          "name": "Availability Validation|v23.0",
-          "version": ""
+          "id": "586",
+          "name": "Service Availability Validation",
+          "version": "v23.0"
         },
         {
-          "id": "571|Service",
-          "name": "Delivery Due Date Calculation|v23.0",
-          "version": ""
+          "id": "571",
+          "name": "Service Delivery Due Date Calculation",
+          "version": "v23.0"
         }
-      ]
+      ],
+      "sid_abes": []
     },
     {
       "id": "TMFC010",
@@ -2023,91 +2145,117 @@
       ],
       "etom_processes": [
         {
-          "id": "1.5.15|Resource",
-          "name": "Catalog Lifecycle Management|v23.0",
-          "version": ""
+          "id": "1.5.15",
+          "name": "Resource Catalog Lifecycle Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.16|Resource",
-          "name": "Catalog Operational Readiness Management|v23.0",
-          "version": ""
+          "id": "1.5.16",
+          "name": "Resource Catalog Operational Readiness Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.17|Resource",
-          "name": "Catalog Content Management|v23.0",
-          "version": ""
+          "id": "1.5.17",
+          "name": "Resource Catalog Content Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.18|Resource",
-          "name": "Catalog Planning Management|v23.0",
-          "version": ""
+          "id": "1.5.18",
+          "name": "Resource Catalog Planning Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.19|Resource",
-          "name": "Specification Management|v23.0",
-          "version": ""
+          "id": "1.5.19",
+          "name": "Resource Specification Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.3|Resource",
-          "name": "Specification Development & Retirement|v23.0",
-          "version": ""
+          "id": "1.5.3",
+          "name": "Resource Specification Development & Retirement",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.3.4|Develop",
-          "name": "Detailed Resource Specifications|v23.0",
-          "version": ""
+          "id": "1.5.3.4",
+          "name": "Develop Detailed Resource Specifications",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "737|Resource",
-          "name": "Capability Specification Management|v23.0",
-          "version": ""
+          "id": "737",
+          "name": "Resource Capability Specification Management",
+          "version": "v23.0"
         },
         {
-          "id": "467|Resource",
-          "name": "Data Transformation/Parsing Rules Configuration|v23.0",
-          "version": ""
+          "id": "467",
+          "name": "Resource Data Transformation/Parsing Rules Configuration",
+          "version": "v23.0"
         },
         {
-          "id": "951|Resource",
-          "name": "Catalog Entities Management|v23.0",
-          "version": ""
+          "id": "951",
+          "name": "Resource Catalog Entities Management",
+          "version": "v23.0"
         },
         {
-          "id": "996|Resource",
-          "name": "Task Item Policy Control Configuration|v23.0",
-          "version": ""
+          "id": "996",
+          "name": "Resource Task Item Policy Control Configuration",
+          "version": "v23.0"
         },
         {
-          "id": "1083|Resource",
-          "name": "Specification Repository Management|v23.0",
-          "version": ""
+          "id": "1083",
+          "name": "Resource Specification Repository Management",
+          "version": "v23.0"
         },
         {
-          "id": "1088|Resource",
-          "name": "Specification to Supplier Product Specification Relationship Design|v23.0",
-          "version": ""
+          "id": "1088",
+          "name": "Resource Specification to Supplier Product Specification Relationship Design",
+          "version": "v23.0"
         },
         {
-          "id": "1089|Resource",
-          "name": "Specification Action Skill Design|v23.0",
-          "version": ""
+          "id": "1089",
+          "name": "Resource Specification Action Skill Design",
+          "version": "v23.0"
         },
         {
-          "id": "1082|Resource",
-          "name": "Specification Change Auditing|v23.0",
-          "version": ""
+          "id": "1082",
+          "name": "Resource Specification Change Auditing",
+          "version": "v23.0"
         },
         {
-          "id": "1064|Logical",
-          "name": "and Software Resources Designing|v23.0",
-          "version": ""
+          "id": "1064",
+          "name": "Logical and Software Resources Designing",
+          "version": "v23.0"
         },
         {
-          "id": "1087|Resource",
-          "name": "Specification Design|v23.0",
-          "version": ""
+          "id": "1087",
+          "name": "Resource Specification Design",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Resource",
+          "abe_l1": "Resource Specification ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Resource",
+          "abe_l1": "Resource Performance ABE",
+          "abe_l2": "ResourcePerformanceSpecification BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Resource",
+          "abe_l1": "Resource Usage ABE",
+          "abe_l2": "ResourceUsageSpec BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Resource",
+          "abe_l1": "Resource Configuration ABE",
+          "abe_l2": "ResourceConfigSpec BE",
+          "version": "v25.0"
         }
       ]
     },
@@ -2217,166 +2365,174 @@
       ],
       "etom_processes": [
         {
-          "id": "1.5.5|Resource",
-          "name": "Order Management|v23.0",
-          "version": ""
+          "id": "1.5.5",
+          "name": "Resource Order Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.5.6|Manage",
-          "name": "Resource Order Capture|v23.0",
-          "version": ""
+          "id": "1.5.5.6",
+          "name": "Manage Resource Order Capture",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.5.7|Manage",
-          "name": "Resource Work Order|v23.0",
-          "version": ""
+          "id": "1.5.5.7",
+          "name": "Manage Resource Work Order",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.5.8|Manage",
-          "name": "Resource Order Fulfilment|v23.0",
-          "version": ""
+          "id": "1.5.5.8",
+          "name": "Manage Resource Order Fulfilment",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.5.9|Manage",
-          "name": "Resource Order Picking/Packing|v23.0",
-          "version": ""
+          "id": "1.5.5.9",
+          "name": "Manage Resource Order Picking/Packing",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.5.12|Manage",
-          "name": "Resource Order Tracking|v23.0",
-          "version": ""
+          "id": "1.5.5.12",
+          "name": "Manage Resource Order Tracking",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.5.13|Manage",
-          "name": "Resource Order Closure|v23.0",
-          "version": ""
+          "id": "1.5.5.13",
+          "name": "Manage Resource Order Closure",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "490|Resource",
-          "name": "Order Data Collection|v23.0",
-          "version": ""
+          "id": "490",
+          "name": "Resource Order Data Collection",
+          "version": "v23.0"
         },
         {
-          "id": "491|Resource",
-          "name": "Order Initiation|v23.0",
-          "version": ""
+          "id": "491",
+          "name": "Resource Order Initiation",
+          "version": "v23.0"
         },
         {
-          "id": "495|Resource",
-          "name": "Order Completion|v23.0",
-          "version": ""
+          "id": "495",
+          "name": "Resource Order Completion",
+          "version": "v23.0"
         },
         {
-          "id": "503|Resource",
-          "name": "Order Validation|v23.0",
-          "version": ""
+          "id": "503",
+          "name": "Resource Order Validation",
+          "version": "v23.0"
         },
         {
-          "id": "452|Resource",
-          "name": "Commissioning|v23.0",
-          "version": ""
+          "id": "452",
+          "name": "Resource Commissioning",
+          "version": "v23.0"
         },
         {
-          "id": "492|Resource",
-          "name": "Order Management|v23.0",
-          "version": ""
+          "id": "492",
+          "name": "Resource Order Management",
+          "version": "v23.0"
         },
         {
-          "id": "493|Resource",
-          "name": "Order Dependency Management|v23",
-          "version": ""
+          "id": "493",
+          "name": "Resource Order Dependency Management",
+          "version": "v23"
         },
         {
-          "id": "494|Resource",
-          "name": "Order Jeopardy Tracking|v23",
-          "version": ""
+          "id": "494",
+          "name": "Resource Order Jeopardy Tracking",
+          "version": "v23"
         },
         {
-          "id": "529|Tactical",
-          "name": "Resource Planning|v23.0",
-          "version": ""
+          "id": "529",
+          "name": "Tactical Resource Planning",
+          "version": "v23.0"
         },
         {
-          "id": "958|Resource",
-          "name": "Task Decomposition|v23.0",
-          "version": ""
+          "id": "958",
+          "name": "Resource Task Decomposition",
+          "version": "v23.0"
         },
         {
-          "id": "961|Resource",
-          "name": "Work Item Sequence Execution|v23.0",
-          "version": ""
+          "id": "961",
+          "name": "Resource Work Item Sequence Execution",
+          "version": "v23.0"
         },
         {
-          "id": "496|Resource",
-          "name": "Order Tracking|v23.0",
-          "version": ""
+          "id": "496",
+          "name": "Resource Order Tracking",
+          "version": "v23.0"
         },
         {
-          "id": "497|Resource",
-          "name": "Orcer Status Reporting|v23.0",
-          "version": ""
+          "id": "497",
+          "name": "Resource Orcer Status Reporting",
+          "version": "v23.0"
         },
         {
-          "id": "488|Resource",
-          "name": "Parameter Allocation|v23.0",
-          "version": ""
+          "id": "488",
+          "name": "Resource Parameter Allocation",
+          "version": "v23.0"
         },
         {
-          "id": "487|Resource",
-          "name": "Parameter Reservation|v23.0",
-          "version": ""
+          "id": "487",
+          "name": "Resource Parameter Reservation",
+          "version": "v23.0"
         },
         {
-          "id": "16|Fallout",
-          "name": "Automated Correction|v23.0",
-          "version": ""
+          "id": "16",
+          "name": "Fallout Automated Correction",
+          "version": "v23.0"
         },
         {
-          "id": "17|Fallout",
-          "name": "Correction Information Collection|v23.0",
-          "version": ""
+          "id": "17",
+          "name": "Fallout Correction Information Collection",
+          "version": "v23.0"
         },
         {
-          "id": "19|Fallout",
-          "name": "Manual Correction Queuing|v23.0",
-          "version": ""
+          "id": "19",
+          "name": "Fallout Manual Correction Queuing",
+          "version": "v23.0"
         },
         {
-          "id": "21|Fallout",
-          "name": "Orchestration|v23.0",
-          "version": ""
+          "id": "21",
+          "name": "Fallout Orchestration",
+          "version": "v23.0"
         },
         {
-          "id": "24|Pre-populated",
-          "name": "Fallout Information Presentation|v23.0",
-          "version": ""
+          "id": "24",
+          "name": "Pre-populated Fallout Information Presentation",
+          "version": "v23.0"
         },
         {
-          "id": "756|Fallout",
-          "name": "Rule Based Error Correction|v23.0",
-          "version": ""
+          "id": "756",
+          "name": "Fallout Rule Based Error Correction",
+          "version": "v23.0"
         },
         {
-          "id": "18|Fallout",
-          "name": "Management to Fulfillment Application Accessing|v23.0",
-          "version": ""
+          "id": "18",
+          "name": "Fallout Management to Fulfillment Application Accessing",
+          "version": "v23.0"
         },
         {
-          "id": "20|Fallout",
-          "name": "Notification|v23.0",
-          "version": ""
+          "id": "20",
+          "name": "Fallout Notification",
+          "version": "v23.0"
         },
         {
-          "id": "22|Fallout",
-          "name": "Reporting|v23.0",
-          "version": ""
+          "id": "22",
+          "name": "Fallout Reporting",
+          "version": "v23.0"
         },
         {
-          "id": "23|Fallout",
-          "name": "Dashboard System Log-in Accessing|v23.0",
-          "version": ""
+          "id": "23",
+          "name": "Fallout Dashboard System Log-in Accessing",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Resource",
+          "abe_l1": "Resource Order ABE",
+          "abe_l2": "",
+          "version": "v25.0"
         }
       ]
     },
@@ -2479,131 +2635,139 @@
       ],
       "etom_processes": [
         {
-          "id": "1.5.4|Resource",
-          "name": "Support Readiness|v23.0",
-          "version": ""
+          "id": "1.5.4",
+          "name": "Resource Support Readiness",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.4.5|Manage",
-          "name": "Resource Inventory|v23.0",
-          "version": ""
+          "id": "1.5.4.5",
+          "name": "Manage Resource Inventory",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "426|Physical",
-          "name": "Implementation Information Capturing|v23.0",
-          "version": ""
+          "id": "426",
+          "name": "Physical Implementation Information Capturing",
+          "version": "v23.0"
         },
         {
-          "id": "442|Network",
-          "name": "Overviews Presentation|v23.0",
-          "version": ""
+          "id": "442",
+          "name": "Network Overviews Presentation",
+          "version": "v23.0"
         },
         {
-          "id": "453|Resource",
-          "name": "Configuration Change Logging|v23.0",
-          "version": ""
+          "id": "453",
+          "name": "Resource Configuration Change Logging",
+          "version": "v23.0"
         },
         {
-          "id": "454|Resource",
-          "name": "Configuration Management|v23.0",
-          "version": ""
+          "id": "454",
+          "name": "Resource Configuration Management",
+          "version": "v23.0"
         },
         {
-          "id": "456|Resource",
-          "name": "Topology Verification|v23.0",
-          "version": ""
+          "id": "456",
+          "name": "Resource Topology Verification",
+          "version": "v23.0"
         },
         {
-          "id": "468|Resource",
-          "name": "Information Model Creation|v23.0",
-          "version": ""
+          "id": "468",
+          "name": "Resource Information Model Creation",
+          "version": "v23.0"
         },
         {
-          "id": "470|Resource",
-          "name": "Repository Retrieval|v23.0",
-          "version": ""
+          "id": "470",
+          "name": "Resource Repository Retrieval",
+          "version": "v23.0"
         },
         {
-          "id": "471|Resource",
-          "name": "Repository Updating|v23.0",
-          "version": ""
+          "id": "471",
+          "name": "Resource Repository Updating",
+          "version": "v23.0"
         },
         {
-          "id": "472|Resource",
-          "name": "Repository Update Notification|v23.0",
-          "version": ""
+          "id": "472",
+          "name": "Resource Repository Update Notification",
+          "version": "v23.0"
         },
         {
-          "id": "562|Voucher",
-          "name": "Reporting|v23.0",
-          "version": ""
+          "id": "562",
+          "name": "Voucher Reporting",
+          "version": "v23.0"
         },
         {
-          "id": "564|Voucher",
-          "name": "Life Cycle Management|v23.0",
-          "version": ""
+          "id": "564",
+          "name": "Voucher Life Cycle Management",
+          "version": "v23.0"
         },
         {
-          "id": "738|Resource",
-          "name": "Data Inventory Synchronization|v23.0",
-          "version": ""
+          "id": "738",
+          "name": "Resource Data Inventory Synchronization",
+          "version": "v23.0"
         },
         {
-          "id": "436|Number",
-          "name": "Aging|v23.0",
-          "version": ""
+          "id": "436",
+          "name": "Number Aging",
+          "version": "v23.0"
         },
         {
-          "id": "437|Number",
-          "name": "Assigning|v23.0",
-          "version": ""
+          "id": "437",
+          "name": "Number Assigning",
+          "version": "v23.0"
         },
         {
-          "id": "439|Number",
-          "name": "Searching|v23.0",
-          "version": ""
+          "id": "439",
+          "name": "Number Searching",
+          "version": "v23.0"
         },
         {
-          "id": "440|Number",
-          "name": "Tracking and Reporting|v23.0",
-          "version": ""
+          "id": "440",
+          "name": "Number Tracking and Reporting",
+          "version": "v23.0"
         },
         {
-          "id": "743|Number",
-          "name": "Portability Orchestration|v23.0",
-          "version": ""
+          "id": "743",
+          "name": "Number Portability Orchestration",
+          "version": "v23.0"
         },
         {
-          "id": "744|Number",
-          "name": "Portability Risk & Effectiveness Management|v23.0",
-          "version": ""
+          "id": "744",
+          "name": "Number Portability Risk & Effectiveness Management",
+          "version": "v23.0"
         },
         {
-          "id": "745|Number",
-          "name": "Portability Validation|v23.0",
-          "version": ""
+          "id": "745",
+          "name": "Number Portability Validation",
+          "version": "v23.0"
         },
         {
-          "id": "1062|Number",
-          "name": "Acquisition|v23.0",
-          "version": ""
+          "id": "1062",
+          "name": "Number Acquisition",
+          "version": "v23.0"
         },
         {
-          "id": "1249|Number",
-          "name": "Porting|v23.0",
-          "version": ""
+          "id": "1249",
+          "name": "Number Porting",
+          "version": "v23.0"
         },
         {
-          "id": "438|Number",
-          "name": "Reservation|v23.0",
-          "version": ""
+          "id": "438",
+          "name": "Number Reservation",
+          "version": "v23.0"
         },
         {
-          "id": "435|Number",
-          "name": "Inventory Establishing|v23.0",
-          "version": ""
+          "id": "435",
+          "name": "Number Inventory Establishing",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Resource",
+          "abe_l1": "Resource ABE",
+          "abe_l2": "",
+          "version": "v25.0"
         }
       ]
     },
@@ -2657,36 +2821,37 @@
       "etom_processes": [],
       "ff_functions": [
         {
-          "id": "429|Location",
-          "name": "Change History Management|v23.0",
-          "version": ""
+          "id": "429",
+          "name": "Location Change History Management",
+          "version": "v23.0"
         },
         {
-          "id": "430|PreFormattedLocation",
-          "name": "InformationPresentation|v23.0",
-          "version": ""
+          "id": "430",
+          "name": "PreFormattedLocation InformationPresentation",
+          "version": "v23.0"
         },
         {
-          "id": "431|Location",
-          "name": "Information Updating|v23.0",
-          "version": ""
+          "id": "431",
+          "name": "Location Information Updating",
+          "version": "v23.0"
         },
         {
-          "id": "432|Location",
-          "name": "Information Searching|v23.0",
-          "version": ""
+          "id": "432",
+          "name": "Location Information Searching",
+          "version": "v23.0"
         },
         {
-          "id": "433|Location",
-          "name": "Structure Data Configuration|v23.0",
-          "version": ""
+          "id": "433",
+          "name": "Location Structure Data Configuration",
+          "version": "v23.0"
         },
         {
-          "id": "434|Location",
-          "name": "Data Integrity Management|v23.0",
-          "version": ""
+          "id": "434",
+          "name": "Location Data Integrity Management",
+          "version": "v23.0"
         }
-      ]
+      ],
+      "sid_abes": []
     },
     {
       "id": "TMFC020",
@@ -2744,7 +2909,15 @@
         }
       ],
       "etom_processes": [],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": [
+        {
+          "domain": "Shared",
+          "abe_l1": "Digital Identity ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        }
+      ]
     },
     {
       "id": "TMFC022",
@@ -2809,7 +2982,15 @@
         }
       ],
       "etom_processes": [],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": [
+        {
+          "domain": "Party",
+          "abe_l1": "Party Privacy ABE",
+          "abe_l2": "Party Privacy Profile ABE",
+          "version": "v25.0"
+        }
+      ]
     },
     {
       "id": "TMFC023",
@@ -2889,106 +3070,114 @@
       ],
       "etom_processes": [
         {
-          "id": "1.3.5|Customer",
-          "name": "Interaction Management|v24.0",
-          "version": ""
+          "id": "1.3.5",
+          "name": "Customer Interaction Management",
+          "version": "v24.0"
         },
         {
-          "id": "1.3.5.1|Create",
-          "name": "Customer Interaction|v24.0",
-          "version": ""
+          "id": "1.3.5.1",
+          "name": "Create Customer Interaction",
+          "version": "v24.0"
         },
         {
-          "id": "1.3.5.2|Update",
-          "name": "Customer Interaction|v24.0",
-          "version": ""
+          "id": "1.3.5.2",
+          "name": "Update Customer Interaction",
+          "version": "v24.0"
         },
         {
-          "id": "1.3.5.3|Close",
-          "name": "Customer Interaction|v24.0",
-          "version": ""
+          "id": "1.3.5.3",
+          "name": "Close Customer Interaction",
+          "version": "v24.0"
         },
         {
-          "id": "1.3.5.4|Log",
-          "name": "Customer Interaction|v24.0",
-          "version": ""
+          "id": "1.3.5.4",
+          "name": "Log Customer Interaction",
+          "version": "v24.0"
         },
         {
-          "id": "1.3.5.6|Track",
-          "name": "and Manage Customer Interaction|v24.0",
-          "version": ""
+          "id": "1.3.5.6",
+          "name": "Track and Manage Customer Interaction",
+          "version": "v24.0"
         },
         {
-          "id": "1.3.5.7|Report",
-          "name": "Customer interaction|v24.0",
-          "version": ""
+          "id": "1.3.5.7",
+          "name": "Report Customer interaction",
+          "version": "v24.0"
         },
         {
-          "id": "1.6.9|Business",
-          "name": "Partner Interaction Management|v24.0",
-          "version": ""
+          "id": "1.6.9",
+          "name": "Business Partner Interaction Management",
+          "version": "v24.0"
         },
         {
-          "id": "1.6.9.1|Log",
-          "name": "Business Partner Interaction|v24.0",
-          "version": ""
+          "id": "1.6.9.1",
+          "name": "Log Business Partner Interaction",
+          "version": "v24.0"
         },
         {
-          "id": "1.6.9.3|Track",
-          "name": "and Manage Business Partner Interaction|v24.0",
-          "version": ""
+          "id": "1.6.9.3",
+          "name": "Track and Manage Business Partner Interaction",
+          "version": "v24.0"
         },
         {
-          "id": "1.6.9.5|Analyze",
-          "name": "& Report Business Partner Interactions|v24.0",
-          "version": ""
+          "id": "1.6.9.5",
+          "name": "Analyze & Report Business Partner Interactions",
+          "version": "v24.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "93|Customer",
-          "name": "Behavior Tracking|v24.0",
-          "version": ""
+          "id": "93",
+          "name": "Customer Behavior Tracking",
+          "version": "v24.0"
         },
         {
-          "id": "163|Contact",
-          "name": "Queuing|v24.0",
-          "version": ""
+          "id": "163",
+          "name": "Contact Queuing",
+          "version": "v24.0"
         },
         {
-          "id": "165|Customer",
-          "name": "Support Collaboration Access|v24.0",
-          "version": ""
+          "id": "165",
+          "name": "Customer Support Collaboration Access",
+          "version": "v24.0"
         },
         {
-          "id": "168|Voice",
-          "name": "Channel Contact Routing|v24.0",
-          "version": ""
+          "id": "168",
+          "name": "Voice Channel Contact Routing",
+          "version": "v24.0"
         },
         {
-          "id": "189|Customer",
-          "name": "Interaction Information Capturing|v24.0",
-          "version": ""
+          "id": "189",
+          "name": "Customer Interaction Information Capturing",
+          "version": "v24.0"
         },
         {
-          "id": "191|Customer",
-          "name": "Relationship/Context Event Data Accumulation|v24.0",
-          "version": ""
+          "id": "191",
+          "name": "Customer Relationship/Context Event Data Accumulation",
+          "version": "v24.0"
         },
         {
-          "id": "196|Customer",
-          "name": "Interaction Logging|v24.0",
-          "version": ""
+          "id": "196",
+          "name": "Customer Interaction Logging",
+          "version": "v24.0"
         },
         {
-          "id": "239|Recommendation",
-          "name": "to Customer Notification|v24.0",
-          "version": ""
+          "id": "239",
+          "name": "Recommendation to Customer Notification",
+          "version": "v24.0"
         },
         {
-          "id": "1041|Partner",
-          "name": "Interaction Journalizing|v24.0",
-          "version": ""
+          "id": "1041",
+          "name": "Partner Interaction Journalizing",
+          "version": "v24.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Shared",
+          "abe_l1": "Communication Interaction ABE",
+          "abe_l2": "",
+          "version": "v25.0"
         }
       ]
     },
@@ -3063,41 +3252,49 @@
       ],
       "etom_processes": [
         {
-          "id": "1.3.10|Customer",
-          "name": "Bill Payments & Receivables Management|v23.0",
-          "version": ""
+          "id": "1.3.10",
+          "name": "Customer Bill Payments & Receivables Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.10.1|Manage",
-          "name": "Customer Billing Account|v23.0",
-          "version": ""
+          "id": "1.3.10.1",
+          "name": "Manage Customer Billing Account",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "77|Billing",
-          "name": "Account Information Configuration|v23.0",
-          "version": ""
+          "id": "77",
+          "name": "Billing Account Information Configuration",
+          "version": "v23.0"
         },
         {
-          "id": "73|Billing",
-          "name": "Account Reporting|v23.0",
-          "version": ""
+          "id": "73",
+          "name": "Billing Account Reporting",
+          "version": "v23.0"
         },
         {
-          "id": "76|Billing",
-          "name": "Account Structure Configuration|v23.0",
-          "version": ""
+          "id": "76",
+          "name": "Billing Account Structure Configuration",
+          "version": "v23.0"
         },
         {
-          "id": "75|Billing",
-          "name": "Accounts Creation|v23.0",
-          "version": ""
+          "id": "75",
+          "name": "Billing Accounts Creation",
+          "version": "v23.0"
         },
         {
-          "id": "248|Customer",
-          "name": "Billing Hierarchies Management|v23.0",
-          "version": ""
+          "id": "248",
+          "name": "Customer Billing Hierarchies Management",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Customer",
+          "abe_l1": "Customer Billing Account ABE",
+          "abe_l2": "",
+          "version": "v25.0"
         }
       ]
     },
@@ -3235,96 +3432,104 @@
       ],
       "etom_processes": [
         {
-          "id": "1.2.5|Product",
-          "name": "Domain|Product Configuration Management|v25.0",
-          "version": ""
+          "id": "1.2.5",
+          "name": "Product Domain Product Configuration Management",
+          "version": "v25.0"
         },
         {
-          "id": "1.2.5|Product",
-          "name": "Domain|Manage Product Configuration|v25.0",
-          "version": ""
+          "id": "1.2.5",
+          "name": "Product Domain Manage Product Configuration",
+          "version": "v25.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "55|Price",
-          "name": "& Discount Calculation|v25.0",
-          "version": ""
+          "id": "55",
+          "name": "Price & Discount Calculation",
+          "version": "v25.0"
         },
         {
-          "id": "182|Inter",
-          "name": "Product Dependency Identification|v25.0",
-          "version": ""
+          "id": "182",
+          "name": "Inter Product Dependency Identification",
+          "version": "v25.0"
         },
         {
-          "id": "205|Customer",
-          "name": "Order Eligibility Validation|v25.0",
-          "version": ""
+          "id": "205",
+          "name": "Customer Order Eligibility Validation",
+          "version": "v25.0"
         },
         {
-          "id": "207|Offer",
-          "name": "and Product Configuration|v25.0",
-          "version": ""
+          "id": "207",
+          "name": "Offer and Product Configuration",
+          "version": "v25.0"
         },
         {
-          "id": "262|Product",
-          "name": "Availability Checking 1 |v25.0",
-          "version": ""
+          "id": "262",
+          "name": "Product Availability Checking 1",
+          "version": "v25.0"
         },
         {
-          "id": "274|Quote",
-          "name": "Price Support Access|v25.0",
-          "version": ""
+          "id": "274",
+          "name": "Quote Price Support Access",
+          "version": "v25.0"
         },
         {
-          "id": "278|Customer",
-          "name": "SLA Preferences Capturing|v25.0",
-          "version": ""
+          "id": "278",
+          "name": "Customer SLA Preferences Capturing",
+          "version": "v25.0"
         },
         {
-          "id": "300|Discount",
-          "name": "Calculation|v25.0",
-          "version": ""
+          "id": "300",
+          "name": "Discount Calculation",
+          "version": "v25.0"
         },
         {
-          "id": "320|Customer",
-          "name": "Product Proposal Creation|v25.0",
-          "version": ""
+          "id": "320",
+          "name": "Customer Product Proposal Creation",
+          "version": "v25.0"
         },
         {
-          "id": "379|Product",
-          "name": "Customization Offering Management|v25.0",
-          "version": ""
+          "id": "379",
+          "name": "Product Customization Offering Management",
+          "version": "v25.0"
         },
         {
-          "id": "727|Product",
-          "name": "Offer to Customer Verification 2|v25.0",
-          "version": ""
+          "id": "727",
+          "name": "Product Offer to Customer Verification 2",
+          "version": "v25.0"
         },
         {
-          "id": "928|Solution",
-          "name": "Design Creation|v25.0",
-          "version": ""
+          "id": "928",
+          "name": "Solution Design Creation",
+          "version": "v25.0"
         },
         {
-          "id": "930|Automatic",
-          "name": "Solution Validation|v25.0",
-          "version": ""
+          "id": "930",
+          "name": "Automatic Solution Validation",
+          "version": "v25.0"
         },
         {
-          "id": "931|Solution",
-          "name": "Pricing|v25.0",
-          "version": ""
+          "id": "931",
+          "name": "Solution Pricing",
+          "version": "v25.0"
         },
         {
-          "id": "932|Calculation",
-          "name": "Rules Retrieval|v25.0",
-          "version": ""
+          "id": "932",
+          "name": "Calculation Rules Retrieval",
+          "version": "v25.0"
         },
         {
-          "id": "933|Price/Cost",
-          "name": "Optimization |v25.0",
-          "version": ""
+          "id": "933",
+          "name": "Price/Cost Optimization",
+          "version": "v25.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Product",
+          "abe_l1": "Product Configuration ABE",
+          "abe_l2": "ProductConfiguration BE",
+          "version": "v25.0"
         }
       ]
     },
@@ -3406,166 +3611,198 @@
       ],
       "etom_processes": [
         {
-          "id": "1.3.16|Customer",
-          "name": "Inventory Management|v23.0",
-          "version": ""
+          "id": "1.3.16",
+          "name": "Customer Inventory Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.6|Customer",
-          "name": "Information Management|v23.0",
-          "version": ""
+          "id": "1.3.6",
+          "name": "Customer Information Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.4|Customer",
-          "name": "Relationship Management|v23.0",
-          "version": ""
+          "id": "1.3.4",
+          "name": "Customer Relationship Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.4.2|Establish",
-          "name": "Customer Relationship|v23.0",
-          "version": ""
+          "id": "1.3.4.2",
+          "name": "Establish Customer Relationship",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.4.3|Re-establish",
-          "name": "Customer Relationship|v23.0",
-          "version": ""
+          "id": "1.3.4.3",
+          "name": "Re-establish Customer Relationship",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.4.4|Terminate",
-          "name": "Customer Relationship|v23.0",
-          "version": ""
+          "id": "1.3.4.4",
+          "name": "Terminate Customer Relationship",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.3|Party",
-          "name": "Relationship Development & Retirement|v23.0",
-          "version": ""
+          "id": "1.6.3",
+          "name": "Party Relationship Development & Retirement",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.3.1|Party",
-          "name": "Relationship Management|v23.0",
-          "version": ""
+          "id": "1.6.3.1",
+          "name": "Party Relationship Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.3.1.5|Collect",
-          "name": "Party data|v23.0",
-          "version": ""
+          "id": "1.6.3.1.5",
+          "name": "Collect Party data",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.21|Party",
-          "name": "Inventory Management|v23.0",
-          "version": ""
+          "id": "1.6.21",
+          "name": "Party Inventory Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.7.7|Human",
-          "name": "Resources Management|v23.0",
-          "version": ""
+          "id": "1.7.7",
+          "name": "Human Resources Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.7.7.2|Develop",
-          "name": "the Workforce|v23.0",
-          "version": ""
+          "id": "1.7.7.2",
+          "name": "Develop the Workforce",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "92|Customer",
-          "name": "Relation Map Exposure|v23.0",
-          "version": ""
+          "id": "92",
+          "name": "Customer Relation Map Exposure",
+          "version": "v23.0"
         },
         {
-          "id": "369|Customer",
-          "name": "Data Fencing|v23.0",
-          "version": ""
+          "id": "369",
+          "name": "Customer Data Fencing",
+          "version": "v23.0"
         },
         {
-          "id": "225|Customer",
-          "name": "Details Management|v23.0",
-          "version": ""
+          "id": "225",
+          "name": "Customer Details Management",
+          "version": "v23.0"
         },
         {
-          "id": "400|Customer",
-          "name": "Information Management|v23.0",
-          "version": ""
+          "id": "400",
+          "name": "Customer Information Management",
+          "version": "v23.0"
         },
         {
-          "id": "282|Customer",
-          "name": "Information Presentation|v23.0",
-          "version": ""
+          "id": "282",
+          "name": "Customer Information Presentation",
+          "version": "v23.0"
         },
         {
-          "id": "226|Customer",
-          "name": "Preferences Administration|v23.0",
-          "version": ""
+          "id": "226",
+          "name": "Customer Preferences Administration",
+          "version": "v23.0"
         },
         {
-          "id": "364|Customer/Prospect",
-          "name": "Data Acquisition|v23.0",
-          "version": ""
+          "id": "364",
+          "name": "Customer/Prospect Data Acquisition",
+          "version": "v23.0"
         },
         {
-          "id": "233|Customer",
-          "name": "Actions Profile Updating|v23.0",
-          "version": ""
+          "id": "233",
+          "name": "Customer Actions Profile Updating",
+          "version": "v23.0"
         },
         {
-          "id": "195|Customers",
-          "name": "Hierarchy and Group Management|v23.0",
-          "version": ""
+          "id": "195",
+          "name": "Customers Hierarchy and Group Management",
+          "version": "v23.0"
         },
         {
-          "id": "122|Customer",
-          "name": "Information Searching|v23.0",
-          "version": ""
+          "id": "122",
+          "name": "Customer Information Searching",
+          "version": "v23.0"
         },
         {
-          "id": "91|Customer",
-          "name": "Profile Updating|v23.0",
-          "version": ""
+          "id": "91",
+          "name": "Customer Profile Updating",
+          "version": "v23.0"
         },
         {
-          "id": "121|Registration|v23.0",
-          "name": "",
-          "version": ""
+          "id": "121",
+          "name": "Registration",
+          "version": "v23.0"
         },
         {
-          "id": "124|Guided",
-          "name": "Customer Information Capturing|v23.0",
-          "version": ""
+          "id": "124",
+          "name": "Guided Customer Information Capturing",
+          "version": "v23.0"
         },
         {
-          "id": "1032|Partner",
-          "name": "Group and Hierarchy Definition|v23.0",
-          "version": ""
+          "id": "1032",
+          "name": "Partner Group and Hierarchy Definition",
+          "version": "v23.0"
         },
         {
-          "id": "1033|Partner",
-          "name": "Group and Hierarchy Assigning|v23.0",
-          "version": ""
+          "id": "1033",
+          "name": "Partner Group and Hierarchy Assigning",
+          "version": "v23.0"
         },
         {
-          "id": "1035|Partner",
-          "name": "Preferences Management|v23.0",
-          "version": ""
+          "id": "1035",
+          "name": "Partner Preferences Management",
+          "version": "v23.0"
         },
         {
-          "id": "1034|Partner",
-          "name": "Profile Management|v23.0",
-          "version": ""
+          "id": "1034",
+          "name": "Partner Profile Management",
+          "version": "v23.0"
         },
         {
-          "id": "1036|Partner",
-          "name": "Profile Enquiry and Filtering|v23.0",
-          "version": ""
+          "id": "1036",
+          "name": "Partner Profile Enquiry and Filtering",
+          "version": "v23.0"
         },
         {
-          "id": "1037|Partner",
-          "name": "Profile Storage|v23.0",
-          "version": ""
+          "id": "1037",
+          "name": "Partner Profile Storage",
+          "version": "v23.0"
         },
         {
-          "id": "746|Partner",
-          "name": "Workflow Management|v23.0",
-          "version": ""
+          "id": "746",
+          "name": "Partner Workflow Management",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Shared",
+          "abe_l1": "Party ABE",
+          "abe_l2": "Party BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Shared",
+          "abe_l1": "Party ABE",
+          "abe_l2": "Contact Medium ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Shared",
+          "abe_l1": "Party ABE",
+          "abe_l2": "TaxExemptionCertificate BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Shared",
+          "abe_l1": "Party ABE",
+          "abe_l2": "Party Identification ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Shared",
+          "abe_l1": "Party ABE",
+          "abe_l2": "Party Community ABE",
+          "version": "v25.0"
         }
       ]
     },
@@ -3647,42 +3884,50 @@
       ],
       "etom_processes": [
         {
-          "id": "1.3.10|Customer",
-          "name": "Bill Payments & Receivables Management|v23.0",
-          "version": ""
+          "id": "1.3.10",
+          "name": "Customer Bill Payments & Receivables Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.10.2|Manage",
-          "name": "Customer Payments|v23.0",
-          "version": ""
+          "id": "1.3.10.2",
+          "name": "Manage Customer Payments",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.16|Business",
-          "name": "Partner Payments & Receivables Management|v23.0",
-          "version": ""
+          "id": "1.6.16",
+          "name": "Business Partner Payments & Receivables Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.16.1|Business",
-          "name": "Partner Payment Management|v23.0",
-          "version": ""
+          "id": "1.6.16.1",
+          "name": "Business Partner Payment Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.16.1.1|Business",
-          "name": "Partner Payment Handling|v23.0",
-          "version": ""
+          "id": "1.6.16.1.1",
+          "name": "Business Partner Payment Handling",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.16.1.2|Business",
-          "name": "Partner Payment Method Management|v23.0",
-          "version": ""
+          "id": "1.6.16.1.2",
+          "name": "Business Partner Payment Method Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.16.1.3|Business",
-          "name": "Partner Payment Plan Administration|v23.0",
-          "version": ""
+          "id": "1.6.16.1.3",
+          "name": "Business Partner Payment Plan Administration",
+          "version": "v23.0"
         }
       ],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": [
+        {
+          "domain": "Shared",
+          "abe_l1": "Party Payment ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        }
+      ]
     },
     {
       "id": "TMFC030",
@@ -3769,161 +4014,169 @@
       ],
       "etom_processes": [
         {
-          "id": "1.3.9|Customer",
-          "name": "Bill Invoice Management|v23.0",
-          "version": ""
+          "id": "1.3.9",
+          "name": "Customer Bill Invoice Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.9.2|Create",
-          "name": "Customer Bill Invoice|v23.0",
-          "version": ""
+          "id": "1.3.9.2",
+          "name": "Create Customer Bill Invoice",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.9.2.1|Render",
-          "name": "& Format Customer Invoice|v23.0",
-          "version": ""
+          "id": "1.3.9.2.1",
+          "name": "Render & Format Customer Invoice",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.9.2.2|Deliver",
-          "name": "Electronic Invoice|v23.0",
-          "version": ""
+          "id": "1.3.9.2.2",
+          "name": "Deliver Electronic Invoice",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.9.2.3|Verify",
-          "name": "Customer Invoice Quality|v23.0",
-          "version": ""
+          "id": "1.3.9.2.3",
+          "name": "Verify Customer Invoice Quality",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.9.2.4|Manage",
-          "name": "Customer Invoice Quality|v23.0",
-          "version": ""
+          "id": "1.3.9.2.4",
+          "name": "Manage Customer Invoice Quality",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.9.3|Produce",
-          "name": "& Distribute Customer Bill|v23.0",
-          "version": ""
+          "id": "1.3.9.3",
+          "name": "Produce & Distribute Customer Bill",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.9.3.1|Co-ordinate",
-          "name": "Billing Insertion|v23.0",
-          "version": ""
+          "id": "1.3.9.3.1",
+          "name": "Co-ordinate Billing Insertion",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.9.3.2|Establish",
-          "name": "& Manage Bill Production Cycle|v23.0",
-          "version": ""
+          "id": "1.3.9.3.2",
+          "name": "Establish & Manage Bill Production Cycle",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.9.3.3|Deliver",
-          "name": "Invoice Information|v23.0",
-          "version": ""
+          "id": "1.3.9.3.3",
+          "name": "Deliver Invoice Information",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.9.4|Pricing,",
-          "name": "Discounting, Adjustments & Rebates Application|v23.0",
-          "version": ""
+          "id": "1.3.9.4",
+          "name": "Pricing, Discounting, Adjustments & Rebates Application",
+          "version": "v23.0"
         },
         {
-          "id": "1.3.9.4.2|Apply",
-          "name": "Pricing, Discounting, Adjustments & Rebates to Customer Account|v23.0",
-          "version": ""
+          "id": "1.3.9.4.2",
+          "name": "Apply Pricing, Discounting, Adjustments & Rebates to Customer Account",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.15|BP",
-          "name": "Bill/Invoice Management|v23.0",
-          "version": ""
+          "id": "1.6.15",
+          "name": "BP Bill/Invoice Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.15.2|BP",
-          "name": "Bill/Invoice Control|v23.0",
-          "version": ""
+          "id": "1.6.15.2",
+          "name": "BP Bill/Invoice Control",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.15.2.1|Establish",
-          "name": "& Maintain BP Bill Invoice Format|v23.0",
-          "version": ""
+          "id": "1.6.15.2.1",
+          "name": "Establish & Maintain BP Bill Invoice Format",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.15.2.2|Maintain",
-          "name": "Bill Invoice BP List|v23.0",
-          "version": ""
+          "id": "1.6.15.2.2",
+          "name": "Maintain Bill Invoice BP List",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.15.2.3|Define",
-          "name": "BP Billing Cycle|v23.0",
-          "version": ""
+          "id": "1.6.15.2.3",
+          "name": "Define BP Billing Cycle",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.15.3.2|Create",
-          "name": "BP Bill/Invoice|v23.0",
-          "version": ""
+          "id": "1.6.15.3.2",
+          "name": "Create BP Bill/Invoice",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.15.3.2|Create",
-          "name": "BP Bill/Invoice|v23.0",
-          "version": ""
+          "id": "1.6.15.3.2",
+          "name": "Create BP Bill/Invoice",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.15.3.3|Distribute",
-          "name": "BP Bill/Invoice|v23.0",
-          "version": ""
+          "id": "1.6.15.3.3",
+          "name": "Distribute BP Bill/Invoice",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.15.3.4|Manage",
-          "name": "BP Bill/Invoice Archive|v23.0",
-          "version": ""
+          "id": "1.6.15.3.4",
+          "name": "Manage BP Bill/Invoice Archive",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.15.3.5|Receive",
-          "name": "BP Bill/Invoice|v23.0",
-          "version": ""
+          "id": "1.6.15.3.5",
+          "name": "Receive BP Bill/Invoice",
+          "version": "v23.0"
         },
         {
-          "id": "1.6.15.3.6|Administer",
-          "name": "Commercial Arrangement for BP Bill/Invoice Creation Capability|v23.0",
-          "version": ""
+          "id": "1.6.15.3.6",
+          "name": "Administer Commercial Arrangement for BP Bill/Invoice Creation Capability",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "65|Bill",
-          "name": "Image Presentation|v23.0",
-          "version": ""
+          "id": "65",
+          "name": "Bill Image Presentation",
+          "version": "v23.0"
         },
         {
-          "id": "62|Invoice",
-          "name": "Items Listing|v23.0",
-          "version": ""
+          "id": "62",
+          "name": "Invoice Items Listing",
+          "version": "v23.0"
         },
         {
-          "id": "63|Invoice",
-          "name": "Listing|v23.0",
-          "version": ""
+          "id": "63",
+          "name": "Invoice Listing",
+          "version": "v23.0"
         },
         {
-          "id": "329|Invoice",
-          "name": "Tax Calculation|v23.0",
-          "version": ""
+          "id": "329",
+          "name": "Invoice Tax Calculation",
+          "version": "v23.0"
         },
         {
-          "id": "309|Invoice",
-          "name": "Balance Calculation|v23.0",
-          "version": ""
+          "id": "309",
+          "name": "Invoice Balance Calculation",
+          "version": "v23.0"
         },
         {
-          "id": "310|Invoice",
-          "name": "Charges Compilation|v23.0",
-          "version": ""
+          "id": "310",
+          "name": "Invoice Charges Compilation",
+          "version": "v23.0"
         },
         {
-          "id": "312|Invoice",
-          "name": "Detail Collection|v23.0",
-          "version": ""
+          "id": "312",
+          "name": "Invoice Detail Collection",
+          "version": "v23.0"
         },
         {
-          "id": "311|Invoice",
-          "name": "Totals Calculation|v23.0",
-          "version": ""
+          "id": "311",
+          "name": "Invoice Totals Calculation",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Customer",
+          "abe_l1": "Customer Bill ABE",
+          "abe_l2": "",
+          "version": "v25.0"
         }
       ]
     },
@@ -4004,7 +4257,8 @@
         }
       ],
       "etom_processes": [],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": []
     },
     {
       "id": "TMFC035",
@@ -4055,7 +4309,63 @@
         }
       ],
       "etom_processes": [],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": [
+        {
+          "domain": "Shared",
+          "abe_l1": "Permission ABE",
+          "abe_l2": "PermissionSpecSet BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Shared",
+          "abe_l1": "Permission ABE",
+          "abe_l2": "PermissionSet BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Shared",
+          "abe_l1": "Permission ABE",
+          "abe_l2": "Permission BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Shared",
+          "abe_l1": "Party ABE",
+          "abe_l2": "PartyRole BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Shared",
+          "abe_l1": "Party ABE",
+          "abe_l2": "PartyRoleSpecification BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Shared",
+          "abe_l1": "Party ABE",
+          "abe_l2": "Party Organization ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Market & Sales",
+          "abe_l1": "Market Sales Party Roles ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Service",
+          "abe_l1": "Service Party Roles ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Resource",
+          "abe_l1": "Resource Party Roles ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        }
+      ]
     },
     {
       "id": "TMFC036",
@@ -4142,86 +4452,100 @@
       ],
       "etom_processes": [
         {
-          "id": "1.1.11|Contact/Lead/Prospect",
-          "name": "Management|v23.0",
-          "version": ""
+          "id": "1.1.11",
+          "name": "Contact/Lead/Prospect Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.1.11.1|Manage",
-          "name": "Sales Contact|v23.0",
-          "version": ""
+          "id": "1.1.11.1",
+          "name": "Manage Sales Contact",
+          "version": "v23.0"
         },
         {
-          "id": "1.1.11.2|Manage",
-          "name": "Sales Lead|v23.0",
-          "version": ""
+          "id": "1.1.11.2",
+          "name": "Manage Sales Lead",
+          "version": "v23.0"
         },
         {
-          "id": "1.1.11.3|Manage",
-          "name": "Sales Prospect|v23.0",
-          "version": ""
+          "id": "1.1.11.3",
+          "name": "Manage Sales Prospect",
+          "version": "v23.0"
         },
         {
-          "id": "1.1.9|Selling|v23.0",
-          "name": "",
-          "version": ""
+          "id": "1.1.9",
+          "name": "Selling",
+          "version": "v23.0"
         },
         {
-          "id": "1.1.9.1|Qualify",
-          "name": "Selling Opportunity|v23.0",
-          "version": ""
+          "id": "1.1.9.1",
+          "name": "Qualify Selling Opportunity",
+          "version": "v23.0"
         },
         {
-          "id": "1.1.9.3|Acquire",
-          "name": "Sales Prospect Data|v23.0",
-          "version": ""
+          "id": "1.1.9.3",
+          "name": "Acquire Sales Prospect Data",
+          "version": "v23.0"
         },
         {
-          "id": "1.1.7|Market",
-          "name": "Sales Support & Readiness|v23.0",
-          "version": ""
+          "id": "1.1.7",
+          "name": "Market Sales Support & Readiness",
+          "version": "v23.0"
         },
         {
-          "id": "1.1.7.2|Support",
-          "name": "Selling|v23.0",
-          "version": ""
+          "id": "1.1.7.2",
+          "name": "Support Selling",
+          "version": "v23.0"
         },
         {
-          "id": "1.1.7.5|Manage",
-          "name": "Sales Accounts|v23.0",
-          "version": ""
+          "id": "1.1.7.5",
+          "name": "Manage Sales Accounts",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "394|Sales",
-          "name": "Aids Support|v23.0",
-          "version": ""
+          "id": "394",
+          "name": "Sales Aids Support",
+          "version": "v23.0"
         },
         {
-          "id": "372|Sales",
-          "name": "Opportunity Management|v23.0",
-          "version": ""
+          "id": "372",
+          "name": "Sales Opportunity Management",
+          "version": "v23.0"
         },
         {
-          "id": "375|Funnel",
-          "name": "Assigning|v23.0",
-          "version": ""
+          "id": "375",
+          "name": "Funnel Assigning",
+          "version": "v23.0"
         },
         {
-          "id": "374|Funnel",
-          "name": "Creation|v23.0",
-          "version": ""
+          "id": "374",
+          "name": "Funnel Creation",
+          "version": "v23.0"
         },
         {
-          "id": "376|Funnel",
-          "name": "Leads Tracking|v23.0",
-          "version": ""
+          "id": "376",
+          "name": "Funnel Leads Tracking",
+          "version": "v23.0"
         },
         {
-          "id": "726|Sales",
-          "name": "Lead Capturing|v23.0",
-          "version": ""
+          "id": "726",
+          "name": "Sales Lead Capturing",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Market & Sales",
+          "abe_l1": "Sales Lead and Opportunity ABE",
+          "abe_l2": "Sales Lead ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Market & Sales",
+          "abe_l1": "Sales Lead and Opportunity ABE",
+          "abe_l2": "Sales Opportunity ABE",
+          "version": "v25.0"
         }
       ]
     },
@@ -4309,7 +4633,45 @@
         }
       ],
       "etom_processes": [],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": [
+        {
+          "domain": "Service",
+          "abe_l1": "Service Performance ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Performance ABE",
+          "abe_l2": "Performance Monitoring ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Performance ABE",
+          "abe_l2": "Performance Monitoring ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Performance ABE",
+          "abe_l2": "Performance Monitoring ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Performance ABE",
+          "abe_l2": "Performance Threshold ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Resource",
+          "abe_l1": "Resource Trouble ABE",
+          "abe_l2": "Alarm ABE",
+          "version": "v25.0"
+        }
+      ]
     },
     {
       "id": "TMFC038",
@@ -4395,7 +4757,45 @@
         }
       ],
       "etom_processes": [],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": [
+        {
+          "domain": "Resource",
+          "abe_l1": "Resource Performance ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Performance ABE",
+          "abe_l2": "Performance Monitoring ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Performance ABE",
+          "abe_l2": "Performance Monitoring ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Performance ABE",
+          "abe_l2": "Performance Monitoring ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Performance ABE",
+          "abe_l2": "Performance Threshold ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Resource",
+          "abe_l1": "Resource Trouble ABE",
+          "abe_l2": "Alarm ABE",
+          "version": "v25.0"
+        }
+      ]
     },
     {
       "id": "TMFC039",
@@ -4475,91 +4875,123 @@
       ],
       "etom_processes": [
         {
-          "id": "1.6.5|Party",
-          "name": "Agreement Management|v23.0",
-          "version": ""
+          "id": "1.6.5",
+          "name": "Party Agreement Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.7.14|Enterprise",
-          "name": "Governance|v23.0",
-          "version": ""
+          "id": "1.7.14",
+          "name": "Enterprise Governance",
+          "version": "v23.0"
         },
         {
-          "id": "1.7.14.5|Manage",
-          "name": "Contract|v23.0",
-          "version": ""
+          "id": "1.7.14.5",
+          "name": "Manage Contract",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "1026|Partner",
-          "name": "Collaboration Constraints Collection|v23.0",
-          "version": ""
+          "id": "1026",
+          "name": "Partner Collaboration Constraints Collection",
+          "version": "v23.0"
         },
         {
-          "id": "1045|Partner",
-          "name": "Agreement Tracking|v23.0",
-          "version": ""
+          "id": "1045",
+          "name": "Partner Agreement Tracking",
+          "version": "v23.0"
         },
         {
-          "id": "1043|Partner",
-          "name": "Agreement Storage and Searching|v23.0",
-          "version": ""
+          "id": "1043",
+          "name": "Partner Agreement Storage and Searching",
+          "version": "v23.0"
         },
         {
-          "id": "1044|Partner",
-          "name": "Agreement Implementation|v23.0",
-          "version": ""
+          "id": "1044",
+          "name": "Partner Agreement Implementation",
+          "version": "v23.0"
         },
         {
-          "id": "1042|Partner",
-          "name": "Agreement Creation|v23.0",
-          "version": ""
+          "id": "1042",
+          "name": "Partner Agreement Creation",
+          "version": "v23.0"
         },
         {
-          "id": "1180|Customer",
-          "name": "Framework Agreement Approval|v23.0",
-          "version": ""
+          "id": "1180",
+          "name": "Customer Framework Agreement Approval",
+          "version": "v23.0"
         },
         {
-          "id": "1179|Customer",
-          "name": "Framework Agreement Definition|v23.0",
-          "version": ""
+          "id": "1179",
+          "name": "Customer Framework Agreement Definition",
+          "version": "v23.0"
         },
         {
-          "id": "363|Product",
-          "name": "Agreement Storage|v23.0",
-          "version": ""
+          "id": "363",
+          "name": "Product Agreement Storage",
+          "version": "v23.0"
         },
         {
-          "id": "361|Product",
-          "name": "Agreement Implementation|v23.0",
-          "version": ""
+          "id": "361",
+          "name": "Product Agreement Implementation",
+          "version": "v23.0"
         },
         {
-          "id": "653|Contract",
-          "name": "Management|v23.0",
-          "version": ""
+          "id": "653",
+          "name": "Contract Management",
+          "version": "v23.0"
         },
         {
-          "id": "1042|Partner",
-          "name": "Agreement Creation|v23.0",
-          "version": ""
+          "id": "1042",
+          "name": "Partner Agreement Creation",
+          "version": "v23.0"
         },
         {
-          "id": "1043|Partner",
-          "name": "Agreement Storage and Searching|v23.0",
-          "version": ""
+          "id": "1043",
+          "name": "Partner Agreement Storage and Searching",
+          "version": "v23.0"
         },
         {
-          "id": "1044|Partner",
-          "name": "Agreement Implementation|v23.0",
-          "version": ""
+          "id": "1044",
+          "name": "Partner Agreement Implementation",
+          "version": "v23.0"
         },
         {
-          "id": "1045|Partner",
-          "name": "Agreement Tracking|v23.0",
-          "version": ""
+          "id": "1045",
+          "name": "Partner Agreement Tracking",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Patterns",
+          "abe_l1": "Agreement ABE",
+          "abe_l2": "Agreement BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Agreement ABE",
+          "abe_l2": "AgreementItem BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Agreement ABE",
+          "abe_l2": "AgreementTermOrCondition BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Agreement ABE",
+          "abe_l2": "AgreementAuthorization BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Agreement ABE",
+          "abe_l2": "AgreementApproval BE",
+          "version": "v25.0"
         }
       ]
     },
@@ -4641,166 +5073,180 @@
       ],
       "etom_processes": [
         {
-          "id": "1.2.16|Product",
-          "name": "Usage Management|v23.0",
-          "version": ""
+          "id": "1.2.16",
+          "name": "Product Usage Management",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.1|Product",
-          "name": "Usages|v23.0",
-          "version": ""
+          "id": "1.2.16.1",
+          "name": "Product Usages",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.1.1|Add",
-          "name": "Product Usage Data|v23.0",
-          "version": ""
+          "id": "1.2.16.1.1",
+          "name": "Add Product Usage Data",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.1.2|Assign",
-          "name": "Product Usage Price|v23.0",
-          "version": ""
+          "id": "1.2.16.1.2",
+          "name": "Assign Product Usage Price",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.2|Guide",
-          "name": "and Assign Product Usages|v23.0",
-          "version": ""
+          "id": "1.2.16.2",
+          "name": "Guide and Assign Product Usages",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.2.1|Assign",
-          "name": "Product Usages|v23.0",
-          "version": ""
+          "id": "1.2.16.2.1",
+          "name": "Assign Product Usages",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.2.2|Distribute",
-          "name": "Product Usage|v23.0",
-          "version": ""
+          "id": "1.2.16.2.2",
+          "name": "Distribute Product Usage",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.2.3|Guide",
-          "name": "Product Usages|v23.0",
-          "version": ""
+          "id": "1.2.16.2.3",
+          "name": "Guide Product Usages",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.3|Mediate",
-          "name": "Product Usages|v23.0",
-          "version": ""
+          "id": "1.2.16.3",
+          "name": "Mediate Product Usages",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.3.1|Edit",
-          "name": "Product Usages|v23.0",
-          "version": ""
+          "id": "1.2.16.3.1",
+          "name": "Edit Product Usages",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.3.2|Reformat",
-          "name": "Product Usages|v23.0",
-          "version": ""
+          "id": "1.2.16.3.2",
+          "name": "Reformat Product Usages",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.4|Report",
-          "name": "Product Usage Records|v23.0",
-          "version": ""
+          "id": "1.2.16.4",
+          "name": "Report Product Usage Records",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.4.1|Generate",
-          "name": "Product Usage Report|v23.0",
-          "version": ""
+          "id": "1.2.16.4.1",
+          "name": "Generate Product Usage Report",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.4.2|Investigate",
-          "name": "Product Usage Related Problem|v23.0",
-          "version": ""
+          "id": "1.2.16.4.2",
+          "name": "Investigate Product Usage Related Problem",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.16.4.3|Support",
-          "name": "Product Usage Related Process|v23.0",
-          "version": ""
+          "id": "1.2.16.4.3",
+          "name": "Support Product Usage Related Process",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.17|Product",
-          "name": "Rating & Rate Assignment|v23.0",
-          "version": ""
+          "id": "1.2.17",
+          "name": "Product Rating & Rate Assignment",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.17.1|Perform",
-          "name": "Rating|v23.0",
-          "version": ""
+          "id": "1.2.17.1",
+          "name": "Perform Rating",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.17.2|Aggregate",
-          "name": "Items For Rate Assignment|v23.0",
-          "version": ""
+          "id": "1.2.17.2",
+          "name": "Aggregate Items For Rate Assignment",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.17.3|Manage",
-          "name": "Customer Assignment Hierarchy|v23.0",
-          "version": ""
+          "id": "1.2.17.3",
+          "name": "Manage Customer Assignment Hierarchy",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.17.4|Provide",
-          "name": "Advice of Rate|v23.0",
-          "version": ""
+          "id": "1.2.17.4",
+          "name": "Provide Advice of Rate",
+          "version": "v23.0"
         },
         {
-          "id": "1.2.17.5|Apply",
-          "name": "Rate Level Discounts|v23.0",
-          "version": ""
+          "id": "1.2.17.5",
+          "name": "Apply Rate Level Discounts",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "253|Customer",
-          "name": "Usage and Charges Report Access|v23.0",
-          "version": ""
+          "id": "253",
+          "name": "Customer Usage and Charges Report Access",
+          "version": "v23.0"
         },
         {
-          "id": "55|Price",
-          "name": "and Discount Calculation|v23.0",
-          "version": ""
+          "id": "55",
+          "name": "Price and Discount Calculation",
+          "version": "v23.0"
         },
         {
-          "id": "125|Charging",
-          "name": "Event Accumulation|v23.0",
-          "version": ""
+          "id": "125",
+          "name": "Charging Event Accumulation",
+          "version": "v23.0"
         },
         {
-          "id": "126|Event",
-          "name": "Charge/Credit Calculation|v23.0",
-          "version": ""
+          "id": "126",
+          "name": "Event Charge/Credit Calculation",
+          "version": "v23.0"
         },
         {
-          "id": "127|Calculated",
-          "name": "Charges/Credits Proration|v23.0",
-          "version": ""
+          "id": "127",
+          "name": "Calculated Charges/Credits Proration",
+          "version": "v23.0"
         },
         {
-          "id": "128|Late",
-          "name": "Arrival Usage Charges/Credits Recalculation|v23.0",
-          "version": ""
+          "id": "128",
+          "name": "Late Arrival Usage Charges/Credits Recalculation",
+          "version": "v23.0"
         },
         {
-          "id": "186|Charging/Rating",
-          "name": "Recalculation|v23.0",
-          "version": ""
+          "id": "186",
+          "name": "Charging/Rating Recalculation",
+          "version": "v23.0"
         },
         {
-          "id": "300|Discounts",
-          "name": "Calculation|v23.0",
-          "version": ""
+          "id": "300",
+          "name": "Discounts Calculation",
+          "version": "v23.0"
         },
         {
-          "id": "67|Usage",
-          "name": "Summary and Details Presentation|v23.0",
-          "version": ""
+          "id": "67",
+          "name": "Usage Summary and Details Presentation",
+          "version": "v23.0"
         },
         {
-          "id": "85|Billing",
-          "name": "Event Processing Distribution|v23.0",
-          "version": ""
+          "id": "85",
+          "name": "Billing Event Processing Distribution",
+          "version": "v23.0"
         },
         {
-          "id": "86|Billing",
-          "name": "Event Processing Enrichment|v23.0",
-          "version": ""
+          "id": "86",
+          "name": "Billing Event Processing Enrichment",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Product",
+          "abe_l1": "Product Usage ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Product",
+          "abe_l1": "Product Offering Instance ABE",
+          "abe_l2": "Product Price ABE",
+          "version": "v25.0"
         }
       ]
     },
@@ -4824,7 +5270,27 @@
       ],
       "dependent_apis": [],
       "etom_processes": [],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": [
+        {
+          "domain": "Patterns",
+          "abe_l1": "Anomaly ABE",
+          "abe_l2": "Anomaly Entity ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Anomaly ABE",
+          "abe_l2": "Anomaly Management Plan ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Patterns",
+          "abe_l1": "Anomaly ABE",
+          "abe_l2": "Anomaly Specification ABE",
+          "version": "v25.0"
+        }
+      ]
     },
     {
       "id": "TMFC043",
@@ -4867,7 +5333,15 @@
       ],
       "dependent_apis": [],
       "etom_processes": [],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": [
+        {
+          "domain": "Resource",
+          "abe_l1": "Resource Trouble ABE",
+          "abe_l2": "Resource Alarm ABE",
+          "version": "v25.0"
+        }
+      ]
     },
     {
       "id": "TMFC046",
@@ -4926,86 +5400,94 @@
       ],
       "etom_processes": [
         {
-          "id": "1.5.4|Resource",
-          "name": "Readiness & Support|v23.0",
-          "version": ""
+          "id": "1.5.4",
+          "name": "Resource Readiness & Support",
+          "version": "v23.0"
         },
         {
-          "id": "1.5.4.8|Manage",
-          "name": "Field Workforce|v23.0",
-          "version": ""
+          "id": "1.5.4.8",
+          "name": "Manage Field Workforce",
+          "version": "v23.0"
         }
       ],
       "ff_functions": [
         {
-          "id": "119|Center",
-          "name": "Time Management|v23.0",
-          "version": ""
+          "id": "119",
+          "name": "Center Time Management",
+          "version": "v23.0"
         },
         {
-          "id": "1326|Work",
-          "name": "List Management|v23.0",
-          "version": ""
+          "id": "1326",
+          "name": "Work List Management",
+          "version": "v23.0"
         },
         {
-          "id": "113|Care-center",
-          "name": "Compliance Management|v23.0",
-          "version": ""
+          "id": "113",
+          "name": "Care-center Compliance Management",
+          "version": "v23.0"
         },
         {
-          "id": "116|Center",
-          "name": "Activity Management|v23.0",
-          "version": ""
+          "id": "116",
+          "name": "Center Activity Management",
+          "version": "v23.0"
         },
         {
-          "id": "449|Resource",
-          "name": "Change Project Collaboration|v23.0",
-          "version": ""
+          "id": "449",
+          "name": "Resource Change Project Collaboration",
+          "version": "v23.0"
         },
         {
-          "id": "1184|Workforce",
-          "name": "Agenda Booking|v23.0",
-          "version": ""
+          "id": "1184",
+          "name": "Workforce Agenda Booking",
+          "version": "v23.0"
         },
         {
-          "id": "1183|Workforce",
-          "name": "Availability Check|v23.0",
-          "version": ""
+          "id": "1183",
+          "name": "Workforce Availability Check",
+          "version": "v23.0"
         },
         {
-          "id": "114|Care-center",
-          "name": "Case Queing|v23.0",
-          "version": ""
+          "id": "114",
+          "name": "Care-center Case Queing",
+          "version": "v23.0"
         },
         {
-          "id": "554|Workforce",
-          "name": "Appointment Schedule Configuration|v23.0",
-          "version": ""
+          "id": "554",
+          "name": "Workforce Appointment Schedule Configuration",
+          "version": "v23.0"
         },
         {
-          "id": "555|Workload",
-          "name": "Forecasting|v23.0",
-          "version": ""
+          "id": "555",
+          "name": "Workload Forecasting",
+          "version": "v23.0"
         },
         {
-          "id": "556|Workforce",
-          "name": "Availability Management|v23.0",
-          "version": ""
+          "id": "556",
+          "name": "Workforce Availability Management",
+          "version": "v23.0"
         },
         {
-          "id": "558|Workforce",
-          "name": "Dispatchability Management|v23.0",
-          "version": ""
+          "id": "558",
+          "name": "Workforce Dispatchability Management",
+          "version": "v23.0"
         },
         {
-          "id": "482|Workforce",
-          "name": "Management|v23.0",
-          "version": ""
+          "id": "482",
+          "name": "Workforce Management",
+          "version": "v23.0"
         },
         {
-          "id": "561|Workforce",
-          "name": "Scheduling|v23.0",
-          "version": ""
+          "id": "561",
+          "name": "Workforce Scheduling",
+          "version": "v23.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Enterprise",
+          "abe_l1": "Workforce ABE",
+          "abe_l2": "",
+          "version": "v25.0"
         }
       ]
     },
@@ -5149,7 +5631,8 @@
         }
       ],
       "etom_processes": [],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": []
     },
     {
       "id": "TMFC054",
@@ -5242,7 +5725,15 @@
         }
       ],
       "etom_processes": [],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": [
+        {
+          "domain": "Product",
+          "abe_l1": "Product Test ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        }
+      ]
     },
     {
       "id": "TMFC055",
@@ -5322,81 +5813,95 @@
       ],
       "etom_processes": [
         {
-          "id": "1.4.1|Service",
-          "name": "Strategy Management|v24.5",
-          "version": ""
+          "id": "1.4.1",
+          "name": "Service Strategy Management",
+          "version": "v24.5"
         },
         {
-          "id": "1.4.1.8|Service",
-          "name": "Test Strategy|v24.5",
-          "version": ""
+          "id": "1.4.1.8",
+          "name": "Service Test Strategy",
+          "version": "v24.5"
         }
       ],
       "ff_functions": [
         {
-          "id": "625|Service",
-          "name": "Test Operation Control|v24.0",
-          "version": ""
+          "id": "625",
+          "name": "Service Test Operation Control",
+          "version": "v24.0"
         },
         {
-          "id": "1136|Service",
-          "name": "Test Specification and Scenario Management|v24.0",
-          "version": ""
+          "id": "1136",
+          "name": "Service Test Specification and Scenario Management",
+          "version": "v24.0"
         },
         {
-          "id": "566|Service",
-          "name": "Test Result Analysis Policy Configuration|v24.0",
-          "version": ""
+          "id": "566",
+          "name": "Service Test Result Analysis Policy Configuration",
+          "version": "v24.0"
         },
         {
-          "id": "573|Service",
-          "name": "Testing Rules Management|v24.0",
-          "version": ""
+          "id": "573",
+          "name": "Service Testing Rules Management",
+          "version": "v24.0"
         },
         {
-          "id": "581|Automated",
-          "name": "Service Test Invocation|v24.0",
-          "version": ""
+          "id": "581",
+          "name": "Automated Service Test Invocation",
+          "version": "v24.0"
         },
         {
-          "id": "1138|Service",
-          "name": "Test Reporting Rules Management|v24.0",
-          "version": ""
+          "id": "1138",
+          "name": "Service Test Reporting Rules Management",
+          "version": "v24.0"
         },
         {
-          "id": "582|Manual",
-          "name": "Service Test Invocation|v24.0",
-          "version": ""
+          "id": "582",
+          "name": "Manual Service Test Invocation",
+          "version": "v24.0"
         },
         {
-          "id": "627|Service",
-          "name": "Test Strategy Management|v24.0",
-          "version": ""
+          "id": "627",
+          "name": "Service Test Strategy Management",
+          "version": "v24.0"
         },
         {
-          "id": "1137|Service",
-          "name": "Test Rules Management|v24.0",
-          "version": ""
+          "id": "1137",
+          "name": "Service Test Rules Management",
+          "version": "v24.0"
         },
         {
-          "id": "575|Service",
-          "name": "Test Results Reporting|v24.0",
-          "version": ""
+          "id": "575",
+          "name": "Service Test Results Reporting",
+          "version": "v24.0"
         },
         {
-          "id": "626|Service",
-          "name": "Testing Management|v24.0",
-          "version": ""
+          "id": "626",
+          "name": "Service Testing Management",
+          "version": "v24.0"
         },
         {
-          "id": "577|Service",
-          "name": "End to End Test Scheduling|v24.0",
-          "version": ""
+          "id": "577",
+          "name": "Service End to End Test Scheduling",
+          "version": "v24.0"
         },
         {
-          "id": "579|Service",
-          "name": "End to End Testing|v24.0",
-          "version": ""
+          "id": "579",
+          "name": "Service End to End Testing",
+          "version": "v24.0"
+        }
+      ],
+      "sid_abes": [
+        {
+          "domain": "Service",
+          "abe_l1": "Service Test ABE",
+          "abe_l2": "ServiceTest BE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Service",
+          "abe_l1": "Service Test ABE",
+          "abe_l2": "ServiceTestSpec BE",
+          "version": "v25.0"
         }
       ]
     },
@@ -5491,7 +5996,21 @@
         }
       ],
       "etom_processes": [],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": [
+        {
+          "domain": "Enterprise",
+          "abe_l1": "Workforce ABE",
+          "abe_l2": "Work Specification ABE",
+          "version": "v25.0"
+        },
+        {
+          "domain": "Product",
+          "abe_l1": "Project ABE",
+          "abe_l2": "Work Order ABE",
+          "version": "v25.0"
+        }
+      ]
     },
     {
       "id": "TMFC062",
@@ -5542,7 +6061,15 @@
         }
       ],
       "etom_processes": [],
-      "ff_functions": []
+      "ff_functions": [],
+      "sid_abes": [
+        {
+          "domain": "Resource",
+          "abe_l1": "Resource Configuration ABE",
+          "abe_l2": "",
+          "version": "v25.0"
+        }
+      ]
     }
   ],
   "links": [
